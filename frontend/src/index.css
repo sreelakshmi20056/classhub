@@ -1,0 +1,123 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Global interactive icon projection effect */
+button svg,
+a svg,
+[role="button"] svg,
+button i,
+a i,
+[role="button"] i,
+button img,
+a img,
+[role="button"] img,
+button [class*="icon"],
+a [class*="icon"],
+[role="button"] [class*="icon"] {
+  display: inline-block;
+  transform-origin: center;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  will-change: transform, filter;
+}
+
+button:hover svg,
+a:hover svg,
+[role="button"]:hover svg,
+button svg:hover,
+a svg:hover,
+[role="button"] svg:hover,
+button:hover i,
+a:hover i,
+[role="button"]:hover i,
+button i:hover,
+a i:hover,
+[role="button"] i:hover,
+button:hover img,
+a:hover img,
+[role="button"]:hover img,
+button img:hover,
+a img:hover,
+[role="button"] img:hover,
+button:hover [class*="icon"],
+a:hover [class*="icon"],
+[role="button"]:hover [class*="icon"],
+button [class*="icon"]:hover,
+a [class*="icon"]:hover,
+[role="button"] [class*="icon"]:hover {
+  transform: translateY(-2px) scale(1.14);
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.24));
+}
+
+button:focus-visible svg,
+a:focus-visible svg,
+[role="button"]:focus-visible svg,
+button:focus-visible i,
+a:focus-visible i,
+[role="button"]:focus-visible i,
+button:focus-visible img,
+a:focus-visible img,
+[role="button"]:focus-visible img,
+button:focus-visible [class*="icon"],
+a:focus-visible [class*="icon"],
+[role="button"]:focus-visible [class*="icon"] {
+  transform: translateY(-1px) scale(1.08);
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.16));
+}
+
+button:active svg,
+a:active svg,
+[role="button"]:active svg,
+button:active i,
+a:active i,
+[role="button"]:active i,
+button:active img,
+a:active img,
+[role="button"]:active img,
+button:active [class*="icon"],
+a:active [class*="icon"],
+[role="button"]:active [class*="icon"] {
+  transform: translateY(0) scale(1.06);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16));
+}
+
+/* Global button hover effect */
+button,
+.button,
+a.button,
+[role="button"] {
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+button:hover:not(:disabled),
+.button:hover:not(.disabled),
+a.button:hover,
+[role="button"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
+}
+
+button:focus-visible,
+.button:focus-visible,
+a.button:focus-visible,
+[role="button"]:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+button:active:not(:disabled),
+.button:active:not(.disabled),
+a.button:active,
+[role="button"]:active {
+  transform: translateY(0);
+}
