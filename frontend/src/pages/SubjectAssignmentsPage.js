@@ -16,6 +16,15 @@ function SubjectAssignmentsPage() {
   const [assignmentFile, setAssignmentFile] = useState(null);
   const [Popup, showPopup] = usePopup();
   const assignmentFileInputRef = useRef(null);
+  const tomorrowMinDateTime = (() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 1);
+    d.setHours(0, 0, 0, 0);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}T00:00`;
+  })();
 
   useEffect(() => {
     loadClassDetails();
@@ -65,6 +74,15 @@ function SubjectAssignmentsPage() {
     }
     if (!assignmentDueDate.trim()) {
       showPopup("Please select a due date and time");
+      return;
+    }
+    const selectedDate = new Date(assignmentDueDate);
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+    const selectedStart = new Date(selectedDate);
+    selectedStart.setHours(0, 0, 0, 0);
+    if (selectedStart <= todayStart) {
+      showPopup("Due date must be after today");
       return;
     }
     if (!assignmentFile) {
@@ -300,6 +318,8 @@ function SubjectAssignmentsPage() {
                 type="datetime-local"
                 value={assignmentDueDate}
                 onChange={(e) => setAssignmentDueDate(e.target.value)}
+                min={tomorrowMinDateTime}
+                aria-label="Assignment due date and time"
                 style={{
                   padding: "10px",
                   borderRadius: "6px",
@@ -309,6 +329,9 @@ function SubjectAssignmentsPage() {
                   boxSizing: "border-box",
                 }}
               />
+              <p style={{ margin: 0, color: "#5a3fb4", fontSize: "12px", fontWeight: 600 }}>
+                Assignment due date and time (today and past dates are not allowed)
+              </p>
               <input
                 type="file"
                 ref={assignmentFileInputRef}

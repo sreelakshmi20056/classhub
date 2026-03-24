@@ -10,6 +10,17 @@ const normalizeDueDateForDb = (value) => {
   return normalized.length === 16 ? `${normalized}:00` : normalized;
 };
 
+const parseLocalDateTime = (value) => {
+  const raw = String(value || "").trim();
+  if (!raw) return null;
+
+  const parts = raw.replace(" ", "T").split(/[-T:]/).map((n) => Number(n));
+  if (parts.length < 5 || parts.some((n) => Number.isNaN(n))) return null;
+
+  const [year, month, day, hour, minute, second = 0] = parts;
+  return new Date(year, month - 1, day, hour, minute, second);
+};
+
 // Teacher creates assignment
 exports.createAssignment = async (req, res) => {
   if (req.user.role !== "teacher")
@@ -32,6 +43,20 @@ exports.createAssignment = async (req, res) => {
   const assignmentDueDate = normalizeDueDateForDb(due_date);
   if (!assignmentDueDate) {
     return res.status(400).json({ message: "Please provide a valid due date" });
+  }
+
+  const parsedDueDate = parseLocalDateTime(assignmentDueDate);
+  if (!parsedDueDate) {
+    return res.status(400).json({ message: "Please provide a valid due date" });
+  }
+
+  const todayStart = new Date();
+  todayStart.setHours(0, 0, 0, 0);
+  const dueDateStart = new Date(parsedDueDate);
+  dueDateStart.setHours(0, 0, 0, 0);
+
+  if (dueDateStart <= todayStart) {
+    return res.status(400).json({ message: "Due date must be after today" });
   }
 
   db.query(
