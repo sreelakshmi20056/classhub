@@ -5,7 +5,7 @@ const db = require("./config/db");
 exports.createSubjectsTable = () => {
   const create = `
 CREATE TABLE IF NOT EXISTS subjects (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   class_id INT NOT NULL,
   teacher_id INT NOT NULL,

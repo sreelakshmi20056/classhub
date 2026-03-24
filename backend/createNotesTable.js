@@ -5,7 +5,7 @@ const db = require("./config/db");
 exports.createNotesTable = () => {
   const create = `
 CREATE TABLE IF NOT EXISTS notes (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   title VARCHAR(255),
   description TEXT,
   subject_id INT,

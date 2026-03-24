@@ -19,12 +19,12 @@ const dbQuery = (sql, params = []) => {
 const ensureReminderTable = async () => {
   await dbQuery(
     `CREATE TABLE IF NOT EXISTS assignment_reminders (
-      id INT AUTO_INCREMENT PRIMARY KEY,
+      id SERIAL PRIMARY KEY,
       assignment_id INT NOT NULL,
       student_id INT NOT NULL,
       reminder_type VARCHAR(50) NOT NULL,
       sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      UNIQUE KEY uniq_assignment_student_type (assignment_id, student_id, reminder_type)
+      CONSTRAINT uniq_assignment_student_type UNIQUE (assignment_id, student_id, reminder_type)
     )`
   );
 };
@@ -54,7 +54,7 @@ const getPendingDueSoonSubmissions = async () => {
       AND ar.reminder_type = ?
      WHERE a.due_date IS NOT NULL
        AND a.due_date > NOW()
-       AND a.due_date <= DATE_ADD(NOW(), INTERVAL 24 HOUR)
+       AND a.due_date <= NOW() + INTERVAL '24 hours'
        AND s.id IS NULL
        AND ar.id IS NULL
        AND u.email IS NOT NULL
@@ -90,7 +90,7 @@ const markReminderSent = async (assignmentId, studentId) => {
   await dbQuery(
     `INSERT INTO assignment_reminders (assignment_id, student_id, reminder_type)
      VALUES (?, ?, ?)
-     ON DUPLICATE KEY UPDATE sent_at = sent_at`,
+     ON CONFLICT (assignment_id, student_id, reminder_type) DO NOTHING`,
     [assignmentId, studentId, REMINDER_TYPE]
   );
 };

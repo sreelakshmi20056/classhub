@@ -14,12 +14,12 @@ exports.createAssignment = (req, res) => {
 
   const file = req.file.filename;
 
-  // Convert datetime-local format (2026-03-14T10:30) to MySQL DATETIME format (2026-03-14 10:30:00)
-  const mysqlDueDate = due_date.replace('T', ' ') + ':00';
+  // PostgreSQL accepts ISO datetime strings from datetime-local input.
+  const assignmentDueDate = due_date;
 
   db.query(
     "INSERT INTO assignments (title,description,subject_id,class_id,due_date,file) VALUES (?,?,?,?,?,?)",
-    [title, description, subject_id, class_id, mysqlDueDate, file],
+    [title, description, subject_id, class_id, assignmentDueDate, file],
     (err, result) => {
       if (err) {
         console.error("Assignment creation error:", err);
@@ -32,7 +32,7 @@ exports.createAssignment = (req, res) => {
         type: "assignment",
         title,
         description,
-        dueDate: mysqlDueDate,
+        dueDate: assignmentDueDate,
       });
 
       res.json({ message: "Assignment created successfully", assignmentId: result.insertId });

@@ -4,23 +4,23 @@ const db = require("./config/db");
 exports.createClassesTables = () => {
   const createClasses = `
 CREATE TABLE IF NOT EXISTS classes (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   coordinator_id INT NOT NULL,
   join_code VARCHAR(32) NOT NULL UNIQUE,
-  expires_at DATETIME NULL,
+  expires_at TIMESTAMP NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 `;
 
   const createClassMembers = `
 CREATE TABLE IF NOT EXISTS class_members (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   class_id INT NOT NULL,
   user_id INT NOT NULL,
-  role ENUM('student','teacher','coordinator') NOT NULL,
+  role VARCHAR(20) NOT NULL CHECK (role IN ('student','teacher','coordinator')),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE KEY unique_class_member (class_id, user_id)
+  CONSTRAINT unique_class_member UNIQUE (class_id, user_id)
 );
 `;
 

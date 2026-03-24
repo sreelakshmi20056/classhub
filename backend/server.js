@@ -18,11 +18,15 @@ const { createAnnouncementsTable } = require("./createAnnouncementsTable");
 const { createClassesTables } = require("./createClassesTable");
 const { createSubjectsTable } = require("./createSubjectsTable");
 const { createUsersTable } = require("./createUsersTable");
+const {
+  createAssignmentsAndSubmissionsTables,
+} = require("./createAssignmentsAndSubmissionsTables");
 createUsersTable();
 createNotesTable();
 createAnnouncementsTable();
 createClassesTables();
 createSubjectsTable();
+createAssignmentsAndSubmissionsTables();
 
 const { cleanupExpiredClasses } = require("./utils/classCleanup");
 

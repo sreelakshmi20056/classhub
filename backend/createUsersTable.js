@@ -4,11 +4,11 @@ const db = require("./config/db");
 exports.createUsersTable = () => {
   const create = `
 CREATE TABLE IF NOT EXISTS users (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
-  role ENUM('student','teacher','coordinator') NOT NULL,
+  role VARCHAR(20) NOT NULL CHECK (role IN ('student','teacher','coordinator')),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 `;
