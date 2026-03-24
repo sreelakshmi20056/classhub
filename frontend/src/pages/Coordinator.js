@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import usePopup from "../hooks/usePopup";
 import API from "../api";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Coordinator() {
   const [classes,setClasses]=useState([]);
@@ -27,6 +27,22 @@ export default function Coordinator() {
   const fetchClasses=async()=>{
     const res=await API.get("/classes/created");
     setClasses(res.data);
+  };
+
+  const deleteClass = async (classId, className) => {
+    const confirmed = window.confirm(
+      `Delete class "${className}"? This removes the class for all teachers and students who joined it.`
+    );
+    if (!confirmed) return;
+
+    try {
+      await API.delete(`/classes/${classId}`);
+      showPopup("Class deleted successfully");
+      fetchClasses();
+    } catch (err) {
+      console.error("Failed to delete class", err);
+      showPopup(err.response?.data?.message || "Failed to delete class");
+    }
   };
 
   const createClass=async()=>{
@@ -220,19 +236,20 @@ export default function Coordinator() {
             gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
           }}>
             {classes.map(cls=>(
-              <Link
+              <div
                 key={cls.id}
-                to={`/class/${cls.id}/details`}
+                onClick={() => navigate(`/class/${cls.id}/details`)}
                 style={{
+                  position: 'relative',
                   padding: '24px',
                   backgroundColor: '#f3f0fa',
                   borderRadius: '12px',
-                  textDecoration: 'none',
                   color: 'inherit',
                   border: '2px solid #d1c4e9',
                   transition: 'all 0.3s ease',
                   boxShadow: '0 4px 16px rgba(124,92,191,0.08)',
                   display: 'block',
+                  cursor: 'pointer',
                 }}
                 onMouseEnter={e => {
                   e.currentTarget.style.backgroundColor = '#e3e9fc';
@@ -247,6 +264,28 @@ export default function Coordinator() {
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    deleteClass(cls.id, cls.name);
+                  }}
+                  style={{
+                    position: 'absolute',
+                    top: '12px',
+                    right: '12px',
+                    padding: '6px 10px',
+                    borderRadius: '6px',
+                    border: '1px solid #dc3545',
+                    backgroundColor: '#fff5f5',
+                    color: '#dc3545',
+                    fontSize: '12px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                  }}
+                >
+                  Delete
+                </button>
                 <h4 style={{
                   margin: '0 0 10px 0',
                   color: '#7c5cbf',
@@ -277,7 +316,7 @@ export default function Coordinator() {
                     <strong>Expires:</strong> {new Date(cls.expires_at).toLocaleDateString()} at {new Date(cls.expires_at).toLocaleTimeString()}
                   </p>
                 )}
-              </Link>
+              </div>
             ))}
           </div>
         )}

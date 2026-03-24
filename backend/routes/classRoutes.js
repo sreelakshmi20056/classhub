@@ -11,6 +11,7 @@ router.get("/created", verifyToken, classController.getCreatedClasses);
 router.get("/joined", verifyToken, classController.getJoinedClasses);
 router.get("/:classId/details", verifyToken, classController.getClassDetails);
 router.get("/:classId/students", verifyToken, classController.getClassStudents);
+router.delete("/:classId", verifyToken, classController.deleteClassByCoordinator);
 router.delete("/:classId/exit", verifyToken, isTeacher, classController.exitClass);
 router.delete("/:classId/exit-student", verifyToken, classController.exitClassStudent);
 

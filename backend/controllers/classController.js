@@ -464,3 +464,101 @@ exports.exitClassStudent = (req, res) => {
     }
   );
 };
+
+// Coordinator deletes their class.
+// This removes related subjects/notes/announcements/assignments/submissions,
+// clears all class memberships (teachers/students), and deletes the class.
+exports.deleteClassByCoordinator = (req, res) => {
+  if (req.user.role !== "coordinator") {
+    return res.status(403).json({ message: "Only coordinator allowed" });
+  }
+
+  const { classId } = req.params;
+  const coordinatorId = req.user.id;
+
+  db.query(
+    "SELECT id FROM classes WHERE id=? AND coordinator_id=?",
+    [classId, coordinatorId],
+    (err, classes) => {
+      if (err) {
+        return res.status(500).json({ message: "Database error", error: err.message });
+      }
+
+      if (!classes || classes.length === 0) {
+        return res.status(404).json({ message: "Class not found or not owned by coordinator" });
+      }
+
+      db.query(
+        "DELETE FROM submissions WHERE assignment_id IN (SELECT id FROM assignments WHERE class_id=?)",
+        [classId],
+        (err2) => {
+          if (err2) {
+            return res.status(500).json({ message: "Failed to delete submissions", error: err2.message });
+          }
+
+          db.query(
+            "DELETE FROM assignments WHERE class_id=?",
+            [classId],
+            (err3) => {
+              if (err3) {
+                return res.status(500).json({ message: "Failed to delete assignments", error: err3.message });
+              }
+
+              db.query(
+                "DELETE FROM notes WHERE class_id=?",
+                [classId],
+                (err4) => {
+                  if (err4) {
+                    return res.status(500).json({ message: "Failed to delete notes", error: err4.message });
+                  }
+
+                  db.query(
+                    "DELETE FROM announcements WHERE class_id=?",
+                    [classId],
+                    (err5) => {
+                      if (err5) {
+                        return res.status(500).json({ message: "Failed to delete announcements", error: err5.message });
+                      }
+
+                      db.query(
+                        "DELETE FROM subjects WHERE class_id=?",
+                        [classId],
+                        (err6) => {
+                          if (err6) {
+                            return res.status(500).json({ message: "Failed to delete subjects", error: err6.message });
+                          }
+
+                          db.query(
+                            "DELETE FROM class_members WHERE class_id=?",
+                            [classId],
+                            (err7) => {
+                              if (err7) {
+                                return res.status(500).json({ message: "Failed to remove class members", error: err7.message });
+                              }
+
+                              db.query(
+                                "DELETE FROM classes WHERE id=? AND coordinator_id=?",
+                                [classId, coordinatorId],
+                                (err8) => {
+                                  if (err8) {
+                                    return res.status(500).json({ message: "Failed to delete class", error: err8.message });
+                                  }
+
+                                  return res.json({ message: "Class deleted successfully" });
+                                }
+                              );
+                            }
+                          );
+                        }
+                      );
+                    }
+                  );
+                }
+              );
+            }
+          );
+        }
+      );
+    }
+  );
+};
