@@ -1,6 +1,24 @@
 const db = require("../config/db");
 const { v4: uuidv4 } = require("uuid");
 
+const normalizeDateTimeForDb = (value) => {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+  const normalized = raw.replace("T", " ");
+  return normalized.length === 16 ? `${normalized}:00` : normalized;
+};
+
+const parseLocalDateTime = (value) => {
+  const raw = String(value || "").trim();
+  if (!raw) return null;
+
+  const parts = raw.replace(" ", "T").split(/[-T:]/).map((n) => Number(n));
+  if (parts.length < 5 || parts.some((n) => Number.isNaN(n))) return null;
+
+  const [year, month, day, hour, minute, second = 0] = parts;
+  return new Date(year, month - 1, day, hour, minute, second);
+};
+
 exports.createClass = (req, res) => {
   if (req.user.role !== "coordinator")
     return res.json({ message: "Only coordinator allowed" });
@@ -16,14 +34,15 @@ exports.createClass = (req, res) => {
       }
 
       const { name, expires_at } = req.body;
+      const normalizedExpiry = normalizeDateTimeForDb(expires_at);
       const joinCode = uuidv4().substring(0, 6);
 
-      if (!expires_at) {
+      if (!normalizedExpiry) {
         return res.status(400).json({ message: "Expiration date and time is required" });
       }
 
-      const expiryDate = new Date(expires_at);
-      if (Number.isNaN(expiryDate.getTime())) {
+      const expiryDate = parseLocalDateTime(normalizedExpiry);
+      if (!expiryDate) {
         return res.status(400).json({ message: "Invalid expiration date and time" });
       }
 
@@ -38,14 +57,14 @@ exports.createClass = (req, res) => {
 
       db.query(
         "INSERT INTO classes (name, coordinator_id, join_code, expires_at) VALUES (?, ?, ?, ?)",
-        [name, req.user.id, joinCode, expires_at],
+        [name, req.user.id, joinCode, normalizedExpiry],
         err => {
           if (err) return res.status(500).json(err);
 
           res.json({
             message: "Class created",
             joinCode,
-            expiresAt: expires_at
+            expiresAt: normalizedExpiry
           });
         }
       );
@@ -136,7 +155,11 @@ exports.getCreatedClasses = (req, res) => {
     return res.json({ message: "Only coordinator allowed" });
 
   db.query(
-    "SELECT * FROM classes WHERE coordinator_id = ?",
+    `SELECT id, name, coordinator_id, join_code,
+            TO_CHAR(expires_at, 'YYYY-MM-DD"T"HH24:MI:SS') AS expires_at,
+            created_at
+     FROM classes
+     WHERE coordinator_id = ?`,
     [req.user.id],
     (err, results) => {
       if (err) return res.status(500).json(err);
@@ -148,7 +171,9 @@ exports.getCreatedClasses = (req, res) => {
 // Get classes joined by teacher/student
 exports.getJoinedClasses = (req, res) => {
   db.query(
-    `SELECT c.*
+    `SELECT c.id, c.name, c.coordinator_id, c.join_code,
+            TO_CHAR(c.expires_at, 'YYYY-MM-DD"T"HH24:MI:SS') AS expires_at,
+            c.created_at
      FROM classes c
      JOIN class_members cm ON c.id = cm.class_id
      WHERE cm.user_id = ?`,
@@ -163,7 +188,14 @@ exports.getClassDetails = (req, res) => {
   const { classId } = req.params;
 
   // Get class info
-  db.query("SELECT * FROM classes WHERE id=?", [classId], (err, classResult) => {
+  db.query(
+    `SELECT id, name, coordinator_id, join_code,
+            TO_CHAR(expires_at, 'YYYY-MM-DD"T"HH24:MI:SS') AS expires_at,
+            created_at
+     FROM classes
+     WHERE id=?`,
+    [classId],
+    (err, classResult) => {
     if (err) return res.status(500).json(err);
 
     // Get teachers
@@ -197,7 +229,8 @@ exports.getClassDetails = (req, res) => {
         );
       }
     );
-  });
+  }
+  );
 };
 
 // Get students in a class
