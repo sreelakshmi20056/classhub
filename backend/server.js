@@ -15,9 +15,11 @@ const announcementRoutes = require("./routes/announcementRoutes");
 // ensure the notes and announcements tables exist when server starts
 const { createNotesTable } = require("./createNotesTable");
 const { createAnnouncementsTable } = require("./createAnnouncementsTable");
+const { createClassesTables } = require("./createClassesTable");
 const { createSubjectsTable } = require("./createSubjectsTable");
 createNotesTable();
 createAnnouncementsTable();
+createClassesTables();
 createSubjectsTable();
 
 const { cleanupExpiredClasses } = require("./utils/classCleanup");

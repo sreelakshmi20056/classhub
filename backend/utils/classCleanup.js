@@ -6,6 +6,10 @@ exports.cleanupExpiredClasses = () => {
     "SELECT id FROM classes WHERE expires_at IS NOT NULL AND expires_at < NOW()",
     (err, expiredClasses) => {
       if (err) {
+        if (err.code === "ER_NO_SUCH_TABLE") {
+          console.warn("Skipping class cleanup because classes table is not ready yet");
+          return;
+        }
         console.error("Error finding expired classes:", err);
         return;
       }
