@@ -1,4 +1,9 @@
+const dns = require("dns");
 const { Pool } = require("pg");
+
+if (typeof dns.setDefaultResultOrder === "function") {
+  dns.setDefaultResultOrder("ipv4first");
+}
 
 const getProjectRefFromUrl = (url) => {
   if (!url) return "";
