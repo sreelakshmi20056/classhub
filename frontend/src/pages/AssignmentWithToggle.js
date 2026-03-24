@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { getUploadUrl } from "../uploadUrl";
 
 function AssignmentWithToggle({ assignment, classId }) {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ function AssignmentWithToggle({ assignment, classId }) {
       </p>
       {assignment.file && (
         <a
-          href={`http://localhost:4000/uploads/${assignment.file}`}
+          href={getUploadUrl(assignment.file)}
           target="_blank"
           rel="noopener noreferrer"
           style={{

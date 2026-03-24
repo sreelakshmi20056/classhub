@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import usePopup from "../hooks/usePopup";
 import API from "../api";
+import { getUploadUrl } from "../uploadUrl";
 
 export default function CoordinatorClassPage() {
   const { id } = useParams();
@@ -500,7 +501,7 @@ export default function CoordinatorClassPage() {
                         </span>
                         {a.file && (
                           <a
-                            href={`http://localhost:4000/uploads/${a.file}`}
+                            href={getUploadUrl(a.file)}
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{

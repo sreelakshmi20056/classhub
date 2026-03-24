@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../api";
 import usePopup from "../hooks/usePopup";
+import { getUploadUrl } from "../uploadUrl";
 
 function SubjectAnnouncementsPage() {
   const { id: classId, subjectId } = useParams();
@@ -378,7 +379,7 @@ function SubjectAnnouncementsPage() {
                       </div>
                       {a.file && (
                         <a
-                          href={`http://localhost:4000/uploads/${a.file}`}
+                          href={getUploadUrl(a.file)}
                           target="_blank"
                           rel="noopener noreferrer"
                           style={{ color: "#7b5cd6", textDecoration: "none", fontSize: "14px" }}

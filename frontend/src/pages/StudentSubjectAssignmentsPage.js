@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../api";
 import usePopup from "../hooks/usePopup";
+import { getUploadUrl } from "../uploadUrl";
 
 function StudentSubjectAssignmentsPage() {
   const { id: classId, subjectId } = useParams();
@@ -178,7 +179,7 @@ function StudentSubjectAssignmentsPage() {
                   {assignment.file && (
                     <a
                       className="button button--secondary"
-                      href={`http://localhost:4000/uploads/${assignment.file}`}
+                      href={getUploadUrl(assignment.file)}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ marginTop: 10, display: "inline-flex" }}
@@ -192,7 +193,7 @@ function StudentSubjectAssignmentsPage() {
                       <span style={{ fontWeight: 600, color: "#388e3c" }}>Submitted</span>
                       <a
                         className="button button--primary"
-                        href={`http://localhost:4000/uploads/${submittedFiles[assignment.id]}`}
+                        href={getUploadUrl(submittedFiles[assignment.id])}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{ marginLeft: 12, display: "inline-flex" }}

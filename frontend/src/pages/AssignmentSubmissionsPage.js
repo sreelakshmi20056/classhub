@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import API from "../api";
+import { getUploadUrl } from "../uploadUrl";
 
 function AssignmentSubmissionsPage() {
   const { id } = useParams();
@@ -161,7 +162,7 @@ function AssignmentSubmissionsPage() {
                     </div>
                     {sub.file_url && (
                       <a
-                        href={`http://localhost:4000/uploads/${sub.file_url}`}
+                        href={getUploadUrl(sub.file_url)}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{

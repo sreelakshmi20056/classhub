@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../api";
 import usePopup from "../hooks/usePopup";
+import { getUploadUrl } from "../uploadUrl";
 
 function StudentSubjectNotesPage() {
   const { id: classId, subjectId } = useParams();
@@ -142,7 +143,7 @@ function StudentSubjectNotesPage() {
                   {note.file && (
                     <a
                       className="button button--secondary"
-                      href={`http://localhost:4000/uploads/${note.file}`}
+                      href={getUploadUrl(note.file)}
                       target="_blank"
                       rel="noopener noreferrer"
                     >

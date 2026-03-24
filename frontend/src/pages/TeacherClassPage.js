@@ -2,6 +2,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../api";
 import usePopup from "../hooks/usePopup";
+import { getUploadUrl } from "../uploadUrl";
 
 function TeacherClassPage() {
   const { id } = useParams();
@@ -266,7 +267,7 @@ function TeacherClassPage() {
                         </p>
                         {a.file && (
                           <a
-                            href={`http://localhost:4000/uploads/${a.file}`}
+                            href={getUploadUrl(a.file)}
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{

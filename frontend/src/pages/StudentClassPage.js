@@ -2,6 +2,7 @@
 import usePopup from "../hooks/usePopup";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../api";
+import { getUploadUrl } from "../uploadUrl";
 
 function StudentClassPage() {
   const { id } = useParams();
@@ -295,7 +296,7 @@ function StudentClassPage() {
                       </p>
                       <p style={{ margin: 0 }}>{linkify(announcement.content)}</p>
                       {announcement.file && (
-                        <a className="button button--secondary" href={`http://localhost:4000/uploads/${announcement.file}`} target="_blank" rel="noopener noreferrer" style={{ marginTop: 10, display: "inline-flex" }}>
+                        <a className="button button--secondary" href={getUploadUrl(announcement.file)} target="_blank" rel="noopener noreferrer" style={{ marginTop: 10, display: "inline-flex" }}>
                           Download Attachment
                         </a>
                       )}
@@ -452,7 +453,7 @@ function StudentClassPage() {
                     {announcement.file && (
                       <a
                         className="button button--secondary"
-                        href={`http://localhost:4000/uploads/${announcement.file}`}
+                        href={getUploadUrl(announcement.file)}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{ marginTop: 10, display: "inline-flex" }}

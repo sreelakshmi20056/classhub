@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../api";
 import usePopup from "../hooks/usePopup";
+import { getUploadUrl } from "../uploadUrl";
 
 function SubjectNotesPage() {
   const { id: classId, subjectId } = useParams();
@@ -368,7 +369,7 @@ function SubjectNotesPage() {
                       Uploaded: {new Date(note.created_at).toLocaleString()}
                     </div>
                     <a
-                      href={`http://localhost:4000/uploads/${note.file}`}
+                      href={getUploadUrl(note.file)}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{
