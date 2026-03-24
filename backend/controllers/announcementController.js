@@ -1,8 +1,9 @@
 const db = require("../config/db");
 const { notifyAudienceForClassContent } = require("../utils/classNotificationMailer");
+const { persistUploadedFile } = require("../utils/fileStorage");
 
 // Teacher or coordinator creates an announcement; can target students, teachers, or both
-exports.createAnnouncement = (req, res) => {
+exports.createAnnouncement = async (req, res) => {
   console.log("Creating announcement - user role:", req.user?.role);
   const userRole = req.user?.role;
   
@@ -13,7 +14,16 @@ exports.createAnnouncement = (req, res) => {
 
   const { title, content, subject_id, class_id, audience } = req.body;
   const target = audience || "both"; // default
-  const file = req.file ? req.file.filename : null;
+  let file = null;
+
+  if (req.file) {
+    try {
+      file = await persistUploadedFile(req.file, "announcements");
+    } catch (storageError) {
+      console.error("Announcement file upload error:", storageError);
+      return res.status(500).json({ message: "Error storing announcement file", error: storageError.message });
+    }
+  }
 
   // only coordinators may post class-wide announcements (no subject_id)
   if (req.user.role === "teacher" && (subject_id === null || subject_id === undefined)) {

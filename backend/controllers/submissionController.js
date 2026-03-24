@@ -1,6 +1,7 @@
 const db = require("../config/db");
+const { persistUploadedFile } = require("../utils/fileStorage");
 
-exports.submitAssignment = (req, res) => {
+exports.submitAssignment = async (req, res) => {
   if (req.user.role !== "student")
     return res.status(403).json({ message: "Only student allowed" });
 
@@ -8,7 +9,13 @@ exports.submitAssignment = (req, res) => {
     return res.status(400).json({ message: "No file uploaded" });
   }
 
-  const file = req.file.filename;
+  let file;
+  try {
+    file = await persistUploadedFile(req.file, "submissions");
+  } catch (storageError) {
+    console.error("Submission file upload error:", storageError);
+    return res.status(500).json({ message: "Error storing submission file", error: storageError.message });
+  }
   const assignment_id = req.body.assignment_id;
 
   console.log("Submission request body:", req.body);

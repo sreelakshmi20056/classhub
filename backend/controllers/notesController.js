@@ -1,8 +1,9 @@
 const db = require("../config/db");
 const { notifyStudentsForClassContent } = require("../utils/classNotificationMailer");
+const { persistUploadedFile } = require("../utils/fileStorage");
 
 // Teacher creates a note
-exports.createNote = (req, res) => {
+exports.createNote = async (req, res) => {
   if (req.user.role !== "teacher")
     return res.status(403).json({ message: "Only teacher allowed" });
 
@@ -12,7 +13,13 @@ exports.createNote = (req, res) => {
     return res.status(400).json({ message: "No file uploaded" });
   }
 
-  const file = req.file.filename;
+  let file;
+  try {
+    file = await persistUploadedFile(req.file, "notes");
+  } catch (storageError) {
+    console.error("Note file upload error:", storageError);
+    return res.status(500).json({ message: "Error storing note file", error: storageError.message });
+  }
 
   db.query(
     "INSERT INTO notes (title,description,subject_id,class_id,file) VALUES (?,?,?,?,?)",

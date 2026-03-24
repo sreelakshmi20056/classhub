@@ -1,8 +1,9 @@
 const db = require("../config/db");
 const { notifyStudentsForClassContent } = require("../utils/classNotificationMailer");
+const { persistUploadedFile } = require("../utils/fileStorage");
 
 // Teacher creates assignment
-exports.createAssignment = (req, res) => {
+exports.createAssignment = async (req, res) => {
   if (req.user.role !== "teacher")
     return res.status(403).json({ message: "Only teacher allowed" });
 
@@ -12,7 +13,13 @@ exports.createAssignment = (req, res) => {
     return res.status(400).json({ message: "No file uploaded" });
   }
 
-  const file = req.file.filename;
+  let file;
+  try {
+    file = await persistUploadedFile(req.file, "assignments");
+  } catch (storageError) {
+    console.error("Assignment file upload error:", storageError);
+    return res.status(500).json({ message: "Error storing assignment file", error: storageError.message });
+  }
 
   // PostgreSQL accepts ISO datetime strings from datetime-local input.
   const assignmentDueDate = due_date;
