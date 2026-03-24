@@ -7,6 +7,7 @@ export default function Coordinator() {
   const [classes,setClasses]=useState([]);
   const [name,setName]=useState("");
   const [expiresAt,setExpiresAt]=useState("");
+  const [deleteTarget, setDeleteTarget] = useState(null);
   const [Popup, showPopup] = usePopup();
   const navigate = useNavigate();
 
@@ -29,20 +30,21 @@ export default function Coordinator() {
     setClasses(res.data);
   };
 
-  const deleteClass = async (classId, className) => {
-    const confirmed = window.confirm(
-      `Delete class "${className}"? This removes the class for all teachers and students who joined it.`
-    );
-    if (!confirmed) return;
-
+  const confirmDeleteClass = async () => {
+    if (!deleteTarget?.id) return;
     try {
-      await API.delete(`/classes/${classId}`);
+      await API.delete(`/classes/${deleteTarget.id}`);
       showPopup("Class deleted successfully");
+      setDeleteTarget(null);
       fetchClasses();
     } catch (err) {
       console.error("Failed to delete class", err);
       showPopup(err.response?.data?.message || "Failed to delete class");
     }
+  };
+
+  const requestDeleteClass = (classId, className) => {
+    setDeleteTarget({ id: classId, name: className });
   };
 
   const createClass=async()=>{
@@ -116,6 +118,56 @@ export default function Coordinator() {
         }}>Coordinator Dashboard</h2>
 
         <Popup />
+        {deleteTarget && (
+          <div style={{
+            marginBottom: '20px',
+            backgroundColor: '#fff5f5',
+            border: '1px solid #dc3545',
+            borderRadius: '10px',
+            padding: '14px 16px',
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '10px',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
+            <span style={{ color: '#8b1e2d', fontWeight: 600, fontSize: '14px' }}>
+              Are you sure you want to delete class "{deleteTarget.name}"? This will remove it for all joined teachers and students.
+            </span>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <button
+                type="button"
+                onClick={confirmDeleteClass}
+                style={{
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  border: '1px solid #dc3545',
+                  backgroundColor: '#dc3545',
+                  color: '#fff',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                }}
+              >
+                Yes, Delete
+              </button>
+              <button
+                type="button"
+                onClick={() => setDeleteTarget(null)}
+                style={{
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  border: '1px solid #d1c4e9',
+                  backgroundColor: '#fff',
+                  color: '#5a4fa0',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
         <div style={{
           marginBottom: '40px',
           backgroundColor: '#f3f0fa',
@@ -268,7 +320,7 @@ export default function Coordinator() {
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
-                    deleteClass(cls.id, cls.name);
+                    requestDeleteClass(cls.id, cls.name);
                   }}
                   style={{
                     position: 'absolute',
