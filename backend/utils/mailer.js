@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+const https = require("https");
 
 const hasSmtpConfig = () => {
   return (
@@ -29,7 +30,70 @@ const createTransporter = () => {
   });
 };
 
+const sendWithBrevoApi = ({ to, subject, text }) => {
+  const apiKey = String(process.env.BREVO_API_KEY || "").trim();
+  if (!apiKey) {
+    return Promise.resolve(false);
+  }
+
+  const senderEmail = String(process.env.SMTP_FROM || process.env.SMTP_USER || "").trim();
+  if (!senderEmail) {
+    return Promise.reject(new Error("BREVO_API_KEY is set but SMTP_FROM/SMTP_USER sender email is missing"));
+  }
+
+  const recipients = Array.isArray(to) ? to : [to];
+  const payload = JSON.stringify({
+    sender: {
+      email: senderEmail,
+      name: "ClassHub",
+    },
+    to: recipients.filter(Boolean).map((email) => ({ email })),
+    subject,
+    textContent: text,
+  });
+
+  return new Promise((resolve, reject) => {
+    const req = https.request(
+      {
+        hostname: "api.brevo.com",
+        path: "/v3/smtp/email",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Content-Length": Buffer.byteLength(payload),
+          "api-key": apiKey,
+        },
+      },
+      (res) => {
+        let body = "";
+        res.on("data", (chunk) => {
+          body += chunk;
+        });
+        res.on("end", () => {
+          if (res.statusCode >= 200 && res.statusCode < 300) {
+            resolve(true);
+            return;
+          }
+
+          reject(
+            new Error(`Brevo API email failed (${res.statusCode}): ${body || "Unknown error"}`)
+          );
+        });
+      }
+    );
+
+    req.on("error", reject);
+    req.write(payload);
+    req.end();
+  });
+};
+
 const sendEmail = async ({ to, subject, text }) => {
+  const hasBrevoApiKey = !!String(process.env.BREVO_API_KEY || "").trim();
+  if (hasBrevoApiKey) {
+    return sendWithBrevoApi({ to, subject, text });
+  }
+
   if (!hasSmtpConfig()) {
     console.warn("SMTP is not configured. Skipping email send.");
     return false;
