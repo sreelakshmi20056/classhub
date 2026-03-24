@@ -127,6 +127,17 @@ export default function CoordinatorClassPage() {
     }
   };
 
+  const deleteAnnouncement = async (announcementId) => {
+    try {
+      await API.delete(`/announcements/delete/${announcementId}`);
+      await loadAnnouncements();
+      showPopup("Announcement deleted successfully");
+    } catch (err) {
+      console.error("Failed to delete announcement", err);
+      showPopup(err.response?.data?.message || "Failed to delete announcement");
+    }
+  };
+
   const renderTeachers = () => {
     if (teachers.length === 0) {
       return <p style={{ color: "#6c757d" }}>No teachers assigned yet.</p>;
@@ -513,6 +524,22 @@ export default function CoordinatorClassPage() {
                             Download: {a.file}
                           </a>
                         )}
+                        <button
+                          type="button"
+                          onClick={() => deleteAnnouncement(a.id)}
+                          style={{
+                            padding: "6px 10px",
+                            borderRadius: "6px",
+                            border: "1px solid #dc3545",
+                            backgroundColor: "#fff5f5",
+                            color: "#dc3545",
+                            fontSize: "13px",
+                            fontWeight: 700,
+                            cursor: "pointer",
+                          }}
+                        >
+                          Delete
+                        </button>
                       </div>
                     </div>
                   ))
