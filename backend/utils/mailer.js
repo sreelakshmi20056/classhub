@@ -1,6 +1,21 @@
 const nodemailer = require("nodemailer");
 const https = require("https");
 
+const getBrevoApiKey = () => {
+  const candidates = [
+    process.env.BREVO_API_KEY,
+    process.env.BREVO_APIKEY,
+    process.env.BREVO_KEY,
+    process.env.SENDINBLUE_API_KEY,
+  ];
+
+  for (const value of candidates) {
+    const key = String(value || "").trim();
+    if (key) return key;
+  }
+  return "";
+};
+
 const hasSmtpConfig = () => {
   return (
     !!process.env.SMTP_HOST &&
@@ -31,7 +46,7 @@ const createTransporter = () => {
 };
 
 const sendWithBrevoApi = ({ to, subject, text }) => {
-  const apiKey = String(process.env.BREVO_API_KEY || "").trim();
+  const apiKey = getBrevoApiKey();
   if (!apiKey) {
     return Promise.resolve(false);
   }
@@ -89,10 +104,13 @@ const sendWithBrevoApi = ({ to, subject, text }) => {
 };
 
 const sendEmail = async ({ to, subject, text }) => {
-  const hasBrevoApiKey = !!String(process.env.BREVO_API_KEY || "").trim();
+  const hasBrevoApiKey = !!getBrevoApiKey();
   if (hasBrevoApiKey) {
+    console.log("Email delivery mode: Brevo API");
     return sendWithBrevoApi({ to, subject, text });
   }
+
+  console.warn("Email delivery mode: SMTP fallback (BREVO_API_KEY not set)");
 
   if (!hasSmtpConfig()) {
     console.warn("SMTP is not configured. Skipping email send.");
