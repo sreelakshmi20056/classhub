@@ -117,6 +117,17 @@ function SubjectNotesPage() {
     }
   };
 
+  const deleteNote = async (noteId) => {
+    try {
+      await API.delete(`/notes/delete/${noteId}`);
+      await loadNotes();
+      showPopup("Note deleted successfully");
+    } catch (err) {
+      console.error("Delete note failed", err);
+      showPopup(err.response?.data?.message || "Unable to delete note");
+    }
+  };
+
   const linkify = (text) => {
     if (!text || typeof text !== "string") return text;
     const urlRegex = /https?:\/\/\S+/g;
@@ -368,19 +379,36 @@ function SubjectNotesPage() {
                     <div style={{ fontSize: "12px", color: "#6c757d", marginBottom: "10px" }}>
                       Uploaded: {new Date(note.created_at).toLocaleString()}
                     </div>
-                    <a
-                      href={getUploadUrl(note.file)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        color: "#7b5cd6",
-                        textDecoration: "none",
-                        fontSize: "14px",
-                        fontWeight: 600,
-                      }}
-                    >
-                      Download Note
-                    </a>
+                    <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                      <a
+                        href={getUploadUrl(note.file)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          color: "#7b5cd6",
+                          textDecoration: "none",
+                          fontSize: "14px",
+                          fontWeight: 600,
+                        }}
+                      >
+                        Download Note
+                      </a>
+                      <button
+                        type="button"
+                        onClick={() => deleteNote(note.id)}
+                        style={{
+                          padding: "6px 10px",
+                          borderRadius: "6px",
+                          border: "1px solid #dc3545",
+                          backgroundColor: "#fff5f5",
+                          color: "#dc3545",
+                          fontWeight: 700,
+                          cursor: "pointer",
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>

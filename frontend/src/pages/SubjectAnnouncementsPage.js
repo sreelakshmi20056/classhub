@@ -118,6 +118,17 @@ function SubjectAnnouncementsPage() {
     }
   };
 
+  const deleteAnnouncement = async (announcementId) => {
+    try {
+      await API.delete(`/announcements/delete/${announcementId}`);
+      await loadSubjectAnnouncements();
+      showPopup("Announcement deleted successfully");
+    } catch (err) {
+      console.error("Delete announcement failed", err);
+      showPopup(err.response?.data?.message || "Unable to delete announcement");
+    }
+  };
+
   const linkify = (text) => {
     if (!text || typeof text !== "string") return text;
     const urlRegex = /https?:\/\/\S+/g;
@@ -387,6 +398,23 @@ function SubjectAnnouncementsPage() {
                           Download Attachment
                         </a>
                       )}
+                      <button
+                        type="button"
+                        onClick={() => deleteAnnouncement(a.id)}
+                        style={{
+                          marginTop: "8px",
+                          padding: "6px 12px",
+                          borderRadius: "6px",
+                          border: "1px solid #dc3545",
+                          backgroundColor: "#fff5f5",
+                          color: "#dc3545",
+                          fontWeight: 700,
+                          cursor: "pointer",
+                          alignSelf: "flex-start",
+                        }}
+                      >
+                        Delete
+                      </button>
                       {isMeeting && (
                         <button
                           style={{

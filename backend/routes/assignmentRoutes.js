@@ -30,4 +30,10 @@ router.get(
   assignmentController.getAssignmentsForStudent
 );
 
+router.delete(
+  "/delete/:id",
+  verifyToken,
+  assignmentController.deleteAssignment
+);
+
 module.exports = router;

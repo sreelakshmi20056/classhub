@@ -30,4 +30,10 @@ router.get(
   announcementController.getAnnouncementsForStudent
 );
 
+router.delete(
+  "/delete/:id",
+  verifyToken,
+  announcementController.deleteAnnouncement
+);
+
 module.exports = router;

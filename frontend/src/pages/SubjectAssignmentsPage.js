@@ -121,6 +121,17 @@ function SubjectAssignmentsPage() {
     }
   };
 
+  const deleteAssignment = async (assignment) => {
+    try {
+      await API.delete(`/assignments/delete/${assignment.id}`);
+      await loadAssignments();
+      showPopup("Assignment deleted successfully");
+    } catch (err) {
+      console.error("Delete assignment failed", err);
+      showPopup(err.response?.data?.message || "Unable to delete assignment");
+    }
+  };
+
   const createMeetLink = async () => {
     try {
       const res = await API.post(`/classes/${classId}/meet`);
@@ -372,7 +383,12 @@ function SubjectAssignmentsPage() {
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
                 {assignments.map((assignment) => (
-                    <AssignmentWithToggle key={assignment.id} assignment={assignment} classId={classId} />
+                    <AssignmentWithToggle
+                      key={assignment.id}
+                      assignment={assignment}
+                      classId={classId}
+                      onDelete={deleteAssignment}
+                    />
                 ))}
               </div>
             )}

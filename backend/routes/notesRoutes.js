@@ -30,4 +30,10 @@ router.get(
   notesController.getNotesForStudent
 );
 
+router.delete(
+  "/delete/:id",
+  verifyToken,
+  notesController.deleteNote
+);
+
 module.exports = router;

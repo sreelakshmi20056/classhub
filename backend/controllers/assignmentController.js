@@ -147,3 +147,46 @@ exports.getAssignmentsForStudent = (req, res) => {
     }
   );
 };
+
+// Teacher deletes their own assignment (based on subject ownership)
+exports.deleteAssignment = (req, res) => {
+  if (req.user.role !== "teacher") {
+    return res.status(403).json({ message: "Only teacher allowed" });
+  }
+
+  const assignmentId = req.params.id;
+
+  db.query(
+    `SELECT a.id
+     FROM assignments a
+     JOIN subjects s ON s.id = a.subject_id
+     WHERE a.id = ? AND s.teacher_id = ?`,
+    [assignmentId, req.user.id],
+    (err, rows) => {
+      if (err) {
+        console.error("Error checking assignment ownership:", err);
+        return res.status(500).json({ message: "Error checking assignment", error: err.message });
+      }
+
+      if (!rows || rows.length === 0) {
+        return res.status(404).json({ message: "Assignment not found or not owned by teacher" });
+      }
+
+      db.query("DELETE FROM submissions WHERE assignment_id = ?", [assignmentId], (subErr) => {
+        if (subErr) {
+          console.error("Error deleting assignment submissions:", subErr);
+          return res.status(500).json({ message: "Failed to delete assignment submissions", error: subErr.message });
+        }
+
+        db.query("DELETE FROM assignments WHERE id = ?", [assignmentId], (deleteErr) => {
+          if (deleteErr) {
+            console.error("Error deleting assignment:", deleteErr);
+            return res.status(500).json({ message: "Failed to delete assignment", error: deleteErr.message });
+          }
+
+          return res.json({ message: "Assignment deleted successfully" });
+        });
+      });
+    }
+  );
+};

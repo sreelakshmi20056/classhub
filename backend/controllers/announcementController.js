@@ -120,3 +120,39 @@ exports.getAnnouncementsForStudent = (req, res) => {
     }
   );
 };
+
+// Teacher deletes their own subject announcement (based on subject ownership)
+exports.deleteAnnouncement = (req, res) => {
+  if (req.user.role !== "teacher") {
+    return res.status(403).json({ message: "Only teacher allowed" });
+  }
+
+  const announcementId = req.params.id;
+
+  db.query(
+    `SELECT a.id
+     FROM announcements a
+     JOIN subjects s ON s.id = a.subject_id
+     WHERE a.id = ? AND s.teacher_id = ?`,
+    [announcementId, req.user.id],
+    (err, rows) => {
+      if (err) {
+        console.error("Error checking announcement ownership:", err);
+        return res.status(500).json({ message: "Error checking announcement", error: err.message });
+      }
+
+      if (!rows || rows.length === 0) {
+        return res.status(404).json({ message: "Announcement not found or not owned by teacher" });
+      }
+
+      db.query("DELETE FROM announcements WHERE id = ?", [announcementId], (deleteErr) => {
+        if (deleteErr) {
+          console.error("Error deleting announcement:", deleteErr);
+          return res.status(500).json({ message: "Failed to delete announcement", error: deleteErr.message });
+        }
+
+        return res.json({ message: "Announcement deleted successfully" });
+      });
+    }
+  );
+};

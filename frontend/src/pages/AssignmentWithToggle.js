@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { getUploadUrl } from "../uploadUrl";
 
-function AssignmentWithToggle({ assignment, classId }) {
+function AssignmentWithToggle({ assignment, classId, onDelete }) {
   const navigate = useNavigate();
 
   const handleToggle = () => {
@@ -46,7 +46,24 @@ function AssignmentWithToggle({ assignment, classId }) {
           Download: {assignment.file}
         </a>
       )}
-      <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "8px" }}>
+      <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "8px", gap: "8px" }}>
+        {onDelete && (
+          <button
+            onClick={() => onDelete(assignment)}
+            style={{
+              padding: "6px 12px",
+              backgroundColor: "#fff5f5",
+              color: "#dc3545",
+              border: "1px solid #dc3545",
+              borderRadius: "4px",
+              cursor: "pointer",
+              fontWeight: 600,
+              fontSize: "12px",
+            }}
+          >
+            Delete
+          </button>
+        )}
         <button
           onClick={handleToggle}
           style={{

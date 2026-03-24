@@ -92,3 +92,39 @@ exports.getNotesForStudent = (req, res) => {
     }
   );
 };
+
+// Teacher deletes their own note (based on subject ownership)
+exports.deleteNote = (req, res) => {
+  if (req.user.role !== "teacher") {
+    return res.status(403).json({ message: "Only teacher allowed" });
+  }
+
+  const noteId = req.params.id;
+
+  db.query(
+    `SELECT n.id
+     FROM notes n
+     JOIN subjects s ON s.id = n.subject_id
+     WHERE n.id = ? AND s.teacher_id = ?`,
+    [noteId, req.user.id],
+    (err, rows) => {
+      if (err) {
+        console.error("Error checking note ownership:", err);
+        return res.status(500).json({ message: "Error checking note", error: err.message });
+      }
+
+      if (!rows || rows.length === 0) {
+        return res.status(404).json({ message: "Note not found or not owned by teacher" });
+      }
+
+      db.query("DELETE FROM notes WHERE id = ?", [noteId], (deleteErr) => {
+        if (deleteErr) {
+          console.error("Error deleting note:", deleteErr);
+          return res.status(500).json({ message: "Failed to delete note", error: deleteErr.message });
+        }
+
+        return res.json({ message: "Note deleted successfully" });
+      });
+    }
+  );
+};
