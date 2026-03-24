@@ -11,6 +11,8 @@ const db = mysql.createConnection({
   port: process.env.DB_PORT
 });
 
+
+
 const authRoutes = require("./routes/authRoutes");
 const classRoutes = require("./routes/classRoutes");
 const subjectRoutes = require("./routes/subjectRoutes");
@@ -30,7 +32,23 @@ createSubjectsTable();
 const { cleanupExpiredClasses } = require("./utils/classCleanup");
 
 const app = express();
-app.use(cors());
+const allowedOrigins = (process.env.FRONTEND_URL || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow non-browser requests and local development when FRONTEND_URL is not set.
+      if (!origin || allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true
+  })
+);
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
@@ -45,4 +63,5 @@ app.use("/uploads", express.static("uploads"));
 // Run cleanup on startup
 cleanupExpiredClasses();
 
-app.listen(4000, () => console.log("Server running on 4000"));
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`Server running on ${PORT}`));
