@@ -53,6 +53,7 @@ if (connectionString.includes("[YOUR-PASSWORD]")) {
 
 const pool = new Pool({
   connectionString,
+  family: 4,
   ssl: { rejectUnauthorized: false },
 });
 
