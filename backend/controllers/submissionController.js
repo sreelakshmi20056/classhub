@@ -1,6 +1,17 @@
 const db = require("../config/db");
 const { persistUploadedFile } = require("../utils/fileStorage");
 
+const parseLocalDateTime = (value) => {
+  const raw = String(value || "").trim();
+  if (!raw) return null;
+
+  const parts = raw.replace(" ", "T").split(/[-T:]/).map((n) => Number(n));
+  if (parts.length < 5 || parts.some((n) => Number.isNaN(n))) return null;
+
+  const [year, month, day, hour, minute, second = 0] = parts;
+  return new Date(year, month - 1, day, hour, minute, second);
+};
+
 exports.submitAssignment = async (req, res) => {
   if (req.user.role !== "student")
     return res.status(403).json({ message: "Only student allowed" });
@@ -36,7 +47,9 @@ exports.submitAssignment = async (req, res) => {
 
       // check due date
       db.query(
-        "SELECT due_date FROM assignments WHERE id = ?",
+        `SELECT TO_CHAR(due_date, 'YYYY-MM-DD"T"HH24:MI:SS') AS due_date
+         FROM assignments
+         WHERE id = ?`,
         [assignment_id],
         (err2, assignRows) => {
           if (err2) {
@@ -46,7 +59,10 @@ exports.submitAssignment = async (req, res) => {
           if (assignRows.length === 0) {
             return res.status(404).json({ message: "Assignment not found" });
           }
-          const dueDate = new Date(assignRows[0].due_date);
+          const dueDate = parseLocalDateTime(assignRows[0].due_date);
+          if (!dueDate) {
+            return res.status(500).json({ message: "Invalid assignment due date format" });
+          }
           if (dueDate < new Date()) {
             return res.status(400).json({ message: "Assignment expired" });
           }

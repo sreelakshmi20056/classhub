@@ -2,6 +2,14 @@ const db = require("../config/db");
 const { notifyStudentsForClassContent } = require("../utils/classNotificationMailer");
 const { persistUploadedFile } = require("../utils/fileStorage");
 
+const normalizeDueDateForDb = (value) => {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+
+  const normalized = raw.replace("T", " ");
+  return normalized.length === 16 ? `${normalized}:00` : normalized;
+};
+
 // Teacher creates assignment
 exports.createAssignment = async (req, res) => {
   if (req.user.role !== "teacher")
@@ -21,8 +29,10 @@ exports.createAssignment = async (req, res) => {
     return res.status(500).json({ message: "Error storing assignment file", error: storageError.message });
   }
 
-  // PostgreSQL accepts ISO datetime strings from datetime-local input.
-  const assignmentDueDate = due_date;
+  const assignmentDueDate = normalizeDueDateForDb(due_date);
+  if (!assignmentDueDate) {
+    return res.status(400).json({ message: "Please provide a valid due date" });
+  }
 
   db.query(
     "INSERT INTO assignments (title,description,subject_id,class_id,due_date,file) VALUES (?,?,?,?,?,?)",
@@ -52,7 +62,9 @@ exports.getAssignmentsByClass = (req, res) => {
   const classId = req.params.id;
 
   db.query(
-    `SELECT a.*, s.name AS subject_name
+    `SELECT a.id, a.title, a.description, a.subject_id, a.class_id,
+            TO_CHAR(a.due_date, 'YYYY-MM-DD"T"HH24:MI:SS') AS due_date,
+            a.file, a.created_at, s.name AS subject_name
      FROM assignments a
      LEFT JOIN subjects s ON s.id = a.subject_id
      WHERE a.class_id = ?`,
@@ -72,7 +84,11 @@ exports.getAssignmentsBySubject = (req, res) => {
   console.log("Getting assignments for subject:", subjectId);
 
   db.query(
-    `SELECT * FROM assignments WHERE subject_id = ?`,
+    `SELECT id, title, description, subject_id, class_id,
+            TO_CHAR(due_date, 'YYYY-MM-DD"T"HH24:MI:SS') AS due_date,
+            file, created_at
+     FROM assignments
+     WHERE subject_id = ?`,
     [subjectId],
     (err, assignments) => {
       if (err) {
@@ -93,7 +109,10 @@ exports.getAssignmentsForStudent = (req, res) => {
 
   const userId = req.user.id;
   db.query(
-    `SELECT a.* FROM assignments a
+    `SELECT a.id, a.title, a.description, a.subject_id, a.class_id,
+            TO_CHAR(a.due_date, 'YYYY-MM-DD"T"HH24:MI:SS') AS due_date,
+            a.file, a.created_at
+     FROM assignments a
      JOIN class_members cm ON cm.class_id = a.class_id
      WHERE cm.user_id = ?`,
     [userId],
