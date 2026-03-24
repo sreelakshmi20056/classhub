@@ -119,6 +119,9 @@ function SubjectAnnouncementsPage() {
   };
 
   const deleteAnnouncement = async (announcementId) => {
+    const confirmed = window.confirm("Are you sure you want to delete this announcement?");
+    if (!confirmed) return;
+
     try {
       await API.delete(`/announcements/delete/${announcementId}`);
       await loadSubjectAnnouncements();

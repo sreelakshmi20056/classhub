@@ -118,6 +118,9 @@ function SubjectNotesPage() {
   };
 
   const deleteNote = async (noteId) => {
+    const confirmed = window.confirm("Are you sure you want to delete this note?");
+    if (!confirmed) return;
+
     try {
       await API.delete(`/notes/delete/${noteId}`);
       await loadNotes();

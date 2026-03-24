@@ -122,6 +122,11 @@ function SubjectAssignmentsPage() {
   };
 
   const deleteAssignment = async (assignment) => {
+    const confirmed = window.confirm(
+      `Are you sure you want to delete the assignment "${assignment.title}"?`
+    );
+    if (!confirmed) return;
+
     try {
       await API.delete(`/assignments/delete/${assignment.id}`);
       await loadAssignments();
