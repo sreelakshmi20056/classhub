@@ -1,6 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const fs = require("fs");
+const path = require("path");
 
 
 
@@ -31,6 +33,11 @@ createAssignmentsAndSubmissionsTables();
 const { cleanupExpiredClasses } = require("./utils/classCleanup");
 
 const app = express();
+const uploadsDir = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
 const allowedOrigins = (process.env.FRONTEND_URL || "")
   .split(",")
   .map((origin) => origin.trim())
@@ -57,7 +64,7 @@ app.use("/api/assignments", assignmentRoutes);
 app.use("/api/notes", notesRoutes);
 app.use("/api/announcements", announcementRoutes);
 app.use("/api/submissions", submissionRoutes);
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static(uploadsDir));
 
 // Run cleanup on startup
 cleanupExpiredClasses();
