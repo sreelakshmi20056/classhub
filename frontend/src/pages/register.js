@@ -45,6 +45,10 @@ export default function Register() {
       setOtpSent(true);
       showPopup(res.data.message || "OTP sent to your email");
     } catch (err) {
+      if (err.code === "ECONNABORTED") {
+        showPopup("OTP service timed out. Please try again in a moment.");
+        return;
+      }
       if (err.response?.status === 503) {
         showPopup("Registration is temporarily unavailable because email validation service is down. Please try again in a few minutes.");
         return;
