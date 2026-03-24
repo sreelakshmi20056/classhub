@@ -17,6 +17,8 @@ const { createNotesTable } = require("./createNotesTable");
 const { createAnnouncementsTable } = require("./createAnnouncementsTable");
 const { createClassesTables } = require("./createClassesTable");
 const { createSubjectsTable } = require("./createSubjectsTable");
+const { createUsersTable } = require("./createUsersTable");
+createUsersTable();
 createNotesTable();
 createAnnouncementsTable();
 createClassesTables();
