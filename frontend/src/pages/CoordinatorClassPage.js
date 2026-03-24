@@ -12,6 +12,7 @@ export default function CoordinatorClassPage() {
   const [students, setStudents] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
+  const [pendingDeleteAnnouncementId, setPendingDeleteAnnouncementId] = useState(null);
   const [announcementTitle, setAnnouncementTitle] = useState("");
   const [announcementContent, setAnnouncementContent] = useState("");
   const [audience, setAudience] = useState("students");
@@ -128,11 +129,9 @@ export default function CoordinatorClassPage() {
   };
 
   const deleteAnnouncement = async (announcementId) => {
-    const confirmed = window.confirm("Are you sure you want to delete this announcement?");
-    if (!confirmed) return;
-
     try {
       await API.delete(`/announcements/delete/${announcementId}`);
+      setPendingDeleteAnnouncementId(null);
       await loadAnnouncements();
       showPopup("Announcement deleted successfully");
     } catch (err) {
@@ -527,22 +526,62 @@ export default function CoordinatorClassPage() {
                             Download: {a.file}
                           </a>
                         )}
-                        <button
-                          type="button"
-                          onClick={() => deleteAnnouncement(a.id)}
-                          style={{
-                            padding: "6px 10px",
-                            borderRadius: "6px",
-                            border: "1px solid #dc3545",
-                            backgroundColor: "#fff5f5",
-                            color: "#dc3545",
-                            fontSize: "13px",
-                            fontWeight: 700,
-                            cursor: "pointer",
-                          }}
-                        >
-                          Delete
-                        </button>
+                        {pendingDeleteAnnouncementId === a.id ? (
+                          <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+                            <span style={{ fontSize: "12px", color: "#b02a37", fontWeight: 600 }}>
+                              Delete this announcement?
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => deleteAnnouncement(a.id)}
+                              style={{
+                                padding: "6px 10px",
+                                borderRadius: "6px",
+                                border: "none",
+                                backgroundColor: "#dc3545",
+                                color: "white",
+                                fontSize: "13px",
+                                fontWeight: 700,
+                                cursor: "pointer",
+                              }}
+                            >
+                              Yes, Delete
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setPendingDeleteAnnouncementId(null)}
+                              style={{
+                                padding: "6px 10px",
+                                borderRadius: "6px",
+                                border: "1px solid #ced4da",
+                                backgroundColor: "#f8f9fa",
+                                color: "#495057",
+                                fontSize: "13px",
+                                fontWeight: 600,
+                                cursor: "pointer",
+                              }}
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => setPendingDeleteAnnouncementId(a.id)}
+                            style={{
+                              padding: "6px 10px",
+                              borderRadius: "6px",
+                              border: "1px solid #dc3545",
+                              backgroundColor: "#fff5f5",
+                              color: "#dc3545",
+                              fontSize: "13px",
+                              fontWeight: 700,
+                              cursor: "pointer",
+                            }}
+                          >
+                            Delete
+                          </button>
+                        )}
                       </div>
                     </div>
                   ))

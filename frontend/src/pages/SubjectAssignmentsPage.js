@@ -10,6 +10,7 @@ function SubjectAssignmentsPage() {
   const [classInfo, setClassInfo] = useState(null);
   const [subjectInfo, setSubjectInfo] = useState(null);
   const [assignments, setAssignments] = useState([]);
+  const [pendingDeleteAssignmentId, setPendingDeleteAssignmentId] = useState(null);
   const [assignmentTitle, setAssignmentTitle] = useState("");
   const [assignmentDescription, setAssignmentDescription] = useState("");
   const [assignmentDueDate, setAssignmentDueDate] = useState("");
@@ -121,14 +122,14 @@ function SubjectAssignmentsPage() {
     }
   };
 
-  const deleteAssignment = async (assignment) => {
-    const confirmed = window.confirm(
-      `Are you sure you want to delete the assignment "${assignment.title}"?`
-    );
-    if (!confirmed) return;
+  const requestDeleteAssignment = (assignment) => {
+    setPendingDeleteAssignmentId(assignment.id);
+  };
 
+  const deleteAssignment = async (assignment) => {
     try {
       await API.delete(`/assignments/delete/${assignment.id}`);
+      setPendingDeleteAssignmentId(null);
       await loadAssignments();
       showPopup("Assignment deleted successfully");
     } catch (err) {
@@ -392,7 +393,10 @@ function SubjectAssignmentsPage() {
                       key={assignment.id}
                       assignment={assignment}
                       classId={classId}
+                      onRequestDelete={requestDeleteAssignment}
                       onDelete={deleteAssignment}
+                      onCancelDelete={() => setPendingDeleteAssignmentId(null)}
+                      isDeleteConfirming={pendingDeleteAssignmentId === assignment.id}
                     />
                 ))}
               </div>

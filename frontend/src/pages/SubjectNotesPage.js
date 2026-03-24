@@ -10,6 +10,7 @@ function SubjectNotesPage() {
   const [classInfo, setClassInfo] = useState(null);
   const [subjectInfo, setSubjectInfo] = useState(null);
   const [notes, setNotes] = useState([]);
+  const [pendingDeleteNoteId, setPendingDeleteNoteId] = useState(null);
   const [noteTitle, setNoteTitle] = useState("");
   const [noteDescription, setNoteDescription] = useState("");
   const [noteFile, setNoteFile] = useState(null);
@@ -118,11 +119,9 @@ function SubjectNotesPage() {
   };
 
   const deleteNote = async (noteId) => {
-    const confirmed = window.confirm("Are you sure you want to delete this note?");
-    if (!confirmed) return;
-
     try {
       await API.delete(`/notes/delete/${noteId}`);
+      setPendingDeleteNoteId(null);
       await loadNotes();
       showPopup("Note deleted successfully");
     } catch (err) {
@@ -396,21 +395,59 @@ function SubjectNotesPage() {
                       >
                         Download Note
                       </a>
-                      <button
-                        type="button"
-                        onClick={() => deleteNote(note.id)}
-                        style={{
-                          padding: "6px 10px",
-                          borderRadius: "6px",
-                          border: "1px solid #dc3545",
-                          backgroundColor: "#fff5f5",
-                          color: "#dc3545",
-                          fontWeight: 700,
-                          cursor: "pointer",
-                        }}
-                      >
-                        Delete
-                      </button>
+                      {pendingDeleteNoteId === note.id ? (
+                        <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+                          <span style={{ fontSize: "12px", color: "#b02a37", fontWeight: 600 }}>
+                            Delete this note?
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => deleteNote(note.id)}
+                            style={{
+                              padding: "6px 10px",
+                              borderRadius: "6px",
+                              border: "none",
+                              backgroundColor: "#dc3545",
+                              color: "white",
+                              fontWeight: 700,
+                              cursor: "pointer",
+                            }}
+                          >
+                            Yes, Delete
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setPendingDeleteNoteId(null)}
+                            style={{
+                              padding: "6px 10px",
+                              borderRadius: "6px",
+                              border: "1px solid #ced4da",
+                              backgroundColor: "#f8f9fa",
+                              color: "#495057",
+                              fontWeight: 600,
+                              cursor: "pointer",
+                            }}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => setPendingDeleteNoteId(note.id)}
+                          style={{
+                            padding: "6px 10px",
+                            borderRadius: "6px",
+                            border: "1px solid #dc3545",
+                            backgroundColor: "#fff5f5",
+                            color: "#dc3545",
+                            fontWeight: 700,
+                            cursor: "pointer",
+                          }}
+                        >
+                          Delete
+                        </button>
+                      )}
                     </div>
                   </div>
                 ))}

@@ -2,7 +2,14 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { getUploadUrl } from "../uploadUrl";
 
-function AssignmentWithToggle({ assignment, classId, onDelete }) {
+function AssignmentWithToggle({
+  assignment,
+  classId,
+  onDelete,
+  onRequestDelete,
+  onCancelDelete,
+  isDeleteConfirming,
+}) {
   const navigate = useNavigate();
 
   const handleToggle = () => {
@@ -47,9 +54,9 @@ function AssignmentWithToggle({ assignment, classId, onDelete }) {
         </a>
       )}
       <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "8px", gap: "8px" }}>
-        {onDelete && (
+        {onDelete && !isDeleteConfirming && (
           <button
-            onClick={() => onDelete(assignment)}
+            onClick={() => (onRequestDelete ? onRequestDelete(assignment) : onDelete(assignment))}
             style={{
               padding: "6px 12px",
               backgroundColor: "#fff5f5",
@@ -63,6 +70,51 @@ function AssignmentWithToggle({ assignment, classId, onDelete }) {
           >
             Delete
           </button>
+        )}
+        {onDelete && isDeleteConfirming && (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              flexWrap: "wrap",
+              justifyContent: "flex-end",
+            }}
+          >
+            <span style={{ fontSize: "12px", color: "#b02a37", fontWeight: 600 }}>
+              Delete this assignment?
+            </span>
+            <button
+              onClick={() => onDelete(assignment)}
+              style={{
+                padding: "6px 10px",
+                backgroundColor: "#dc3545",
+                color: "white",
+                border: "none",
+                borderRadius: "4px",
+                cursor: "pointer",
+                fontWeight: 700,
+                fontSize: "12px",
+              }}
+            >
+              Yes, Delete
+            </button>
+            <button
+              onClick={onCancelDelete}
+              style={{
+                padding: "6px 10px",
+                backgroundColor: "#f8f9fa",
+                color: "#495057",
+                border: "1px solid #ced4da",
+                borderRadius: "4px",
+                cursor: "pointer",
+                fontWeight: 600,
+                fontSize: "12px",
+              }}
+            >
+              Cancel
+            </button>
+          </div>
         )}
         <button
           onClick={handleToggle}
