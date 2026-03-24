@@ -5,6 +5,17 @@ if (typeof dns.setDefaultResultOrder === "function") {
   dns.setDefaultResultOrder("ipv4first");
 }
 
+const cleanEnvValue = (value) => {
+  const trimmed = String(value || "").trim();
+  if (
+    (trimmed.startsWith("\"") && trimmed.endsWith("\"")) ||
+    (trimmed.startsWith("'") && trimmed.endsWith("'"))
+  ) {
+    return trimmed.slice(1, -1).trim();
+  }
+  return trimmed;
+};
+
 const getProjectRefFromUrl = (url) => {
   if (!url) return "";
   try {
@@ -16,11 +27,11 @@ const getProjectRefFromUrl = (url) => {
 };
 
 const buildConnectionString = () => {
-  const directUrl = String(process.env.DATABASE_URL || process.env.DB_URL || "").trim();
+  const directUrl = cleanEnvValue(process.env.DATABASE_URL || process.env.DB_URL || "");
   if (directUrl) return directUrl;
 
   const projectRef = getProjectRefFromUrl(process.env.SUPABASE_PROJECT_URL);
-  const password = String(process.env.DB_PASS || "").trim();
+  const password = cleanEnvValue(process.env.DB_PASS || "");
 
   if (!projectRef || !password) {
     return "";
@@ -34,6 +45,10 @@ if (!connectionString) {
   throw new Error(
     "Missing database config. Set DATABASE_URL (or DB_URL), or set SUPABASE_PROJECT_URL and DB_PASS."
   );
+}
+
+if (connectionString.includes("[YOUR-PASSWORD]")) {
+  throw new Error("Invalid DATABASE_URL: replace [YOUR-PASSWORD] with the real Supabase database password.");
 }
 
 const pool = new Pool({
