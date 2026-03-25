@@ -263,7 +263,7 @@ function SubjectAnnouncementsPage() {
                   style={{
                     marginTop: 0,
                     marginBottom: "15px",
-                    color: "#333",
+                    color: "#c7ceff",
                     fontSize: "18px",
                     fontWeight: 700,
                   }}

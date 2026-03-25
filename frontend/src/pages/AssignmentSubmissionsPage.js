@@ -155,7 +155,7 @@ function AssignmentSubmissionsPage() {
                     }}
                   >
                     <div>
-                      <div style={{ fontWeight: 600, color: "#333" }}>
+                      <div style={{ fontWeight: 600, color: "#c7ceff" }}>
                         {idx + 1}. {sub.name}
                       </div>
                       <div style={{ fontSize: "0.85rem", color: "#9ca8d3" }}>
@@ -201,7 +201,7 @@ function AssignmentSubmissionsPage() {
                       borderRadius: 10,
                       background: "#fff",
                       border: "1px solid rgba(108, 75, 191, 0.15)",
-                      color: "#333",
+                      color: "#c7ceff",
                       fontSize: "0.95rem",
                     }}
                   >

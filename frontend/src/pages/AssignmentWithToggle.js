@@ -31,7 +31,7 @@ function AssignmentWithToggle({
           marginBottom: "6px",
         }}
       >
-        <strong style={{ fontSize: "13px", color: "#333" }}>{assignment.title}</strong>
+        <strong style={{ fontSize: "13px", color: "#c7ceff" }}>{assignment.title}</strong>
         <span style={{ color: "#9ca8d3", fontSize: "12px" }}>
           Due: {new Date(assignment.due_date).toLocaleString()}
         </span>
