@@ -427,7 +427,7 @@ export default function Login() {
         }}
       >
         <div className="login-panel-glow" />
-        <div className="login-description-card" style={{ zIndex: 1, transform: "translateX(-20px)" }}>
+        <div className="login-description-card" style={{ zIndex: 1 }}>
           <h3 style={{ margin: "0 0 10px", color: "#c7ceff", fontSize: "20px", fontWeight: 700, letterSpacing: "0.2px" }}>
             {animatedTitle}
             {animatedTitle.length < rightPanelTitle.length && <span style={{ color: "#8f7cff" }}>|</span>}
