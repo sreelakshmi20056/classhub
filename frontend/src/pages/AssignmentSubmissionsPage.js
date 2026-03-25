@@ -70,7 +70,7 @@ function AssignmentSubmissionsPage() {
     return !submittedStudentIds.has(studentId) && !submittedNames.has(studentName);
   });
 
-  if (loading) return <p style={{ padding: 24 }}>Loading submissions...</p>;
+  if (loading) return <p style={{ padding: 24, color: "#c7ceff" }}>Loading submissions...</p>;
 
   return (
     <div
@@ -98,8 +98,8 @@ function AssignmentSubmissionsPage() {
       >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
           <div>
-            <h1 style={{ margin: 0 }}>Assignment Submissions</h1>
-            <p style={{ margin: "6px 0 0" }}>Review student submissions for this assignment.</p>
+            <h1 style={{ margin: 0, color: "#d7deff" }}>Assignment Submissions</h1>
+            <p style={{ margin: "6px 0 0", color: "#b7c1e8" }}>Review student submissions for this assignment.</p>
           </div>
           <button
             onClick={() => {
@@ -146,8 +146,8 @@ function AssignmentSubmissionsPage() {
                     style={{
                       padding: 12,
                       borderRadius: 10,
-                      background: "#f7f4ff",
-                      border: "1px solid rgba(108, 75, 191, 0.25)",
+                      background: "#101a3c",
+                      border: "1px solid #2d3a66",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "space-between",
@@ -199,8 +199,8 @@ function AssignmentSubmissionsPage() {
                     style={{
                       padding: 10,
                       borderRadius: 10,
-                      background: "#fff",
-                      border: "1px solid rgba(108, 75, 191, 0.15)",
+                      background: "#101a3c",
+                      border: "1px solid #2d3a66",
                       color: "#c7ceff",
                       fontSize: "0.95rem",
                     }}
