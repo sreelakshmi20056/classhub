@@ -530,7 +530,7 @@ export default function CoordinatorClassPage() {
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{
-                              color: "#8f7cff",
+                              color: "#ffffff",
                               textDecoration: "none",
                               fontSize: "13px",
                             }}
