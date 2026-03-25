@@ -102,6 +102,9 @@ export default function Register() {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "row",
+        backgroundColor: "#ecfeff",
+        backgroundImage:
+          "radial-gradient(circle at 10% 16%, rgba(13, 148, 136, 0.2) 0%, rgba(13, 148, 136, 0) 34%), radial-gradient(circle at 88% 24%, rgba(20, 184, 166, 0.22) 0%, rgba(20, 184, 166, 0) 30%), linear-gradient(180deg, #f5fffd 0%, #e6faf6 100%)",
         fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
       }}
     >
@@ -119,7 +122,7 @@ export default function Register() {
       >
         <div style={{ width: "100%", maxWidth: "400px" }}>
           <div style={{ display: "flex", alignItems: "center", marginBottom: "32px" }}>
-            <div style={{ width: 32, height: 32, background: "#7c5cbf", borderRadius: 6, marginRight: 12, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 32, height: 32, background: "#0f766e", borderRadius: 6, marginRight: 12, display: "flex", alignItems: "center", justifyContent: "center" }}>
               <span style={{ color: "white", fontWeight: 700, fontSize: 22 }}>■</span>
             </div>
             <span style={{ fontWeight: 700, fontSize: 22, color: "#222" }}>ClassHub</span>
@@ -175,7 +178,7 @@ export default function Register() {
                     padding: "0 10px",
                     border: "none",
                     borderRadius: "6px",
-                    background: "#1f8f4d",
+                    background: "#0d9488",
                     color: "#fff",
                     fontWeight: 600,
                     cursor: sendingOtp ? "not-allowed" : "pointer",
@@ -251,7 +254,7 @@ export default function Register() {
               style={{
                 width: "100%",
                 padding: "12px",
-                background: "#7c5cbf",
+                background: "#0f766e",
                 color: "white",
                 border: "none",
                 borderRadius: "6px",
@@ -264,7 +267,7 @@ export default function Register() {
               Register
             </button>
             <div style={{ textAlign: "center", marginTop: 18, color: "#888", fontSize: 14 }}>
-              Already have an account? <a href="/" style={{ color: "#7c5cbf", textDecoration: "none" }}>Login here</a>
+              Already have an account? <a href="/" style={{ color: "#0f766e", textDecoration: "none" }}>Login here</a>
             </div>
           </form>
           <Popup />
@@ -274,7 +277,7 @@ export default function Register() {
       <div
         style={{
           flex: 1,
-          background: "#7c5cbf",
+          background: "linear-gradient(160deg, #0f766e 0%, #0d9488 52%, #14b8a6 100%)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -285,14 +288,14 @@ export default function Register() {
         <div style={{ width: "80%", maxWidth: 420, height: 420, background: "none", display: "flex", alignItems: "center", justifyContent: "center" }}>
           {/* SVG illustration matching the design */}
           <svg width="100%" height="100%" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="420" height="420" rx="32" fill="#7c5cbf" />
+            <rect width="420" height="420" rx="32" fill="#0f766e" />
             {/* Abstract illustration: person, computer, icons, checkmark, etc. */}
             <g>
-              <ellipse cx="210" cy="320" rx="120" ry="40" fill="#6a4fb3" />
+              <ellipse cx="210" cy="320" rx="120" ry="40" fill="#0b5f58" />
               <rect x="110" y="140" width="200" height="120" rx="18" fill="#222" />
-              <path d="M210 210c30 0 40 40 40 70v30h-80v-30c0-30 10-70 40-70z" fill="#7c5cbf" />
+              <path d="M210 210c30 0 40 40 40 70v30h-80v-30c0-30 10-70 40-70z" fill="#0f766e" />
               <circle cx="210" cy="180" r="40" fill="#fff" />
-              <path d="M210 170c10 0 20 10 20 20s-10 20-20 20-20-10-20-20 10-20 20-20z" fill="#7c5cbf" />
+              <path d="M210 170c10 0 20 10 20 20s-10 20-20 20-20-10-20-20 10-20 20-20z" fill="#0f766e" />
               <rect x="170" y="250" width="80" height="20" rx="8" fill="#fff" />
               <circle cx="260" cy="170" r="8" fill="#fff" />
               <circle cx="160" cy="170" r="8" fill="#fff" />
@@ -302,12 +305,12 @@ export default function Register() {
             </g>
             {/* Floating icons */}
             <g>
-              <rect x="60" y="60" width="32" height="32" rx="16" fill="#d1c4e9" />
-              <rect x="328" y="60" width="32" height="32" rx="16" fill="#d1c4e9" />
-              <rect x="60" y="328" width="32" height="32" rx="16" fill="#d1c4e9" />
-              <rect x="328" y="328" width="32" height="32" rx="16" fill="#d1c4e9" />
-              <circle cx="370" cy="210" r="16" fill="#d1c4e9" />
-              <circle cx="50" cy="210" r="16" fill="#d1c4e9" />
+              <rect x="60" y="60" width="32" height="32" rx="16" fill="#99f6e4" />
+              <rect x="328" y="60" width="32" height="32" rx="16" fill="#99f6e4" />
+              <rect x="60" y="328" width="32" height="32" rx="16" fill="#99f6e4" />
+              <rect x="328" y="328" width="32" height="32" rx="16" fill="#99f6e4" />
+              <circle cx="370" cy="210" r="16" fill="#99f6e4" />
+              <circle cx="50" cy="210" r="16" fill="#99f6e4" />
             </g>
           </svg>
         </div>

@@ -202,7 +202,7 @@ export default function Login() {
             padding: 28px;
             width: 100%;
             max-width: 520px;
-            box-shadow: 0 14px 36px rgba(91, 66, 169, 0.12);
+            box-shadow: 0 14px 36px rgba(15, 118, 110, 0.14);
           }
 
           .login-panel-glow {
@@ -210,7 +210,7 @@ export default function Login() {
             width: 340px;
             height: 340px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(124,92,191,0.18) 0%, rgba(124,92,191,0) 70%);
+            background: radial-gradient(circle, rgba(20,184,166,0.24) 0%, rgba(20,184,166,0) 70%);
             filter: blur(8px);
             animation: classhubPulse 3.6s ease-in-out infinite;
           }
@@ -236,9 +236,9 @@ export default function Login() {
       <div
         style={{
           minHeight: "100vh",
-          backgroundColor: "#f8f7fc",
+          backgroundColor: "#ecfeff",
           backgroundImage:
-            "radial-gradient(circle at 12% 18%, rgba(124, 92, 191, 0.16) 0%, rgba(124, 92, 191, 0) 32%), radial-gradient(circle at 88% 22%, rgba(148, 126, 210, 0.18) 0%, rgba(148, 126, 210, 0) 30%), radial-gradient(circle at 50% 88%, rgba(197, 181, 234, 0.35) 0%, rgba(197, 181, 234, 0) 42%), linear-gradient(180deg, #fbfaff 0%, #f4f1fb 100%)",
+            "radial-gradient(circle at 12% 18%, rgba(13, 148, 136, 0.20) 0%, rgba(13, 148, 136, 0) 34%), radial-gradient(circle at 88% 22%, rgba(20, 184, 166, 0.22) 0%, rgba(20, 184, 166, 0) 30%), radial-gradient(circle at 50% 88%, rgba(153, 246, 228, 0.45) 0%, rgba(153, 246, 228, 0) 42%), linear-gradient(180deg, #f5fffd 0%, #e6faf6 100%)",
           padding: "24px",
           boxSizing: "border-box",
           display: "flex",
@@ -257,7 +257,7 @@ export default function Login() {
           borderRadius: "50%",
           top: "-90px",
           left: "-70px",
-          background: "radial-gradient(circle, rgba(124,92,191,0.28) 0%, rgba(124,92,191,0) 70%)",
+          background: "radial-gradient(circle, rgba(13,148,136,0.26) 0%, rgba(13,148,136,0) 70%)",
           filter: "blur(4px)",
           pointerEvents: "none",
         }}
@@ -270,7 +270,7 @@ export default function Login() {
           borderRadius: "50%",
           bottom: "-70px",
           right: "-50px",
-          background: "radial-gradient(circle, rgba(124,92,191,0.22) 0%, rgba(124,92,191,0) 72%)",
+          background: "radial-gradient(circle, rgba(20,184,166,0.22) 0%, rgba(20,184,166,0) 72%)",
           filter: "blur(3px)",
           pointerEvents: "none",
         }}
@@ -282,7 +282,7 @@ export default function Login() {
           background: "#ffffff",
           borderRadius: "20px",
           boxShadow: "0 18px 42px rgba(0, 0, 0, 0.09)",
-          border: "1px solid #ebe6f7",
+          border: "1px solid #c7f9f1",
           overflow: "hidden",
           display: "flex",
           flexWrap: "wrap",
@@ -305,7 +305,7 @@ export default function Login() {
       >
         <div style={{ width: "100%", maxWidth: "400px" }}>
           <div style={{ display: "flex", alignItems: "center", marginBottom: "32px" }}>
-            <div style={{ width: 32, height: 32, background: "#7c5cbf", borderRadius: 6, marginRight: 12, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 32, height: 32, background: "#0f766e", borderRadius: 6, marginRight: 12, display: "flex", alignItems: "center", justifyContent: "center" }}>
               <span style={{ color: "white", fontWeight: 700, fontSize: 22 }}>■</span>
             </div>
             <span style={{ fontWeight: 700, fontSize: 22, color: "#222" }}>ClassHub</span>
@@ -354,14 +354,14 @@ export default function Login() {
             <div style={{ display: "flex", alignItems: "center", marginBottom: 18 }}>
               <input type="checkbox" id="remember" style={{ marginRight: 8 }} />
               <label htmlFor="remember" style={{ fontSize: 14, color: "#555" }}>Remember for 30 days</label>
-              <a href="#" onClick={handleForgotPassword} style={{ marginLeft: "auto", fontSize: 14, color: "#7c5cbf", textDecoration: "none" }}>Forgot password</a>
+              <a href="#" onClick={handleForgotPassword} style={{ marginLeft: "auto", fontSize: 14, color: "#0f766e", textDecoration: "none" }}>Forgot password</a>
             </div>
             <button
               type="submit"
               style={{
                 width: "100%",
                 padding: "12px",
-                background: "#7c5cbf",
+                background: "#0f766e",
                 color: "white",
                 border: "none",
                 borderRadius: "6px",
@@ -400,7 +400,7 @@ export default function Login() {
               Sign in with Google
             </button>
             <div style={{ textAlign: "center", marginTop: 18, color: "#888", fontSize: 14 }}>
-              Don't have an account? <a href="/register" style={{ color: "#7c5cbf", textDecoration: "none" }}>Sign up</a>
+              Don't have an account? <a href="/register" style={{ color: "#0f766e", textDecoration: "none" }}>Sign up</a>
             </div>
           </form>
           <Popup />
@@ -423,13 +423,13 @@ export default function Login() {
       >
         <div className="login-panel-glow" />
         <div className="login-description-card" style={{ zIndex: 1, transform: "translateX(-20px)" }}>
-          <h3 style={{ margin: "0 0 10px", color: "#5b42a9", fontSize: "20px", fontWeight: 700, letterSpacing: "0.2px" }}>
+          <h3 style={{ margin: "0 0 10px", color: "#0f766e", fontSize: "20px", fontWeight: 700, letterSpacing: "0.2px" }}>
             {animatedTitle}
-            {animatedTitle.length < rightPanelTitle.length && <span style={{ color: "#6f55bb" }}>|</span>}
+            {animatedTitle.length < rightPanelTitle.length && <span style={{ color: "#14b8a6" }}>|</span>}
           </h3>
           <p style={{ margin: "0 0 16px", color: "#4a4a61", lineHeight: 1.55, fontSize: "14px", minHeight: 110 }}>
             {animatedDescription}
-            {animatedTitle.length === rightPanelTitle.length && animatedDescription.length < rightPanelDescription.length && <span style={{ color: "#6f55bb" }}>|</span>}
+            {animatedTitle.length === rightPanelTitle.length && animatedDescription.length < rightPanelDescription.length && <span style={{ color: "#14b8a6" }}>|</span>}
           </p>
 
           <div className="login-illustration-wrap" style={{ width: "100%", maxWidth: 360, height: 210, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -437,11 +437,11 @@ export default function Login() {
             <rect width="420" height="280" rx="28" fill="#ffffff" />
             {/* Abstract illustration: person, computer, icons, checkmark, etc. */}
             <g>
-              <ellipse cx="210" cy="220" rx="120" ry="36" fill="#7654c8" opacity="0.9" />
+              <ellipse cx="210" cy="220" rx="120" ry="36" fill="#0f766e" opacity="0.9" />
               <rect x="110" y="95" width="200" height="105" rx="18" fill="#2a2a3f" />
-              <path d="M210 154c28 0 38 34 38 58v8h-76v-8c0-24 10-58 38-58z" fill="#7c5cbf" />
+              <path d="M210 154c28 0 38 34 38 58v8h-76v-8c0-24 10-58 38-58z" fill="#0f766e" />
               <circle cx="210" cy="138" r="33" fill="#fff" />
-              <path d="M210 129c9 0 17 8 17 17s-8 17-17 17-17-8-17-17 8-17 17-17z" fill="#7c5cbf" />
+              <path d="M210 129c9 0 17 8 17 17s-8 17-17 17-17-8-17-17 8-17 17-17z" fill="#0f766e" />
               <rect x="163" y="188" width="94" height="18" rx="8" fill="#fff" />
               <circle cx="258" cy="126" r="7" fill="#fff" />
               <circle cx="162" cy="126" r="7" fill="#fff" />
@@ -451,12 +451,12 @@ export default function Login() {
             </g>
             {/* Floating icons */}
             <g>
-              <rect x="55" y="48" width="24" height="24" rx="12" fill="#d5c9f4" />
-              <rect x="341" y="48" width="24" height="24" rx="12" fill="#d5c9f4" />
-              <rect x="55" y="235" width="24" height="24" rx="12" fill="#d5c9f4" />
-              <rect x="341" y="235" width="24" height="24" rx="12" fill="#d5c9f4" />
-              <circle cx="370" cy="150" r="13" fill="#d5c9f4" />
-              <circle cx="50" cy="150" r="13" fill="#d5c9f4" />
+              <rect x="55" y="48" width="24" height="24" rx="12" fill="#99f6e4" />
+              <rect x="341" y="48" width="24" height="24" rx="12" fill="#99f6e4" />
+              <rect x="55" y="235" width="24" height="24" rx="12" fill="#99f6e4" />
+              <rect x="341" y="235" width="24" height="24" rx="12" fill="#99f6e4" />
+              <circle cx="370" cy="150" r="13" fill="#99f6e4" />
+              <circle cx="50" cy="150" r="13" fill="#99f6e4" />
             </g>
           </svg>
           </div>
