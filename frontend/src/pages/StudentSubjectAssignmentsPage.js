@@ -108,7 +108,7 @@ function StudentSubjectAssignmentsPage() {
       style={{
         minHeight: "100vh",
         padding: "40px",
-        background: "#ffffff",
+        background: "radial-gradient(circle at 18% 16%, rgba(99, 82, 235, 0.2) 0%, rgba(99, 82, 235, 0) 42%), radial-gradient(circle at 82% 20%, rgba(202, 92, 255, 0.2) 0%, rgba(202, 92, 255, 0) 34%), linear-gradient(130deg, #0b1333 0%, #11193d 56%, #1a1740 100%)",
         display: "flex",
         justifyContent: "center",
         alignItems: "flex-start",
@@ -120,9 +120,11 @@ function StudentSubjectAssignmentsPage() {
           maxWidth: "1200px",
           padding: "40px",
           boxSizing: "border-box",
-          background: "#ffffff",
+          background: "rgba(10, 18, 43, 0.78)",
           borderRadius: "14px",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
+          boxShadow: "0 26px 56px rgba(3, 8, 28, 0.56)",
+          border: "1px solid #253261",
+          backdropFilter: "blur(10px)",
         }}
       >
         <div style={{ marginBottom: "30px", display: "flex", alignItems: "center", gap: "15px" }}>
@@ -130,7 +132,7 @@ function StudentSubjectAssignmentsPage() {
             onClick={() => navigate(`/student/class/${classId}`)}
             style={{
               padding: "8px 16px",
-              backgroundColor: "#7b5cd6",
+              background: "linear-gradient(135deg, #6d6cf7 0%, #915dff 100%)",
               color: "white",
               border: "none",
               borderRadius: "6px",
@@ -144,7 +146,7 @@ function StudentSubjectAssignmentsPage() {
           <h2
             style={{
               margin: 0,
-              color: "#6a4fb3",
+              color: "#d7deff",
               fontWeight: "700",
               letterSpacing: "1px",
             }}
@@ -155,7 +157,7 @@ function StudentSubjectAssignmentsPage() {
 
         <div style={{ display: "grid", gap: "20px" }}>
           {assignments.length === 0 ? (
-            <p style={{ color: "#6b7280" }}>No assignments yet.</p>
+            <p style={{ color: "#9ca8d3" }}>No assignments yet.</p>
           ) : (
             assignments.map((assignment) => {
               const expired = isExpired(assignment.due_date);
@@ -164,15 +166,15 @@ function StudentSubjectAssignmentsPage() {
                   key={assignment.id}
                   style={{
                     borderRadius: 12,
-                    background: "#ffffff",
-                    border: "1px solid rgba(108, 75, 191, 0.25)",
+                    background: "#101a3c",
+                    border: "1px solid #2d3a66",
                     boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
                     padding: 18,
                   }}
                 >
-                  <h4 style={{ margin: "0 0 8px 0" }}>{assignment.title}</h4>
-                  <p style={{ margin: "0 0 8px 0", color: "#4b5563" }}>{assignment.description}</p>
-                  <p style={{ margin: 0, color: "#6b7280", fontSize: "0.9rem" }}>
+                  <h4 style={{ margin: "0 0 8px 0", color: "#c7ceff" }}>{assignment.title}</h4>
+                  <p style={{ margin: "0 0 8px 0", color: "#b7c1e8" }}>{assignment.description}</p>
+                  <p style={{ margin: 0, color: "#9ca8d3", fontSize: "0.9rem" }}>
                     Due: {new Date(assignment.due_date).toLocaleString()}
                   </p>
 
@@ -182,7 +184,7 @@ function StudentSubjectAssignmentsPage() {
                       href={getUploadUrl(assignment.file)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{ marginTop: 10, display: "inline-flex" }}
+                      style={{ marginTop: 10, display: "inline-flex", color: "#ffffff" }}
                     >
                       Download Assignment
                     </a>

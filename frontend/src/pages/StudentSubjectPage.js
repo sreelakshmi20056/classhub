@@ -127,7 +127,13 @@ function StudentSubjectPage() {
         parts.push(text.slice(lastIndex, match.index));
       }
       parts.push(
-        <a key={match.index} href={match[0]} target="_blank" rel="noopener noreferrer">
+        <a
+          key={match.index}
+          href={match[0]}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "#ffffff" }}
+        >
           {match[0]}
         </a>
       );
@@ -143,14 +149,14 @@ function StudentSubjectPage() {
     active ? "button button--primary" : "button button--secondary";
 
   return (
-    <div style={{ minHeight: "100vh", padding: 40, background: "#ffffff", display: "flex", justifyContent: "center", alignItems: "flex-start" }}>
-      <div style={{ width: "100%", maxWidth: 1200, padding: 40, boxSizing: "border-box", background: "#f4f1fa", borderRadius: 14, boxShadow: "0 10px 30px rgba(0,0,0,0.15)" }}>
+    <div style={{ minHeight: "100vh", padding: 40, background: "radial-gradient(circle at 18% 16%, rgba(99, 82, 235, 0.2) 0%, rgba(99, 82, 235, 0) 42%), radial-gradient(circle at 82% 20%, rgba(202, 92, 255, 0.2) 0%, rgba(202, 92, 255, 0) 34%), linear-gradient(130deg, #0b1333 0%, #11193d 56%, #1a1740 100%)", display: "flex", justifyContent: "center", alignItems: "flex-start" }}>
+      <div style={{ width: "100%", maxWidth: 1200, padding: 40, boxSizing: "border-box", background: "rgba(10, 18, 43, 0.78)", borderRadius: 14, boxShadow: "0 26px 56px rgba(3, 8, 28, 0.56)", border: "1px solid #253261", backdropFilter: "blur(10px)" }}>
         <div style={{ marginBottom: "30px", display: "flex", alignItems: "center", gap: "15px" }}>
           <button
             onClick={() => navigate(`/student/class/${classId}`)}
             style={{
               padding: "8px 16px",
-              backgroundColor: "#7b5cd6",
+              background: "linear-gradient(135deg, #6d6cf7 0%, #915dff 100%)",
               color: "white",
               border: "none",
               borderRadius: "6px",
@@ -164,7 +170,7 @@ function StudentSubjectPage() {
           <h2
             style={{
               margin: 0,
-              color: "#6a4fb3",
+              color: "#d7deff",
               fontWeight: "700",
               letterSpacing: "1px",
             }}
@@ -179,9 +185,9 @@ function StudentSubjectPage() {
             style={{
               padding: "8px 14px",
               borderRadius: 8,
-              border: "1px solid #c7b9f5",
-              backgroundColor: activeTab === "notes" ? "#6c4bbf" : "#f2edff",
-              color: activeTab === "notes" ? "#fff" : "#1f2937",
+              border: "1px solid #2d3a66",
+              backgroundColor: activeTab === "notes" ? "#6c4bbf" : "#101a3c",
+              color: activeTab === "notes" ? "#fff" : "#c7ceff",
               cursor: "pointer",
             }}
             onClick={() => setActiveTab("notes")}
@@ -193,9 +199,9 @@ function StudentSubjectPage() {
             style={{
               padding: "8px 14px",
               borderRadius: 8,
-              border: "1px solid #c7b9f5",
-              backgroundColor: activeTab === "assignments" ? "#6c4bbf" : "#f2edff",
-              color: activeTab === "assignments" ? "#fff" : "#1f2937",
+              border: "1px solid #2d3a66",
+              backgroundColor: activeTab === "assignments" ? "#6c4bbf" : "#101a3c",
+              color: activeTab === "assignments" ? "#fff" : "#c7ceff",
               cursor: "pointer",
             }}
             onClick={() => setActiveTab("assignments")}
@@ -206,29 +212,30 @@ function StudentSubjectPage() {
 
         {activeTab === "notes" && (
           <div>
-            <h3 style={{ marginTop: 0, marginBottom: 12, color: "#5a3fb4" }}>Notes</h3>
+            <h3 style={{ marginTop: 0, marginBottom: 12, color: "#c7ceff" }}>Notes</h3>
             {notes.length === 0 ? (
-              <p style={{ color: "#6b7280" }}>No notes</p>
+              <p style={{ color: "#9ca8d3" }}>No notes</p>
             ) : (
               notes.map((note) => (
                 <div
                   key={note.id}
                   style={{
                     marginBottom: 12,
-                    backgroundColor: "#f2edff",
-                    border: "1px solid #d2c5f4",
+                    backgroundColor: "#101a3c",
+                    border: "1px solid #2d3a66",
                     borderRadius: 10,
                     padding: 14,
                   }}
                 >
-                  <h4 style={{ margin: "0 0 8px 0" }}>{note.title}</h4>
-                  <p style={{ margin: "0 0 10px 0" }}>{note.description}</p>
+                  <h4 style={{ margin: "0 0 8px 0", color: "#c7ceff" }}>{note.title}</h4>
+                  <p style={{ margin: "0 0 10px 0", color: "#b7c1e8" }}>{note.description}</p>
                   {note.file && (
                     <a
                       className="button button--secondary"
                       href={getUploadUrl(note.file)}
                       target="_blank"
                       rel="noopener noreferrer"
+                      style={{ color: "#ffffff" }}
                     >
                       Download Note
                     </a>
@@ -241,9 +248,9 @@ function StudentSubjectPage() {
 
         {activeTab === "assignments" && (
           <div>
-            <h3 style={{ marginTop: 0, marginBottom: 12, color: "#5a3fb4" }}>Assignments</h3>
+            <h3 style={{ marginTop: 0, marginBottom: 12, color: "#c7ceff" }}>Assignments</h3>
             {assignments.length === 0 ? (
-              <p style={{ color: "#6b7280" }}>No assignments</p>
+              <p style={{ color: "#9ca8d3" }}>No assignments</p>
             ) : (
               assignments.map((assignment) => {
                 const expired = isExpired(assignment.due_date);
@@ -252,22 +259,22 @@ function StudentSubjectPage() {
                     key={assignment.id}
                     style={{
                       marginBottom: 12,
-                      backgroundColor: "#f7f8fb",
-                      border: "1px solid #e2e4ea",
+                      backgroundColor: "#101a3c",
+                      border: "1px solid #2d3a66",
                       borderRadius: 10,
                       padding: 14,
                     }}
                   >
-                    <h4 style={{ margin: "0 0 8px 0" }}>
+                    <h4 style={{ margin: "0 0 8px 0", color: "#c7ceff" }}>
                       <Link
                         to={`/student/assignment/${assignment.id}/submissions`}
-                        style={{ textDecoration: "none", color: "inherit" }}
+                        style={{ textDecoration: "none", color: "#c7ceff" }}
                       >
                         {assignment.title}
                       </Link>
                     </h4>
-                    <p style={{ margin: "0 0 8px 0" }}>{assignment.description}</p>
-                    <p className="text-muted" style={{ margin: 0, fontSize: "0.9rem" }}>
+                    <p style={{ margin: "0 0 8px 0", color: "#b7c1e8" }}>{assignment.description}</p>
+                    <p className="text-muted" style={{ margin: 0, fontSize: "0.9rem", color: "#9ca8d3" }}>
                       Due: {new Date(assignment.due_date).toLocaleString()}
                     </p>
                     {assignment.file && (
@@ -276,7 +283,7 @@ function StudentSubjectPage() {
                         href={getUploadUrl(assignment.file)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        style={{ marginTop: 10, display: "inline-flex" }}
+                        style={{ marginTop: 10, display: "inline-flex", color: "#ffffff" }}
                       >
                         Download Assignment
                       </a>

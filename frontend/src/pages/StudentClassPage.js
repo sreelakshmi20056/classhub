@@ -125,7 +125,13 @@ function StudentClassPage() {
         parts.push(text.slice(lastIndex, match.index));
       }
       parts.push(
-        <a key={match.index} href={match[0]} target="_blank" rel="noopener noreferrer">
+        <a
+          key={match.index}
+          href={match[0]}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "#ffffff" }}
+        >
           {match[0]}
         </a>
       );
@@ -175,8 +181,8 @@ function StudentClassPage() {
 
 
   return (
-    <div style={{ minHeight: "100vh", padding: 40, background: "#f5f7fb", display: "flex", justifyContent: "center", alignItems: "flex-start" }}>
-      <div style={{ width: "100%", maxWidth: 1200, padding: 40, boxSizing: "border-box", background: "#f4f1fa", borderRadius: 14, boxShadow: "0 10px 30px rgba(0,0,0,0.15)" }}>
+    <div style={{ minHeight: "100vh", padding: 40, background: "radial-gradient(circle at 18% 16%, rgba(99, 82, 235, 0.2) 0%, rgba(99, 82, 235, 0) 42%), radial-gradient(circle at 82% 20%, rgba(202, 92, 255, 0.2) 0%, rgba(202, 92, 255, 0) 34%), linear-gradient(130deg, #0b1333 0%, #11193d 56%, #1a1740 100%)", display: "flex", justifyContent: "center", alignItems: "flex-start" }}>
+      <div style={{ width: "100%", maxWidth: 1200, padding: 40, boxSizing: "border-box", background: "rgba(10, 18, 43, 0.78)", borderRadius: 14, boxShadow: "0 26px 56px rgba(3, 8, 28, 0.56)", border: "1px solid #253261", backdropFilter: "blur(10px)" }}>
         <header style={{ marginBottom: 24, display: "flex", justifyContent: "center", alignItems: "center", position: "relative" }}>
           <button
             onClick={() => navigate("/")}
@@ -184,11 +190,11 @@ function StudentClassPage() {
               position: "absolute",
               left: 0,
               padding: "8px 12px",
-              backgroundColor: "transparent",
-              border: "2px solid #7b5cd6",
+              backgroundColor: "#121e47",
+              border: "1px solid #2d3a66",
               borderRadius: "6px",
               cursor: "pointer",
-              color: "#7b5cd6",
+              color: "#8f7cff",
               transition: "all 0.3s",
               minWidth: "45px",
               height: "45px",
@@ -198,12 +204,12 @@ function StudentClassPage() {
             }}
             title="Go to Login"
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "#7b5cd6";
+              e.currentTarget.style.backgroundColor = "#8f7cff";
               e.currentTarget.style.color = "white";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "transparent";
-              e.currentTarget.style.color = "#7b5cd6";
+              e.currentTarget.style.backgroundColor = "#121e47";
+              e.currentTarget.style.color = "#8f7cff";
             }}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -212,8 +218,8 @@ function StudentClassPage() {
             </svg>
           </button>
           <div style={{ textAlign: "center", flex: 1 }}>
-            <h1 style={{ margin: 0, fontSize: 28, color: "#5a3fb4" }}>Class Dashboard</h1>
-            <p style={{ margin: "8px 0 0", color: "#4b5563" }}>
+            <h1 style={{ margin: 0, fontSize: 28, color: "#d7deff" }}>Class Dashboard</h1>
+            <p style={{ margin: "8px 0 0", color: "#9ca8d3" }}>
               Select a subject to view notes and assignments.
             </p>
           </div>
@@ -283,20 +289,20 @@ function StudentClassPage() {
               </div>
             )}
 
-            <div style={{ backgroundColor: "#f3eefc", border: "1px solid #6c4bbf", borderRadius: 16, padding: 18 }}>
-              <h2 style={{ marginTop: 0, marginBottom: 12, color: "#5a3fb4", paddingBottom: 6, borderBottom: "2px solid #6c4bbf" }}>Class Announcements</h2>
+            <div style={{ backgroundColor: "#131f49", border: "1px solid #2d3a66", borderRadius: 16, padding: 18 }}>
+              <h2 style={{ marginTop: 0, marginBottom: 12, color: "#c7ceff", paddingBottom: 6, borderBottom: "2px solid #2d3a66" }}>Class Announcements</h2>
               {sortedClassAnnouncements.length === 0 ? (
-                <p style={{ color: "#6b7280" }}>No class announcements</p>
+                <p style={{ color: "#9ca8d3" }}>No class announcements</p>
               ) : (
                 visibleClassAnnouncements.map((announcement) => (
-                    <div key={announcement.id} style={{ marginBottom: 14, backgroundColor: "#ffffff", border: "1px solid rgba(108, 75, 191, 0.25)", borderRadius: 12, padding: 14, boxShadow: "0 1px 3px rgba(0,0,0,0.08)" }}>
-                      <h4 style={{ margin: 0 }}>{announcement.title}</h4>
-                      <p className="text-muted" style={{ margin: "6px 0", color: "#4b5563" }}>
+                    <div key={announcement.id} style={{ marginBottom: 14, backgroundColor: "#101a3c", border: "1px solid #2d3a66", borderRadius: 12, padding: 14, boxShadow: "0 1px 3px rgba(0,0,0,0.08)" }}>
+                      <h4 style={{ margin: 0, color: "#c7ceff" }}>{announcement.title}</h4>
+                      <p className="text-muted" style={{ margin: "6px 0", color: "#9ca8d3" }}>
                         Posted: {new Date(announcement.created_at).toLocaleString()}
                       </p>
-                      <p style={{ margin: 0 }}>{linkify(announcement.content)}</p>
+                      <p style={{ margin: 0, color: "#ffffff" }}>{linkify(announcement.content)}</p>
                       {announcement.file && (
-                        <a className="button button--secondary" href={getUploadUrl(announcement.file)} target="_blank" rel="noopener noreferrer" style={{ marginTop: 10, display: "inline-flex" }}>
+                        <a className="button button--secondary" href={getUploadUrl(announcement.file)} target="_blank" rel="noopener noreferrer" style={{ marginTop: 10, display: "inline-flex", color: "#ffffff" }}>
                           Download Attachment
                         </a>
                       )}
@@ -325,11 +331,11 @@ function StudentClassPage() {
             </div>
           </aside>
 
-          <main style={{ backgroundColor: "#f3eefc", border: "1px solid #d2c5f4", borderRadius: 12, padding: 18 }}>
+          <main style={{ backgroundColor: "#131f49", border: "1px solid #2d3a66", borderRadius: 12, padding: 18 }}>
             <div style={{ marginBottom: 20 }}>
-              <h2 style={{ marginTop: 0, marginBottom: 12, color: "#5a3fb4", paddingBottom: 6, borderBottom: "2px solid #6c4bbf" }}>Subjects</h2>
+              <h2 style={{ marginTop: 0, marginBottom: 12, color: "#c7ceff", paddingBottom: 6, borderBottom: "2px solid #2d3a66" }}>Subjects</h2>
               {subjects.length === 0 ? (
-                <p>No subjects found for this class.</p>
+                <p style={{ color: "#9ca8d3" }}>No subjects found for this class.</p>
               ) : (
                 subjects.map((subject) => (
                   <button
@@ -340,31 +346,31 @@ function StudentClassPage() {
                       marginBottom: 12,
                       justifyContent: "flex-start",
                       padding: "16px",
-                      border: "1px solid #e5e7eb",
+                      border: "1px solid #2d3a66",
                       borderRadius: 10,
-                      backgroundColor: "#ffffff",
+                      backgroundColor: "#101a3c",
                       cursor: "pointer",
                       textAlign: "left",
                       transition: "all 0.3s ease",
-                      boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
+                      boxShadow: "none",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = "#ffffff";
-                      e.currentTarget.style.borderColor = "#2563eb";
-                      e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.1)";
+                      e.currentTarget.style.backgroundColor = "#1a2a5f";
+                      e.currentTarget.style.borderColor = "#8f7cff";
+                      e.currentTarget.style.boxShadow = "0 14px 30px rgba(3, 8, 28, 0.55)";
                       e.currentTarget.style.transform = "translateY(-2px)";
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = "#ffffff";
-                      e.currentTarget.style.borderColor = "#e5e7eb";
-                      e.currentTarget.style.boxShadow = "0 2px 10px rgba(0,0,0,0.05)";
+                      e.currentTarget.style.backgroundColor = "#101a3c";
+                      e.currentTarget.style.borderColor = "#2d3a66";
+                      e.currentTarget.style.boxShadow = "none";
                       e.currentTarget.style.transform = "translateY(0)";
                     }}
                     onClick={() => {
                       navigate(`/student/class/${id}/subject/${subject.id}`);
                     }}
                   >
-                    <div style={{ fontSize: "20px", fontWeight: 600, color: "#111827", marginBottom: 8 }}>
+                    <div style={{ fontSize: "20px", fontWeight: 600, color: "#d7deff", marginBottom: 8 }}>
                       {subject.name}
                     </div>
                   </button>
@@ -373,10 +379,10 @@ function StudentClassPage() {
             </div>
           </main>
 
-          <aside style={{ backgroundColor: "#f3eefc", border: "1px solid #6c4bbf", borderRadius: 16, padding: 18, minHeight: 480 }}>
-            <h2 style={{ marginTop: 0, marginBottom: 12, color: "#5a3fb4", paddingBottom: 6, borderBottom: "2px solid #6c4bbf" }}>Subject Announcements</h2>
+          <aside style={{ backgroundColor: "#131f49", border: "1px solid #2d3a66", borderRadius: 16, padding: 18, minHeight: 480 }}>
+            <h2 style={{ marginTop: 0, marginBottom: 12, color: "#c7ceff", paddingBottom: 6, borderBottom: "2px solid #2d3a66" }}>Subject Announcements</h2>
             {sortedSubjectAnnouncements.length === 0 ? (
-              <p style={{ color: "#6b7280" }}>No announcements</p>
+              <p style={{ color: "#9ca8d3" }}>No announcements</p>
             ) : (
               visibleSubjectAnnouncements.map((announcement) => {
                 let subjectName = "Unknown Subject";
@@ -392,16 +398,16 @@ function StudentClassPage() {
                       key={announcement.id}
                       style={{
                         marginBottom: 14,
-                        backgroundColor: "#ffffff",
-                        border: "1px solid rgba(108, 75, 191, 0.25)",
+                        backgroundColor: "#101a3c",
+                        border: "1px solid #2d3a66",
                         borderRadius: 12,
                         padding: 14,
                         boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
                       }}
                     >
-                      <h4 style={{ margin: 0, color: "#5a3fb4" }}>Meeting link</h4>
-                      <p className="text-muted" style={{ margin: "1px 0", color: "#4b5563", fontSize: "0.85rem" }}>
-                        Subject: <strong>{subjectName}</strong>
+                      <h4 style={{ margin: 0, color: "#c7ceff" }}>Meeting link</h4>
+                      <p className="text-muted" style={{ margin: "1px 0", color: "#ffffff", fontSize: "0.85rem" }}>
+                        Subject: <strong style={{ color: "#ffffff" }}>{subjectName}</strong>
                         <br />
                         Posted: {new Date(announcement.created_at).toLocaleString()}
                       </p>
@@ -436,27 +442,27 @@ function StudentClassPage() {
                     key={announcement.id}
                     style={{
                       marginBottom: 12,
-                      backgroundColor: "#ffffff",
-                      border: "1px solid rgba(108, 75, 191, 0.25)",
+                      backgroundColor: "#101a3c",
+                      border: "1px solid #2d3a66",
                       borderRadius: 12,
                       padding: 14,
                       boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
                     }}
                   >
-                    <h4 style={{ margin: 0 }}>{announcement.title}</h4>
-                    <p className="text-muted" style={{ margin: "6px 0", color: "#4b5563" }}>
-                      Subject: <strong>{subjectName}</strong>
+                    <h4 style={{ margin: 0, color: "#c7ceff" }}>{announcement.title}</h4>
+                    <p className="text-muted" style={{ margin: "6px 0", color: "#ffffff" }}>
+                      Subject: <strong style={{ color: "#ffffff" }}>{subjectName}</strong>
                       <br />
                       Posted: {new Date(announcement.created_at).toLocaleString()}
                     </p>
-                    <p style={{ margin: 0 }}>{linkify(announcement.content)}</p>
+                    <p style={{ margin: 0, color: "#ffffff" }}>{linkify(announcement.content)}</p>
                     {announcement.file && (
                       <a
                         className="button button--secondary"
                         href={getUploadUrl(announcement.file)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        style={{ marginTop: 10, display: "inline-flex" }}
+                        style={{ marginTop: 10, display: "inline-flex", color: "#ffffff" }}
                       >
                         Download Attachment
                       </a>
@@ -504,10 +510,11 @@ function StudentClassPage() {
           >
             <div
               style={{
-                backgroundColor: "white",
+                backgroundColor: "#121e47",
                 padding: "30px",
                 borderRadius: "12px",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+                boxShadow: "0 20px 50px rgba(0, 0, 0, 0.55)",
+                border: "1px solid #2d3a66",
                 maxWidth: "400px",
                 width: "90%",
                 textAlign: "center",
@@ -517,7 +524,7 @@ function StudentClassPage() {
                 style={{
                   marginTop: 0,
                   marginBottom: "20px",
-                  color: "#6a4fb3",
+                  color: "#d7deff",
                   fontSize: "20px",
                   fontWeight: "700",
                 }}
@@ -527,7 +534,7 @@ function StudentClassPage() {
               <p
                 style={{
                   marginBottom: "30px",
-                  color: "#495057",
+                  color: "#b7c1e8",
                   fontSize: "16px",
                   lineHeight: "1.5",
                 }}
