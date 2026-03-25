@@ -142,7 +142,13 @@ function SubjectAnnouncementsPage() {
         parts.push(text.slice(lastIndex, match.index));
       }
       parts.push(
-        <a key={match.index} href={match[0]} target="_blank" rel="noopener noreferrer">
+        <a
+          key={match.index}
+          href={match[0]}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "#ffffff" }}
+        >
           {match[0]}
         </a>
       );
@@ -381,8 +387,8 @@ function SubjectAnnouncementsPage() {
                       <div style={{ marginBottom: "8px" }}>
                         <strong style={{ fontSize: "16px", color: "#c7ceff" }}>{a.title}</strong>
                       </div>
-                      <div style={{ fontSize: "13px", marginBottom: "6px" }}>
-                        Subject: <span style={{ fontWeight: 600 }}>{a.subject_name || "-"}</span>
+                      <div style={{ fontSize: "13px", marginBottom: "6px", color: "#ffffff" }}>
+                        Subject: <span style={{ fontWeight: 600, color: "#ffffff" }}>{a.subject_name || "-"}</span>
                       </div>
                       <div style={{ fontSize: "12px", color: "#9ca8d3", marginBottom: "6px" }}>
                         Posted: {new Date(a.created_at).toLocaleString()}
@@ -395,7 +401,7 @@ function SubjectAnnouncementsPage() {
                           href={getUploadUrl(a.file)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          style={{ color: "#8f7cff", textDecoration: "none", fontSize: "14px" }}
+                          style={{ color: "#ffffff", textDecoration: "none", fontSize: "14px" }}
                         >
                           Download Attachment
                         </a>
