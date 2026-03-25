@@ -273,7 +273,7 @@ function SubjectAssignmentsPage() {
                   style={{
                     marginTop: 0,
                     marginBottom: "15px",
-                    color: "#333",
+                    color: "#c7ceff",
                     fontSize: "18px",
                     fontWeight: 700,
                   }}
@@ -312,6 +312,7 @@ function SubjectAssignmentsPage() {
                   borderRadius: "6px",
                   border: "1px solid #2d3a66",
                   backgroundColor: "#101a3c",
+                  color: "#c7ceff",
                   fontSize: "14px",
                   boxSizing: "border-box",
                 }}
@@ -326,6 +327,7 @@ function SubjectAssignmentsPage() {
                   borderRadius: "6px",
                   border: "1px solid #2d3a66",
                   backgroundColor: "#101a3c",
+                  color: "#c7ceff",
                   fontSize: "14px",
                   resize: "vertical",
                   boxSizing: "border-box",
@@ -342,6 +344,7 @@ function SubjectAssignmentsPage() {
                   borderRadius: "6px",
                   border: "1px solid #2d3a66",
                   backgroundColor: "#101a3c",
+                  color: "#c7ceff",
                   fontSize: "14px",
                   boxSizing: "border-box",
                 }}
@@ -358,6 +361,7 @@ function SubjectAssignmentsPage() {
                   borderRadius: "6px",
                   border: "1px solid #2d3a66",
                   backgroundColor: "#101a3c",
+                  color: "#c7ceff",
                   fontSize: "13px",
                   boxSizing: "border-box",
                 }}
