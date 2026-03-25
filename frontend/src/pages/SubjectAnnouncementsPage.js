@@ -295,19 +295,20 @@ function SubjectAnnouncementsPage() {
             </div>
 
             <h3 style={{ marginTop: 0, marginBottom: "20px", color: "#c7ceff", fontSize: "18px" }}>
-              Post Announcement
+              Post Announcement ( * required )
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               <input
                 type="text"
                 value={announcementTitle}
                 onChange={(e) => setAnnouncementTitle(e.target.value)}
-                placeholder="Announcement title"
+                placeholder="Announcement title *"
                 style={{
                   padding: "10px",
                   borderRadius: "6px",
                   border: "1px solid #2d3a66",
                   backgroundColor: "#101a3c",
+                  color: "#c7ceff",
                   fontSize: "14px",
                   boxSizing: "border-box",
                 }}
@@ -315,13 +316,14 @@ function SubjectAnnouncementsPage() {
               <textarea
                 value={announcementContent}
                 onChange={(e) => setAnnouncementContent(e.target.value)}
-                placeholder="Announcement content"
+                placeholder="Announcement content *"
                 rows={6}
                 style={{
                   padding: "10px",
                   borderRadius: "6px",
                   border: "1px solid #2d3a66",
                   backgroundColor: "#101a3c",
+                  color: "#c7ceff",
                   fontSize: "14px",
                   resize: "vertical",
                   boxSizing: "border-box",
@@ -336,6 +338,7 @@ function SubjectAnnouncementsPage() {
                   borderRadius: "6px",
                   border: "1px solid #2d3a66",
                   backgroundColor: "#101a3c",
+                  color: "#c7ceff",
                   fontSize: "13px",
                   boxSizing: "border-box",
                 }}

@@ -288,19 +288,20 @@ function SubjectNotesPage() {
             </div>
 
             <h3 style={{ marginTop: 0, marginBottom: "20px", color: "#c7ceff", fontSize: "18px" }}>
-              Upload Note
+              Upload Note ( * required )
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               <input
                 type="text"
                 value={noteTitle}
                 onChange={(e) => setNoteTitle(e.target.value)}
-                placeholder="Note title"
+                placeholder="Note title *"
                 style={{
                   padding: "10px",
                   borderRadius: "6px",
                   border: "1px solid #2d3a66",
                   backgroundColor: "#101a3c",
+                  color: "#c7ceff",
                   fontSize: "14px",
                   boxSizing: "border-box",
                 }}
@@ -315,11 +316,15 @@ function SubjectNotesPage() {
                   borderRadius: "6px",
                   border: "1px solid #2d3a66",
                   backgroundColor: "#101a3c",
+                  color: "#c7ceff",
                   fontSize: "14px",
                   resize: "vertical",
                   boxSizing: "border-box",
                 }}
               />
+              <p style={{ margin: 0, color: "#c7ceff", fontSize: "12px", fontWeight: 600 }}>
+                Note file *
+              </p>
               <input
                 type="file"
                 ref={noteFileInputRef}
@@ -329,6 +334,7 @@ function SubjectNotesPage() {
                   borderRadius: "6px",
                   border: "1px solid #2d3a66",
                   backgroundColor: "#101a3c",
+                  color: "#c7ceff",
                   fontSize: "13px",
                   boxSizing: "border-box",
                 }}

@@ -28,6 +28,20 @@
   color: #61dafb;
 }
 
+input[type="file"] {
+  color: #c7ceff;
+}
+
+input[type="file"]::file-selector-button {
+  background-color: #101a3c;
+  color: #c7ceff;
+  border: 1px solid #2d3a66;
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

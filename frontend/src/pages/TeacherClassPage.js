@@ -318,13 +318,14 @@ function TeacherClassPage() {
                   type="text"
                   value={subjectName}
                   onChange={(e) => setSubjectName(e.target.value)}
-                  placeholder="Subject name"
+                  placeholder="Subject name *"
                   style={{
                     width: "100%",
                     padding: "8px",
                     borderRadius: "4px",
                     border: "1px solid #2d3a66",
                     backgroundColor: "#101a3c",
+                    color: "#c7ceff",
                     marginBottom: "8px",
                     fontSize: "13px",
                     boxSizing: "border-box",
