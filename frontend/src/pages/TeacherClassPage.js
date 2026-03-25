@@ -314,11 +314,14 @@ function TeacherClassPage() {
                 Subjects
               </h3>
               <div style={{ marginBottom: "15px" }}>
+                <p style={{ margin: "0 0 6px", color: "#c7ceff", fontSize: "12px", fontWeight: 600 }}>
+                  Subject name <span style={{ color: "#ff6b6b" }}>*</span>
+                </p>
                 <input
                   type="text"
                   value={subjectName}
                   onChange={(e) => setSubjectName(e.target.value)}
-                  placeholder="Subject name *"
+                  placeholder="Subject name"
                   style={{
                     width: "100%",
                     padding: "8px",

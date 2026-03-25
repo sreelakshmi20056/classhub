@@ -299,14 +299,14 @@ function SubjectAssignmentsPage() {
             </div>
 
             <h3 style={{ marginTop: 0, marginBottom: "20px", color: "#c7ceff", fontSize: "18px" }}>
-              Create Assignment ( * required )
+              Create Assignment (<span style={{ color: "#ff6b6b" }}>*</span> required)
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               <input
                 type="text"
                 value={assignmentTitle}
                 onChange={(e) => setAssignmentTitle(e.target.value)}
-                placeholder="Assignment title *"
+                placeholder="Assignment title"
                 style={{
                   padding: "10px",
                   borderRadius: "6px",
@@ -320,7 +320,7 @@ function SubjectAssignmentsPage() {
               <textarea
                 value={assignmentDescription}
                 onChange={(e) => setAssignmentDescription(e.target.value)}
-                placeholder="Assignment description *"
+                placeholder="Assignment description"
                 rows={4}
                 style={{
                   padding: "10px",
@@ -350,10 +350,10 @@ function SubjectAssignmentsPage() {
                 }}
               />
               <p style={{ margin: 0, color: "#c7ceff", fontSize: "12px", fontWeight: 600 }}>
-                Assignment due date and time * (today and past dates are not allowed)
+                Assignment due date and time <span style={{ color: "#ff6b6b" }}>*</span> (today and past dates are not allowed)
               </p>
               <p style={{ margin: 0, color: "#c7ceff", fontSize: "12px", fontWeight: 600 }}>
-                Assignment file *
+                Assignment file <span style={{ color: "#ff6b6b" }}>*</span>
               </p>
               <input
                 type="file"

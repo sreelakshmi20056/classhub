@@ -295,14 +295,14 @@ function SubjectAnnouncementsPage() {
             </div>
 
             <h3 style={{ marginTop: 0, marginBottom: "20px", color: "#c7ceff", fontSize: "18px" }}>
-              Post Announcement ( * required )
+              Post Announcement (<span style={{ color: "#ff6b6b" }}>*</span> required)
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               <input
                 type="text"
                 value={announcementTitle}
                 onChange={(e) => setAnnouncementTitle(e.target.value)}
-                placeholder="Announcement title *"
+                placeholder="Announcement title"
                 style={{
                   padding: "10px",
                   borderRadius: "6px",
@@ -316,7 +316,7 @@ function SubjectAnnouncementsPage() {
               <textarea
                 value={announcementContent}
                 onChange={(e) => setAnnouncementContent(e.target.value)}
-                placeholder="Announcement content *"
+                placeholder="Announcement content"
                 rows={6}
                 style={{
                   padding: "10px",
