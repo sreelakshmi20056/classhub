@@ -223,6 +223,13 @@ function StudentSubjectAssignmentsPage() {
                         data-assignment-id={assignment.id}
                         onChange={(e) => setFiles({ ...files, [assignment.id]: e.target.files[0] })}
                         className="input"
+                        style={{
+                          color: "#c7ceff",
+                          backgroundColor: "#101a3c",
+                          border: "1px solid #2d3a66",
+                          borderRadius: "6px",
+                          padding: "6px",
+                        }}
                         disabled={!!submittedFiles[assignment.id]}
                       />
                       <button className="button button--primary" type="submit" disabled={!!submittedFiles[assignment.id]}>
