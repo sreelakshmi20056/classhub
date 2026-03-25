@@ -288,9 +288,12 @@ function SubjectNotesPage() {
             </div>
 
             <h3 style={{ marginTop: 0, marginBottom: "20px", color: "#c7ceff", fontSize: "18px" }}>
-              Upload Note (<span style={{ color: "#ff6b6b" }}>*</span> required)
+              Upload Note
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              <p style={{ margin: 0, color: "#c7ceff", fontSize: "12px", fontWeight: 600 }}>
+                Note title <span style={{ color: "#ff6b6b" }}>*</span>
+              </p>
               <input
                 type="text"
                 value={noteTitle}

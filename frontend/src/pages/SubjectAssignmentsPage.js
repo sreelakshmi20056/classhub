@@ -299,9 +299,12 @@ function SubjectAssignmentsPage() {
             </div>
 
             <h3 style={{ marginTop: 0, marginBottom: "20px", color: "#c7ceff", fontSize: "18px" }}>
-              Create Assignment (<span style={{ color: "#ff6b6b" }}>*</span> required)
+              Create Assignment
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              <p style={{ margin: 0, color: "#c7ceff", fontSize: "12px", fontWeight: 600 }}>
+                Assignment title <span style={{ color: "#ff6b6b" }}>*</span>
+              </p>
               <input
                 type="text"
                 value={assignmentTitle}
@@ -317,6 +320,9 @@ function SubjectAssignmentsPage() {
                   boxSizing: "border-box",
                 }}
               />
+              <p style={{ margin: 0, color: "#c7ceff", fontSize: "12px", fontWeight: 600 }}>
+                Assignment description <span style={{ color: "#ff6b6b" }}>*</span>
+              </p>
               <textarea
                 value={assignmentDescription}
                 onChange={(e) => setAssignmentDescription(e.target.value)}
