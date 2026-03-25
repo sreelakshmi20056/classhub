@@ -157,7 +157,7 @@ function SubjectNotesPage() {
     <div style={{
       minHeight: "100vh",
       padding: "40px",
-      background: "#ffffff",
+      background: "radial-gradient(circle at 18% 16%, rgba(99, 82, 235, 0.2) 0%, rgba(99, 82, 235, 0) 42%), radial-gradient(circle at 82% 20%, rgba(202, 92, 255, 0.2) 0%, rgba(202, 92, 255, 0) 34%), linear-gradient(130deg, #0b1333 0%, #11193d 56%, #1a1740 100%)",
       display: "flex",
       justifyContent: "center",
       alignItems: "flex-start"
@@ -168,9 +168,9 @@ function SubjectNotesPage() {
           maxWidth: "1200px",
           padding: "40px",
           boxSizing: "border-box",
-          background: "#f4f1fa",
+          background: "rgba(10, 18, 43, 0.78)",
           borderRadius: "14px",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.15)"
+          
         }}
       >
         <div style={{ marginBottom: "30px", display: "flex", alignItems: "center", gap: "15px" }}>
@@ -178,7 +178,7 @@ function SubjectNotesPage() {
             onClick={() => navigate(`/teacher/class/${classId}`)}
             style={{
               padding: "8px 16px",
-              backgroundColor: "#7b5cd6",
+              background: "linear-gradient(135deg, #6d6cf7 0%, #915dff 100%)",
               color: "white",
               border: "none",
               borderRadius: "6px",
@@ -191,7 +191,7 @@ function SubjectNotesPage() {
           </button>
           <h2 style={{
             margin: 0,
-            color: "#6a4fb3",
+            color: "#d7deff",
             fontWeight: "700",
             letterSpacing: "1px"
           }}>
@@ -204,7 +204,7 @@ function SubjectNotesPage() {
             onClick={() => navigate(`/teacher/class/${classId}/subject/${subjectId}/notes`)}
             style={{
               padding: "10px 20px",
-              backgroundColor: "#7b5cd6",
+              background: "linear-gradient(135deg, #6d6cf7 0%, #915dff 100%)",
               color: "white",
               border: "none",
               borderRadius: "6px",
@@ -219,9 +219,9 @@ function SubjectNotesPage() {
             onClick={() => navigate(`/teacher/class/${classId}/subject/${subjectId}/assignments`)}
             style={{
               padding: "10px 20px",
-              backgroundColor: "#f7f4ff",
-              color: "#5a3fb4",
-              border: "1px solid #cbbaf0",
+              backgroundColor: "#101a3c",
+              color: "#c7ceff",
+              border: "1px solid #2d3a66",
               borderRadius: "6px",
               cursor: "pointer",
               fontWeight: 600,
@@ -234,9 +234,9 @@ function SubjectNotesPage() {
             onClick={() => navigate(`/teacher/class/${classId}/subject/${subjectId}/announcements`)}
             style={{
               padding: "10px 20px",
-              backgroundColor: "#f7f4ff",
-              color: "#5a3fb4",
-              border: "1px solid #cbbaf0",
+              backgroundColor: "#101a3c",
+              color: "#c7ceff",
+              border: "1px solid #2d3a66",
               borderRadius: "6px",
               cursor: "pointer",
               fontWeight: 600,
@@ -254,7 +254,7 @@ function SubjectNotesPage() {
               <div
                 style={{
                   paddingBottom: "16px",
-                  borderBottom: "3px solid #7b5cd6",
+                  borderBottom: "2px solid #2d3a66",
                   marginBottom: "20px",
                 }}
               >
@@ -273,7 +273,7 @@ function SubjectNotesPage() {
                   onClick={createMeetLink}
                   style={{
                     padding: "10px 20px",
-                    backgroundColor: "#7b5cd6",
+                    background: "linear-gradient(135deg, #6d6cf7 0%, #915dff 100%)",
                     color: "white",
                     border: "none",
                     borderRadius: "6px",
@@ -287,7 +287,7 @@ function SubjectNotesPage() {
               </div>
             </div>
 
-            <h3 style={{ marginTop: 0, marginBottom: "20px", color: "#5a3fb4", fontSize: "18px" }}>
+            <h3 style={{ marginTop: 0, marginBottom: "20px", color: "#c7ceff", fontSize: "18px" }}>
               Upload Note
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
@@ -299,8 +299,8 @@ function SubjectNotesPage() {
                 style={{
                   padding: "10px",
                   borderRadius: "6px",
-                  border: "1px solid #cbbaf0",
-                  backgroundColor: "#f7f4ff",
+                  border: "1px solid #2d3a66",
+                  backgroundColor: "#101a3c",
                   fontSize: "14px",
                   boxSizing: "border-box",
                 }}
@@ -313,8 +313,8 @@ function SubjectNotesPage() {
                 style={{
                   padding: "10px",
                   borderRadius: "6px",
-                  border: "1px solid #cbbaf0",
-                  backgroundColor: "#f7f4ff",
+                  border: "1px solid #2d3a66",
+                  backgroundColor: "#101a3c",
                   fontSize: "14px",
                   resize: "vertical",
                   boxSizing: "border-box",
@@ -327,8 +327,8 @@ function SubjectNotesPage() {
                 style={{
                   padding: "8px",
                   borderRadius: "6px",
-                  border: "1px solid #cbbaf0",
-                  backgroundColor: "#f7f4ff",
+                  border: "1px solid #2d3a66",
+                  backgroundColor: "#101a3c",
                   fontSize: "13px",
                   boxSizing: "border-box",
                 }}
@@ -337,7 +337,7 @@ function SubjectNotesPage() {
                 onClick={createNote}
                 style={{
                   padding: "10px",
-                  backgroundColor: "#7b5cd6",
+                  background: "linear-gradient(135deg, #6d6cf7 0%, #915dff 100%)",
                   color: "white",
                   border: "none",
                   borderRadius: "6px",
@@ -352,11 +352,11 @@ function SubjectNotesPage() {
           </div>
 
           <div>
-            <h3 style={{ marginTop: 0, marginBottom: "20px", color: "#5a3fb4", fontSize: "18px" }}>
+            <h3 style={{ marginTop: 0, marginBottom: "20px", color: "#c7ceff", fontSize: "18px" }}>
               Uploaded Notes
             </h3>
             {notes.length === 0 ? (
-              <p style={{ color: "#6c757d", fontSize: "14px" }}>No notes uploaded yet.</p>
+              <p style={{ color: "#9ca8d3", fontSize: "14px" }}>No notes uploaded yet.</p>
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
                 {notes.map((note) => (
@@ -365,20 +365,20 @@ function SubjectNotesPage() {
                     style={{
                       padding: "20px",
                       borderRadius: "10px",
-                      backgroundColor: "#f7f4ff",
-                      border: "2px solid #7b5cd6",
+                      backgroundColor: "#101a3c",
+                      border: "1px solid #2d3a66",
                       boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
                     }}
                   >
                     <div style={{ marginBottom: "10px" }}>
-                      <strong style={{ fontSize: "16px", color: "#5a3fb4" }}>{note.title}</strong>
+                      <strong style={{ fontSize: "16px", color: "#c7ceff" }}>{note.title}</strong>
                     </div>
                     {note.description && (
-                      <div style={{ fontSize: "14px", marginBottom: "10px", color: "#495057" }}>
+                      <div style={{ fontSize: "14px", marginBottom: "10px", color: "#b7c1e8" }}>
                         {linkify(note.description)}
                       </div>
                     )}
-                    <div style={{ fontSize: "12px", color: "#6c757d", marginBottom: "10px" }}>
+                    <div style={{ fontSize: "12px", color: "#9ca8d3", marginBottom: "10px" }}>
                       Uploaded: {new Date(note.created_at).toLocaleString()}
                     </div>
                     <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
@@ -387,7 +387,7 @@ function SubjectNotesPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{
-                          color: "#7b5cd6",
+                          color: "#8f7cff",
                           textDecoration: "none",
                           fontSize: "14px",
                           fontWeight: 600,
@@ -423,7 +423,7 @@ function SubjectNotesPage() {
                               borderRadius: "6px",
                               border: "1px solid #ced4da",
                               backgroundColor: "#f8f9fa",
-                              color: "#495057",
+                              color: "#b7c1e8",
                               fontWeight: 600,
                               cursor: "pointer",
                             }}

@@ -77,7 +77,7 @@ function AssignmentSubmissionsPage() {
       style={{
         minHeight: "100vh",
         padding: "40px",
-        background: "linear-gradient(135deg,#8e7cc3,#6a4fb3)",
+        background: "radial-gradient(circle at 18% 16%, rgba(99, 82, 235, 0.2) 0%, rgba(99, 82, 235, 0) 42%), radial-gradient(circle at 82% 20%, rgba(202, 92, 255, 0.2) 0%, rgba(202, 92, 255, 0) 34%), linear-gradient(130deg, #0b1333 0%, #11193d 56%, #1a1740 100%)",
         display: "flex",
         justifyContent: "center",
         alignItems: "flex-start",
@@ -89,9 +89,11 @@ function AssignmentSubmissionsPage() {
           maxWidth: "1200px",
           padding: "40px",
           boxSizing: "border-box",
-          background: "#f4f1fa",
+          background: "rgba(10, 18, 43, 0.78)",
           borderRadius: "14px",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
+          boxShadow: "0 26px 56px rgba(3, 8, 28, 0.56)",
+          border: "1px solid #253261",
+          backdropFilter: "blur(10px)",
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
@@ -107,7 +109,7 @@ function AssignmentSubmissionsPage() {
             }}
             style={{
               padding: "8px 14px",
-              backgroundColor: "#7b5cd6",
+              background: "linear-gradient(135deg, #6d6cf7 0%, #915dff 100%)",
               color: "white",
               border: "none",
               borderRadius: "6px",
@@ -122,8 +124,8 @@ function AssignmentSubmissionsPage() {
 
         {assignment && (
           <div style={{ marginTop: 18, marginBottom: 18 }}>
-            <h2 style={{ margin: 0, fontSize: "18px", color: "#5a3fb4" }}>{assignment.title}</h2>
-            <p style={{ margin: "6px 0 0", color: "#6c757d", fontSize: "14px" }}>
+            <h2 style={{ margin: 0, fontSize: "18px", color: "#c7ceff" }}>{assignment.title}</h2>
+            <p style={{ margin: "6px 0 0", color: "#9ca8d3", fontSize: "14px" }}>
               Due: {new Date(assignment.due_date).toLocaleString()}
             </p>
           </div>
@@ -131,11 +133,11 @@ function AssignmentSubmissionsPage() {
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
           <div>
-            <h3 style={{ marginTop: 0, marginBottom: 12, color: "#5a3fb4" }}>
+            <h3 style={{ marginTop: 0, marginBottom: 12, color: "#c7ceff" }}>
               Submitted ({submissions.length})
             </h3>
             {submissions.length === 0 ? (
-              <p style={{ color: "#6c757d" }}>No submissions yet.</p>
+              <p style={{ color: "#9ca8d3" }}>No submissions yet.</p>
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 {submissions.map((sub, idx) => (
@@ -156,7 +158,7 @@ function AssignmentSubmissionsPage() {
                       <div style={{ fontWeight: 600, color: "#333" }}>
                         {idx + 1}. {sub.name}
                       </div>
-                      <div style={{ fontSize: "0.85rem", color: "#6c757d" }}>
+                      <div style={{ fontSize: "0.85rem", color: "#9ca8d3" }}>
                         Submitted on: {new Date(sub.submitted_at).toLocaleString()}
                       </div>
                     </div>
@@ -184,11 +186,11 @@ function AssignmentSubmissionsPage() {
           </div>
 
           <div>
-            <h3 style={{ marginTop: 0, marginBottom: 12, color: "#5a3fb4" }}>
+            <h3 style={{ marginTop: 0, marginBottom: 12, color: "#c7ceff" }}>
               Not Submitted ({nonSubmitted.length})
             </h3>
             {nonSubmitted.length === 0 ? (
-              <p style={{ color: "#6c757d" }}>All students have submitted.</p>
+              <p style={{ color: "#9ca8d3" }}>All students have submitted.</p>
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                 {nonSubmitted.map((student, idx) => (

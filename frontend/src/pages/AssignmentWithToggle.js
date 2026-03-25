@@ -21,7 +21,7 @@ function AssignmentWithToggle({
       style={{
         paddingBottom: "12px",
         marginBottom: "12px",
-        borderBottom: "1px solid #e9ecef",
+        borderBottom: "1px solid #2d3a66",
       }}
     >
       <div
@@ -32,11 +32,11 @@ function AssignmentWithToggle({
         }}
       >
         <strong style={{ fontSize: "13px", color: "#333" }}>{assignment.title}</strong>
-        <span style={{ color: "#6c757d", fontSize: "12px" }}>
+        <span style={{ color: "#9ca8d3", fontSize: "12px" }}>
           Due: {new Date(assignment.due_date).toLocaleString()}
         </span>
       </div>
-      <p style={{ margin: "6px 0", fontSize: "13px", color: "#495057" }}>
+      <p style={{ margin: "6px 0", fontSize: "13px", color: "#b7c1e8" }}>
         {assignment.description}
       </p>
       {assignment.file && (
@@ -45,7 +45,7 @@ function AssignmentWithToggle({
           target="_blank"
           rel="noopener noreferrer"
           style={{
-            color: "#007bff",
+            color: "#ffffff",
             textDecoration: "none",
             fontSize: "12px",
           }}
@@ -104,7 +104,7 @@ function AssignmentWithToggle({
               style={{
                 padding: "6px 10px",
                 backgroundColor: "#f8f9fa",
-                color: "#495057",
+                color: "#b7c1e8",
                 border: "1px solid #ced4da",
                 borderRadius: "4px",
                 cursor: "pointer",
@@ -120,7 +120,7 @@ function AssignmentWithToggle({
           onClick={handleToggle}
           style={{
             padding: "6px 12px",
-            backgroundColor: "#7b5cd6",
+            background: "linear-gradient(135deg, #6d6cf7 0%, #915dff 100%)",
             color: "white",
             border: "none",
             borderRadius: "4px",

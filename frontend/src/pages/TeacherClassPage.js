@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../api";
 import usePopup from "../hooks/usePopup";
@@ -117,7 +117,7 @@ function TeacherClassPage() {
     <div style={{
       minHeight: "100vh",
       padding: "40px",
-      background: "#ffffff",
+      background: "radial-gradient(circle at 18% 16%, rgba(99, 82, 235, 0.2) 0%, rgba(99, 82, 235, 0) 42%), radial-gradient(circle at 82% 20%, rgba(202, 92, 255, 0.2) 0%, rgba(202, 92, 255, 0) 34%), linear-gradient(130deg, #0b1333 0%, #11193d 56%, #1a1740 100%)",
       display: "flex",
       justifyContent: "center",
       alignItems: "flex-start"
@@ -128,9 +128,11 @@ function TeacherClassPage() {
           maxWidth: "1200px",
           padding: "40px",
           boxSizing: "border-box",
-          background: "#f4f1fa",
+          background: "rgba(10, 18, 43, 0.78)",
           borderRadius: "14px",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
+          boxShadow: "0 26px 56px rgba(3, 8, 28, 0.56)",
+          border: "1px solid #253261",
+          backdropFilter: "blur(10px)",
           position: "relative"
         }}
       >
@@ -144,13 +146,13 @@ function TeacherClassPage() {
             onClick={() => navigate("/teacher")}
             style={{
               padding: "8px 12px",
-              backgroundColor: "transparent",
-              border: "2px solid #7b5cd6",
+              backgroundColor: "#121e47",
+              border: "1px solid #2d3a66",
               borderRadius: "6px",
               cursor: "pointer",
               fontSize: "18px",
               fontWeight: "600",
-              color: "#7b5cd6",
+              color: "#8f7cff",
               transition: "all 0.3s",
               whiteSpace: "nowrap",
               minWidth: "45px",
@@ -177,7 +179,7 @@ function TeacherClassPage() {
           <div style={{ flex: 1, textAlign: "center" }}>
             <h2 style={{
               margin: 0,
-              color: "#6a4fb3",
+              color: "#d7deff",
               fontWeight: "700",
               letterSpacing: "1px"
             }}>
@@ -226,7 +228,7 @@ function TeacherClassPage() {
               <div
                 style={{
                   paddingBottom: "16px",
-                  borderBottom: "3px solid #7b5cd6",
+                  borderBottom: "2px solid #2d3a66",
                   marginBottom: "20px",
                 }}
               >
@@ -234,7 +236,7 @@ function TeacherClassPage() {
                   style={{
                     marginTop: 0,
                     marginBottom: "15px",
-                    color: "#5a3fb4",
+                    color: "#c7ceff",
                     fontSize: "18px",
                     fontWeight: 700,
                   }}
@@ -244,7 +246,7 @@ function TeacherClassPage() {
               </div>
 
               {sortedClassAnnouncements.length === 0 ? (
-                <p style={{ color: "#6c757d", fontSize: "13px" }}>No class announcements yet.</p>
+                <p style={{ color: "#9ca8d3", fontSize: "13px" }}>No class announcements yet.</p>
               ) : (
                 <div>
                   {visibleClassAnnouncements.map((a) => (
@@ -253,16 +255,16 @@ function TeacherClassPage() {
                         style={{
                           paddingBottom: "12px",
                           marginBottom: "12px",
-                          borderBottom: "1px solid #e9ecef",
+                          borderBottom: "1px solid #2d3a66",
                         }}
                       >
                         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
-                          <strong style={{ fontSize: "13px", color: "#5a3fb4" }}>{a.title}</strong>
-                          <span style={{ color: "#6c757d", fontSize: "12px" }}>
+                          <strong style={{ fontSize: "13px", color: "#c7ceff" }}>{a.title}</strong>
+                          <span style={{ color: "#9ca8d3", fontSize: "12px" }}>
                             {new Date(a.created_at).toLocaleString()}
                           </span>
                         </div>
-                        <p style={{ margin: "6px 0", fontSize: "13px", color: "#495057" }}>
+                        <p style={{ margin: "6px 0", fontSize: "13px", color: "#b7c1e8" }}>
                           {a.content}
                         </p>
                         {a.file && (
@@ -271,7 +273,7 @@ function TeacherClassPage() {
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{
-                              color: "#007bff",
+                              color: "#ffffff",
                               textDecoration: "none",
                               fontSize: "12px",
                             }}
@@ -308,7 +310,7 @@ function TeacherClassPage() {
           {/* MIDDLE COLUMN - SUBJECTS */}
           <div>
             <div style={{ marginBottom: "30px" }}>
-              <h3 style={{ marginTop: 0, marginBottom: "15px", color: "#5a3fb4", fontSize: "18px" }}>
+              <h3 style={{ marginTop: 0, marginBottom: "15px", color: "#c7ceff", fontSize: "18px" }}>
                 Subjects
               </h3>
               <div style={{ marginBottom: "15px" }}>
@@ -321,8 +323,8 @@ function TeacherClassPage() {
                     width: "100%",
                     padding: "8px",
                     borderRadius: "4px",
-                    border: "1px solid #cbbaf0",
-                    backgroundColor: "#f7f4ff",
+                    border: "1px solid #2d3a66",
+                    backgroundColor: "#101a3c",
                     marginBottom: "8px",
                     fontSize: "13px",
                     boxSizing: "border-box",
@@ -333,7 +335,7 @@ function TeacherClassPage() {
                   style={{
                     width: "100%",
                     padding: "8px",
-                    backgroundColor: "#7b5cd6",
+                    background: "linear-gradient(135deg, #6d6cf7 0%, #915dff 100%)",
                     color: "white",
                     border: "none",
                     borderRadius: "4px",
@@ -347,11 +349,11 @@ function TeacherClassPage() {
               </div>
 
               <div style={{ marginTop: "12px" }}>
-                <h4 style={{ margin: 0, marginBottom: "8px", fontSize: "14px", color: "#5a3fb4" }}>
+                <h4 style={{ margin: 0, marginBottom: "8px", fontSize: "14px", color: "#c7ceff" }}>
                   Created Subjects
                 </h4>
                 {subjects.length === 0 ? (
-                  <p style={{ color: "#6c757d", fontSize: "13px" }}>No subjects created yet.</p>
+                  <p style={{ color: "#9ca8d3", fontSize: "13px" }}>No subjects created yet.</p>
                 ) : (
                   <div style={{ display: "grid", gap: "8px" }}>
                     {subjects.map((s) => (
@@ -360,9 +362,9 @@ function TeacherClassPage() {
                         style={{
                           padding: "12px",
                           borderRadius: "8px",
-                          backgroundColor: "#ffffff",
-                          color: "#5a3fb4",
-                          border: "1px solid #cbbaf0",
+                          backgroundColor: "#131f49",
+                          color: "#c7ceff",
+                          border: "1px solid #2d3a66",
                           cursor: "pointer",
                           fontSize: "14px",
                           fontWeight: 500,
@@ -395,12 +397,12 @@ function TeacherClassPage() {
           {/* RIGHT COLUMN - STUDENTS */}
           <div>
             <div>
-              <h3 style={{ marginTop: 0, marginBottom: "15px", color: "#5a3fb4", fontSize: "18px" }}>
+              <h3 style={{ marginTop: 0, marginBottom: "15px", color: "#c7ceff", fontSize: "18px" }}>
                 Students
               </h3>
               <div style={{ maxHeight: "600px", overflowY: "auto" }}>
                 {students.length === 0 ? (
-                  <p style={{ color: "#6c757d", fontSize: "13px" }}>No students joined yet.</p>
+                  <p style={{ color: "#9ca8d3", fontSize: "13px" }}>No students joined yet.</p>
                 ) : (
                   students.map((s, index) => (
                     <div
@@ -408,12 +410,12 @@ function TeacherClassPage() {
                       style={{
                         padding: "10px",
                         marginBottom: "8px",
-                        backgroundColor: "#e9e4f6",
+                        backgroundColor: "#131f49",
                         border: "1px solid #d5c9f3",
                         borderRadius: "10px",
                         borderLeft: "3px solid #7b5cd6",
                         fontSize: "13px",
-                        color: "#5a3fb4"
+                        color: "#c7ceff"
                       }}
                     >
                       {index + 1}. {s.name}
@@ -456,7 +458,7 @@ function TeacherClassPage() {
                 style={{
                   marginTop: 0,
                   marginBottom: "20px",
-                  color: "#6a4fb3",
+                  color: "#d7deff",
                   fontSize: "20px",
                   fontWeight: "700",
                 }}
@@ -466,7 +468,7 @@ function TeacherClassPage() {
               <p
                 style={{
                   marginBottom: "30px",
-                  color: "#495057",
+                  color: "#b7c1e8",
                   fontSize: "16px",
                   lineHeight: "1.5",
                 }}

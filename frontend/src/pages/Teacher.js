@@ -48,7 +48,8 @@ function Teacher() {
     <div
       style={{
         minHeight: "100vh",
-        background: "ffffff",
+        background:
+          "radial-gradient(circle at 18% 16%, rgba(99, 82, 235, 0.2) 0%, rgba(99, 82, 235, 0) 42%), radial-gradient(circle at 82% 20%, rgba(202, 92, 255, 0.2) 0%, rgba(202, 92, 255, 0) 34%), linear-gradient(130deg, #0b1333 0%, #11193d 56%, #1a1740 100%)",
         padding: "40px 20px",
         fontFamily: "Segoe UI, sans-serif",
       }}
@@ -57,10 +58,12 @@ function Teacher() {
         style={{
           maxWidth: "1000px",
           margin: "0 auto",
-          background: "#f4f1fa",
+          background: "rgba(10, 18, 43, 0.78)",
           borderRadius: "18px",
           padding: "40px",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
+          boxShadow: "0 26px 56px rgba(3, 8, 28, 0.56)",
+          border: "1px solid #253261",
+          backdropFilter: "blur(10px)",
         }}
       >
         <Popup />
@@ -80,11 +83,11 @@ function Teacher() {
               position: "absolute",
               left: 0,
               padding: "8px 12px",
-              backgroundColor: "transparent",
-              border: "2px solid #7b5cd6",
+              backgroundColor: "#121e47",
+              border: "1px solid #2d3a66",
               borderRadius: "6px",
               cursor: "pointer",
-              color: "#7b5cd6",
+              color: "#8f7cff",
               transition: "all 0.3s",
               minWidth: "45px",
               height: "45px",
@@ -94,12 +97,12 @@ function Teacher() {
             }}
             title="Go to Login"
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "#7b5cd6";
+              e.currentTarget.style.backgroundColor = "#8f7cff";
               e.currentTarget.style.color = "white";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "transparent";
-              e.currentTarget.style.color = "#7b5cd6";
+              e.currentTarget.style.backgroundColor = "#121e47";
+              e.currentTarget.style.color = "#8f7cff";
             }}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -111,7 +114,7 @@ function Teacher() {
           <h2
             style={{
               textAlign: "center",
-              color: "#6c4ccf",
+              color: "#d7deff",
               fontSize: "34px",
               fontWeight: "700",
               margin: 0,
@@ -127,14 +130,14 @@ function Teacher() {
           style={{
             marginBottom: "40px",
             padding: "25px",
-            background: "#ffffff",
+            background: "#131f49",
             borderRadius: "12px",
-            border: "1px solid #ddd",
+            border: "1px solid #2d3a66",
           }}
         >
           <h3
             style={{
-              color: "#6c4ccf",
+              color: "#c7ceff",
               marginBottom: "20px",
               fontWeight: "600",
             }}
@@ -156,8 +159,10 @@ function Teacher() {
                 flex: 1,
                 padding: "12px",
                 borderRadius: "8px",
-                border: "1px solid #ccc",
+                border: "1px solid #2d3a66",
                 fontSize: "15px",
+                background: "#101a3c",
+                color: "#eef2ff",
               }}
             />
 
@@ -165,12 +170,13 @@ function Teacher() {
               onClick={joinClass}
               style={{
                 padding: "12px 24px",
-                background: "#7b5cd6",
+                background: "linear-gradient(135deg, #6d6cf7 0%, #915dff 100%)",
                 color: "white",
                 border: "none",
                 borderRadius: "8px",
                 cursor: "pointer",
                 fontWeight: "600",
+                boxShadow: "0 10px 28px rgba(123, 104, 255, 0.4)",
               }}
             >
               Join Class
@@ -178,7 +184,7 @@ function Teacher() {
           </div>
         </div>
 
-        <hr style={{ border: "none", borderTop: "2px solid #d6d1ef" }} />
+        <hr style={{ border: "none", borderTop: "2px solid #2d3a66" }} />
 
         {/* CLASS LIST */}
 
@@ -187,7 +193,7 @@ function Teacher() {
             style={{
               textAlign: "center",
               padding: "40px",
-              color: "#666",
+              color: "#9ca8d3",
             }}
           >
             No classes joined yet. Use a class code above.
@@ -207,17 +213,17 @@ function Teacher() {
                 to={`/teacher/class/${c.id}`}
                 style={{
                   padding: "20px",
-                  background: "#ffffff",
+                  background: "#131f49",
                   borderRadius: "12px",
-                  border: "1px solid #ddd",
+                  border: "1px solid #2d3a66",
                   textDecoration: "none",
-                  color: "inherit",
+                  color: "#d7deff",
                   transition: "0.2s",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translateY(-4px)";
                   e.currentTarget.style.boxShadow =
-                    "0 6px 20px rgba(0,0,0,0.15)";
+                    "0 14px 30px rgba(3, 8, 28, 0.55)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = "translateY(0)";
@@ -226,7 +232,7 @@ function Teacher() {
               >
                 <h4
                   style={{
-                    color: "#6c4ccf",
+                    color: "#d7deff",
                     marginBottom: "10px",
                     fontSize: "18px",
                   }}
@@ -237,7 +243,7 @@ function Teacher() {
                 <p
                   style={{
                     fontSize: "14px",
-                    color: "#777",
+                    color: "#9ca8d3",
                   }}
                 >
                   Click to manage class
@@ -247,7 +253,7 @@ function Teacher() {
                   style={{
                     margin: "8px 0 0",
                     fontSize: "13px",
-                    color: "#555",
+                    color: "#b7c1e8",
                   }}
                 >
                   Class expires: {formatClassExpiry(c.expires_at)}
