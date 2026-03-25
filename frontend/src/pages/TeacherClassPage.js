@@ -224,7 +224,7 @@ function TeacherClassPage() {
         >
           {/* LEFT COLUMN - CLASS ANNOUNCEMENTS */}
           <div>
-            <div>
+            <div style={{ maxHeight: "600px", overflowY: "auto" }}>
               <div
                 style={{
                   paddingBottom: "16px",
