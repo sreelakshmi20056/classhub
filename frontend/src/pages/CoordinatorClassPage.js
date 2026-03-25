@@ -44,7 +44,13 @@ export default function CoordinatorClassPage() {
         parts.push(text.slice(lastIndex, match.index));
       }
       parts.push(
-        <a key={match.index} href={match[0]} target="_blank" rel="noopener noreferrer">
+        <a
+          key={match.index}
+          href={match[0]}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "#8f7cff", textDecoration: "underline" }}
+        >
           {match[0]}
         </a>
       );
@@ -142,7 +148,7 @@ export default function CoordinatorClassPage() {
 
   const renderTeachers = () => {
     if (teachers.length === 0) {
-      return <p style={{ color: "#6c757d" }}>No teachers assigned yet.</p>;
+      return <p style={{ color: "#9ca8d3" }}>No teachers assigned yet.</p>;
     }
 
     const subjectsByTeacher = teachers.reduce((acc, teacher) => {
@@ -161,14 +167,14 @@ export default function CoordinatorClassPage() {
         key={t.id}
         style={{
           padding: "16px",
-          backgroundColor: "#E8F3FF",
+          backgroundColor: "#131f49",
           borderRadius: "8px",
-          border: "1px solid #b8d4ff",
+          border: "1px solid #2d3a66",
           marginBottom: "12px",
         }}
       >
-        <strong style={{ display: "block", marginBottom: "4px" }}>{t.name}</strong>
-        <span style={{ color: "#495057", fontSize: "14px" }}>
+        <strong style={{ display: "block", marginBottom: "4px", color: "#d7deff" }}>{t.name}</strong>
+        <span style={{ color: "#b7c1e8", fontSize: "14px" }}>
           Subjects: {t.subjects.length ? t.subjects.join(", ") : "None"}
         </span>
       </div>
@@ -179,7 +185,7 @@ export default function CoordinatorClassPage() {
     <div style={{
       minHeight: "100vh",
       width: "100vw",
-      background: "#fffff0",
+      background: "radial-gradient(circle at 18% 16%, rgba(99, 82, 235, 0.2) 0%, rgba(99, 82, 235, 0) 42%), radial-gradient(circle at 82% 20%, rgba(202, 92, 255, 0.2) 0%, rgba(202, 92, 255, 0) 34%), linear-gradient(130deg, #0b1333 0%, #11193d 56%, #1a1740 100%)",
       fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
       display: "flex",
       alignItems: "center",
@@ -189,11 +195,12 @@ export default function CoordinatorClassPage() {
       <div style={{
         width: "100%",
         maxWidth: "1200px",
-        background: "#fff",
+        background: "rgba(10, 18, 43, 0.78)",
         borderRadius: "18px",
-        boxShadow: "0 8px 32px rgba(124,92,191,0.12)",
+        boxShadow: "0 26px 56px rgba(3, 8, 28, 0.56)",
         padding: isMobile ? "18px" : "40px",
-        border: "2px solid #d1c4e9",
+        border: "1px solid #253261",
+        backdropFilter: "blur(10px)",
       }}>
         <div
           style={{
@@ -210,11 +217,11 @@ export default function CoordinatorClassPage() {
               position: "absolute",
               left: 0,
               padding: "8px 12px",
-              backgroundColor: "transparent",
-              border: "2px solid #7b5cd6",
+              backgroundColor: "#121e47",
+              border: "1px solid #2d3a66",
               borderRadius: "6px",
               cursor: "pointer",
-              color: "#7b5cd6",
+              color: "#8f7cff",
               transition: "all 0.3s",
               minWidth: "45px",
               height: "45px",
@@ -224,12 +231,12 @@ export default function CoordinatorClassPage() {
             }}
             title="Go to Login"
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "#7b5cd6";
+              e.currentTarget.style.backgroundColor = "#8f7cff";
               e.currentTarget.style.color = "white";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "transparent";
-              e.currentTarget.style.color = "#7b5cd6";
+              e.currentTarget.style.backgroundColor = "#121e47";
+              e.currentTarget.style.color = "#8f7cff";
             }}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -240,7 +247,7 @@ export default function CoordinatorClassPage() {
 
           <h2 style={{
             textAlign: "center",
-            color: "#7c5cbf",
+            color: "#d7deff",
             margin: 0,
             fontSize: isMobile ? "26px" : "36px",
             fontWeight: "700",
@@ -259,24 +266,24 @@ export default function CoordinatorClassPage() {
             <div style={{
               padding: isMobile ? "12px" : "18px",
               borderRadius: "12px",
-              border: "1px solid #d1c4e9",
-              background: "#f3f0fa",
+              border: "1px solid #2d3a66",
+              background: "#131f49",
               marginBottom: "20px",
             }}>
-              <h3 style={{ marginTop: 0, marginBottom: "10px", fontSize: "18px", fontWeight: 700, color: "#7c5cbf" }}>
+              <h3 style={{ marginTop: 0, marginBottom: "10px", fontSize: "18px", fontWeight: 700, color: "#c7ceff" }}>
                 Class Info
               </h3>
-              <p style={{ margin: "6px 0", fontSize: "15px", color: "#555" }}>
+              <p style={{ margin: "6px 0", fontSize: "15px", color: "#b7c1e8" }}>
                 <strong>Name:</strong> {classInfo?.name || "-"}
               </p>
-              <p style={{ margin: "6px 0", fontSize: "15px", color: "#555" }}>
+              <p style={{ margin: "6px 0", fontSize: "15px", color: "#b7c1e8" }}>
                 <strong>Join Code:</strong> {classInfo?.join_code || "-"}
               </p>
             </div>
             <div style={{
               paddingBottom: "8px",
               marginBottom: "20px",
-              borderBottom: "3px solid #7c5cbf",
+              borderBottom: "2px solid #2d3a66",
             }}>
               <h3
                 style={{
@@ -287,14 +294,14 @@ export default function CoordinatorClassPage() {
                   alignItems: "center",
                   fontSize: "20px",
                   fontWeight: 700,
-                  color: "#7c5cbf",
+                  color: "#c7ceff",
                 }}
                 onClick={() => setShowTeachers(!showTeachers)}
               >
                 Teachers & Subjects {showTeachers ? "▼" : "▶"}
               </h3>
               {showTeachers && (teachers.length === 0 ? (
-                <p style={{ color: "#b8b8b8" }}>No teachers assigned yet.</p>
+                <p style={{ color: "#9ca8d3" }}>No teachers assigned yet.</p>
               ) : (
                 Object.values(teachers.reduce((acc, teacher) => {
                   acc[teacher.id] = { ...teacher, subjects: [] };
@@ -306,14 +313,14 @@ export default function CoordinatorClassPage() {
                       key={t.id}
                       style={{
                         padding: "12px",
-                        background: "#ede7f6",
+                        background: "#131f49",
                         borderRadius: "8px",
-                        border: "1px solid #d1c4e9",
+                        border: "1px solid #2d3a66",
                         marginBottom: "8px",
                       }}
                     >
-                      <strong style={{ display: "block", marginBottom: "4px", color: "#7c5cbf" }}>{t.name}</strong>
-                      <span style={{ color: "#555", fontSize: "14px" }}>
+                      <strong style={{ display: "block", marginBottom: "4px", color: "#d7deff" }}>{t.name}</strong>
+                      <span style={{ color: "#b7c1e8", fontSize: "14px" }}>
                         Subjects: {teacherSubjects.length ? teacherSubjects.map(s => s.name).join(", ") : "None"}
                       </span>
                     </div>
@@ -334,8 +341,8 @@ export default function CoordinatorClassPage() {
                   alignItems: "center",
                   fontSize: "20px",
                   fontWeight: 700,
-                  color: "#7c5cbf",
-                  borderBottom: "3px solid #6a4fb3",
+                  color: "#c7ceff",
+                  borderBottom: "2px solid #2d3a66",
                   paddingBottom: "12px",
                 }}
                 onClick={() => setShowStudents(!showStudents)}
@@ -343,7 +350,7 @@ export default function CoordinatorClassPage() {
                 Students {showStudents ? "▼" : "▶"}
               </h3>
               {showStudents && (students.length === 0 ? (
-                <p style={{ color: "#b8b8b8" }}>No students joined yet.</p>
+                <p style={{ color: "#9ca8d3" }}>No students joined yet.</p>
               ) : (
                 students.map((s, index) => (
                   <div
@@ -351,10 +358,10 @@ export default function CoordinatorClassPage() {
                     style={{
                       padding: "8px",
                       borderRadius: "8px",
-                      border: "1px solid #d1c4e9",
+                      border: "1px solid #2d3a66",
                       marginBottom: "8px",
-                      background: "#f3f0fa",
-                      color: "#555",
+                      background: "#131f49",
+                      color: "#b7c1e8",
                     }}
                   >
                     {index + 1}. {s.name}
@@ -368,16 +375,16 @@ export default function CoordinatorClassPage() {
             <div style={{
               padding: isMobile ? "8px" : "16px",
               borderRadius: "12px",
-              border: "1px solid #d1c4e9",
-              background: "#f3f0fa",
+              border: "1px solid #2d3a66",
+              background: "#131f49",
               marginBottom: "20px",
             }}>
-              <h3 style={{ marginTop: 0, marginBottom: "8px", fontSize: "18px", fontWeight: 700, color: "#7c5cbf" }}>
+              <h3 style={{ marginTop: 0, marginBottom: "8px", fontSize: "18px", fontWeight: 700, color: "#c7ceff" }}>
                 Post Announcement
               </h3>
               <div style={{ marginBottom: "8px" }}>
-                <label style={{ display: "block", marginBottom: "3px", fontWeight: 600, fontSize: "13px", color: "#7c5cbf" }}>
-                  Title <span style={{ color: "#dc3545" }}>*</span>
+                <label style={{ display: "block", marginBottom: "3px", fontWeight: 600, fontSize: "13px", color: "#bfc7ed" }}>
+                  Title <span style={{ color: "#ff6f97" }}>*</span>
                 </label>
                 <input
                   type="text"
@@ -388,15 +395,16 @@ export default function CoordinatorClassPage() {
                     width: "100%",
                     padding: "10px",
                     borderRadius: "8px",
-                    border: "2px solid #d1c4e9",
+                    border: "2px solid #2d3a66",
                     fontSize: "15px",
-                    background: "#fff",
+                    background: "#101a3c",
+                    color: "#eef2ff",
                   }}
                 />
               </div>
               <div style={{ marginBottom: "8px" }}>
-                <label style={{ display: "block", marginBottom: "3px", fontWeight: 600, fontSize: "13px", color: "#7c5cbf" }}>
-                  Content <span style={{ color: "#dc3545" }}>*</span>
+                <label style={{ display: "block", marginBottom: "3px", fontWeight: 600, fontSize: "13px", color: "#bfc7ed" }}>
+                  Content <span style={{ color: "#ff6f97" }}>*</span>
                 </label>
                 <textarea
                   value={announcementContent}
@@ -406,16 +414,17 @@ export default function CoordinatorClassPage() {
                     width: "100%",
                     padding: "10px",
                     borderRadius: "8px",
-                    border: "2px solid #d1c4e9",
+                    border: "2px solid #2d3a66",
                     resize: "vertical",
                     fontSize: "15px",
-                    background: "#fff",
+                    background: "#101a3c",
+                    color: "#eef2ff",
                   }}
                 />
               </div>
               <div style={{ marginBottom: "8px" }}>
-                <label style={{ display: "block", marginBottom: "3px", fontWeight: 600, fontSize: "13px", color: "#7c5cbf" }}>
-                  Audience <span style={{ color: "#dc3545" }}>*</span>
+                <label style={{ display: "block", marginBottom: "3px", fontWeight: 600, fontSize: "13px", color: "#bfc7ed" }}>
+                  Audience <span style={{ color: "#ff6f97" }}>*</span>
                 </label>
                 <select
                   value={audience}
@@ -424,9 +433,10 @@ export default function CoordinatorClassPage() {
                     width: "100%",
                     padding: "10px",
                     borderRadius: "8px",
-                    border: "2px solid #d1c4e9",
+                    border: "2px solid #2d3a66",
                     fontSize: "15px",
-                    background: "#fff",
+                    background: "#101a3c",
+                    color: "#eef2ff",
                   }}
                 >
                   <option value="students">Students</option>
@@ -435,7 +445,7 @@ export default function CoordinatorClassPage() {
                 </select>
               </div>
               <div style={{ marginBottom: "8px" }}>
-                <label style={{ display: "block", marginBottom: "3px", fontWeight: 600, fontSize: "13px", color: "#7c5cbf" }}>
+                <label style={{ display: "block", marginBottom: "3px", fontWeight: 600, fontSize: "13px", color: "#bfc7ed" }}>
                   Attach File (Optional)
                 </label>
                 <input
@@ -446,9 +456,10 @@ export default function CoordinatorClassPage() {
                     width: "100%",
                     padding: "8px",
                     borderRadius: "8px",
-                    border: "2px solid #d1c4e9",
+                    border: "2px solid #2d3a66",
                     fontSize: "14px",
-                    background: "#fff",
+                    background: "#101a3c",
+                    color: "#eef2ff",
                   }}
                 />
               </div>
@@ -457,7 +468,7 @@ export default function CoordinatorClassPage() {
                 style={{
                   width: "100%",
                   padding: "12px",
-                  background: "#7c5cbf",
+                  background: "linear-gradient(135deg, #6d6cf7 0%, #915dff 100%)",
                   color: "white",
                   border: "none",
                   borderRadius: "8px",
@@ -466,9 +477,10 @@ export default function CoordinatorClassPage() {
                   fontSize: "16px",
                   marginTop: "8px",
                   transition: "background 0.3s",
+                  boxShadow: "0 10px 28px rgba(123, 104, 255, 0.4)",
                 }}
-                onMouseEnter={e => e.target.style.background = "#6a4fb3"}
-                onMouseLeave={e => e.target.style.background = "#7c5cbf"}
+                onMouseEnter={e => e.target.style.background = "linear-gradient(135deg, #5f5fee 0%, #8649ff 100%)"}
+                onMouseLeave={e => e.target.style.background = "linear-gradient(135deg, #6d6cf7 0%, #915dff 100%)"}
               >
                 Post Announcement
               </button>
@@ -476,16 +488,16 @@ export default function CoordinatorClassPage() {
             <div style={{
               paddingBottom: "16px",
               marginBottom: "40px",
-              borderBottom: "3px solid #d1c4e9",
+              borderBottom: "2px solid #2d3a66",
             }}>
               <h3
-                style={{ marginTop: 0, marginBottom: "16px", cursor: "pointer", display: "flex", alignItems: "center", fontSize: "20px", fontWeight: 700, color: "#7c5cbf" }}
+                style={{ marginTop: 0, marginBottom: "16px", cursor: "pointer", display: "flex", alignItems: "center", fontSize: "20px", fontWeight: 700, color: "#c7ceff" }}
                 onClick={() => setShowAnnouncements(!showAnnouncements)}
               >
                 Posted Announcements {showAnnouncements ? "▼" : "▶"}
               </h3>
               {showAnnouncements && (announcements.filter((a) => !a.subject_id).length === 0 ? (
-                <p style={{ color: "#b8b8b8" }}>No announcements yet.</p>
+                <p style={{ color: "#9ca8d3" }}>No announcements yet.</p>
               ) : (
                 announcements
                   .filter((a) => !a.subject_id)
@@ -495,21 +507,21 @@ export default function CoordinatorClassPage() {
                       style={{
                         marginBottom: "16px",
                         paddingBottom: "12px",
-                        borderBottom: "1px solid #d1c4e9",
-                        background: "#ede7f6",
+                        borderBottom: "1px solid #2d3a66",
+                        background: "#131f49",
                         borderRadius: "8px",
                         padding: "12px",
                       }}
                     >
                       <div style={{ display: "flex", justifyContent: "space-between" }}>
-                        <strong style={{ color: "#7c5cbf" }}>{a.title}</strong>
-                        <span style={{ color: "#888", fontSize: "14px" }}>
+                        <strong style={{ color: "#d7deff" }}>{a.title}</strong>
+                        <span style={{ color: "#8e98be", fontSize: "14px" }}>
                           {new Date(a.created_at).toLocaleString()}
                         </span>
                       </div>
-                      <p style={{ margin: "8px 0", color: "#555" }}>{linkify(a.content)}</p>
+                      <p style={{ margin: "8px 0", color: "#b7c1e8" }}>{linkify(a.content)}</p>
                       <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-                        <span style={{ color: "#888", fontSize: "13px" }}>
+                        <span style={{ color: "#8e98be", fontSize: "13px" }}>
                           Audience: {a.audience ? a.audience.charAt(0).toUpperCase() + a.audience.slice(1) : "N/A"}
                         </span>
                         {a.file && (
@@ -518,7 +530,7 @@ export default function CoordinatorClassPage() {
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{
-                              color: "#7c5cbf",
+                              color: "#8f7cff",
                               textDecoration: "none",
                               fontSize: "13px",
                             }}
@@ -553,9 +565,9 @@ export default function CoordinatorClassPage() {
                               style={{
                                 padding: "6px 10px",
                                 borderRadius: "6px",
-                                border: "1px solid #ced4da",
-                                backgroundColor: "#f8f9fa",
-                                color: "#495057",
+                                border: "1px solid #2d3a66",
+                                backgroundColor: "#121e47",
+                                color: "#d7deff",
                                 fontSize: "13px",
                                 fontWeight: 600,
                                 cursor: "pointer",
@@ -572,8 +584,8 @@ export default function CoordinatorClassPage() {
                               padding: "6px 10px",
                               borderRadius: "6px",
                               border: "1px solid #dc3545",
-                              backgroundColor: "#fff5f5",
-                              color: "#dc3545",
+                              backgroundColor: "rgba(220, 53, 69, 0.12)",
+                              color: "#ff9cac",
                               fontSize: "13px",
                               fontWeight: 700,
                               cursor: "pointer",

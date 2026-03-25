@@ -91,7 +91,7 @@ export default function Coordinator() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#ffffff',
+      background: 'radial-gradient(circle at 18% 16%, rgba(99, 82, 235, 0.2) 0%, rgba(99, 82, 235, 0) 42%), radial-gradient(circle at 82% 20%, rgba(202, 92, 255, 0.2) 0%, rgba(202, 92, 255, 0) 34%), linear-gradient(130deg, #0b1333 0%, #11193d 56%, #1a1740 100%)',
       fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
       padding: '32px',
       display: 'flex',
@@ -102,15 +102,16 @@ export default function Coordinator() {
         maxWidth: '1200px',
         width: '100%',
         margin: '0 auto',
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(10, 18, 43, 0.78)',
         borderRadius: '16px',
-        boxShadow: '0 8px 32px rgba(124,92,191,0.12)',
+        boxShadow: '0 26px 56px rgba(3, 8, 28, 0.56)',
         padding: '40px',
-        border: '2px solid #d1c4e9',
+        border: '1px solid #253261',
+        backdropFilter: 'blur(10px)',
       }}>
         <h2 style={{
           textAlign: 'center',
-          color: '#8a76b7',
+          color: '#d7deff',
           marginBottom: '40px',
           fontSize: '36px',
           fontWeight: '700',
@@ -121,8 +122,8 @@ export default function Coordinator() {
         {deleteTarget && (
           <div style={{
             marginBottom: '20px',
-            backgroundColor: '#fff5f5',
-            border: '1px solid #dc3545',
+            backgroundColor: 'rgba(220, 53, 69, 0.12)',
+            border: '1px solid rgba(220, 53, 69, 0.55)',
             borderRadius: '10px',
             padding: '14px 16px',
             display: 'flex',
@@ -131,7 +132,7 @@ export default function Coordinator() {
             alignItems: 'center',
             justifyContent: 'space-between',
           }}>
-            <span style={{ color: '#8b1e2d', fontWeight: 600, fontSize: '14px' }}>
+            <span style={{ color: '#ffc7d0', fontWeight: 600, fontSize: '14px' }}>
               Are you sure you want to delete class "{deleteTarget.name}"? This will remove it for all joined teachers and students.
             </span>
             <div style={{ display: 'flex', gap: '8px' }}>
@@ -156,9 +157,9 @@ export default function Coordinator() {
                 style={{
                   padding: '8px 12px',
                   borderRadius: '6px',
-                  border: '1px solid #d1c4e9',
-                  backgroundColor: '#fff',
-                  color: '#5a4fa0',
+                  border: '1px solid #2d3a66',
+                  backgroundColor: '#121e47',
+                  color: '#d7deff',
                   fontWeight: 700,
                   cursor: 'pointer',
                 }}
@@ -170,14 +171,14 @@ export default function Coordinator() {
         )}
         <div style={{
           marginBottom: '40px',
-          backgroundColor: '#f3f0fa',
+          backgroundColor: '#131f49',
           padding: '32px',
           borderRadius: '12px',
-          border: '1px solid #d1c4e9',
+          border: '1px solid #2d3a66',
         }}>
           <h3 style={{
             marginBottom: '20px',
-            color: '#7c5cbf',
+            color: '#c7ceff',
             fontSize: '24px',
             fontWeight: '700',
             letterSpacing: '0.5px',
@@ -190,7 +191,7 @@ export default function Coordinator() {
             alignItems: 'flex-end'
           }}>
             <div style={{ flex: 1, minWidth: '200px' }}>
-              <label style={{ display: 'block', marginBottom: '6px', fontSize: '14px', fontWeight: 600, color: '#7c5cbf' }}>Class Name <span style={{ color: '#dc3545' }}>*</span></label>
+              <label style={{ display: 'block', marginBottom: '6px', fontSize: '14px', fontWeight: 600, color: '#bfc7ed' }}>Class Name <span style={{ color: '#ff6f97' }}>*</span></label>
               <input
                 placeholder="Class Name"
                 value={name}
@@ -198,20 +199,21 @@ export default function Coordinator() {
                 style={{
                   width: '100%',
                   padding: '14px',
-                  border: '2px solid #d1c4e9',
+                  border: '2px solid #2d3a66',
                   borderRadius: '8px',
                   fontSize: '17px',
                   transition: 'border-color 0.3s',
                   outline: 'none',
-                  background: '#fff',
+                  background: '#101a3c',
+                  color: '#eef2ff',
                   boxSizing: 'border-box',
                 }}
-                onFocus={(e) => e.target.style.borderColor = '#7c5cbf'}
-                onBlur={(e) => e.target.style.borderColor = '#d1c4e9'}
+                onFocus={(e) => e.target.style.borderColor = '#8f7cff'}
+                onBlur={(e) => e.target.style.borderColor = '#2d3a66'}
               />
             </div>
             <div style={{ flex: 1, minWidth: '200px' }}>
-              <label style={{ display: 'block', marginBottom: '6px', fontSize: '14px', fontWeight: 600, color: '#7c5cbf' }}>Class Expiry <span style={{ color: '#dc3545' }}>*</span></label>
+              <label style={{ display: 'block', marginBottom: '6px', fontSize: '14px', fontWeight: 600, color: '#bfc7ed' }}>Class Expiry <span style={{ color: '#ff6f97' }}>*</span></label>
               <input
                 type="datetime-local"
                 value={expiresAt}
@@ -220,23 +222,24 @@ export default function Coordinator() {
                 style={{
                   width: '100%',
                   padding: '14px',
-                  border: '2px solid #d1c4e9',
+                  border: '2px solid #2d3a66',
                   borderRadius: '8px',
                   fontSize: '17px',
                   transition: 'border-color 0.3s',
                   outline: 'none',
-                  background: '#fff',
+                  background: '#101a3c',
+                  color: '#eef2ff',
                   boxSizing: 'border-box',
                 }}
-                onFocus={(e) => e.target.style.borderColor = '#7c5cbf'}
-                onBlur={(e) => e.target.style.borderColor = '#d1c4e9'}
+                onFocus={(e) => e.target.style.borderColor = '#8f7cff'}
+                onBlur={(e) => e.target.style.borderColor = '#2d3a66'}
               />
             </div>
             <button
               onClick={createClass}
               style={{
                 padding: '14px 32px',
-                backgroundColor: '#7c5cbf',
+                background: 'linear-gradient(135deg, #6d6cf7 0%, #915dff 100%)',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
@@ -245,9 +248,10 @@ export default function Coordinator() {
                 fontWeight: '700',
                 transition: 'background-color 0.3s',
                 letterSpacing: '0.5px',
+                boxShadow: '0 10px 28px rgba(123, 104, 255, 0.4)',
               }}
-              onMouseEnter={(e) => e.target.style.backgroundColor = '#6a4fb3'}
-              onMouseLeave={(e) => e.target.style.backgroundColor = '#7c5cbf'}
+              onMouseEnter={(e) => e.target.style.background = 'linear-gradient(135deg, #5f5fee 0%, #8649ff 100%)'}
+              onMouseLeave={(e) => e.target.style.background = 'linear-gradient(135deg, #6d6cf7 0%, #915dff 100%)'}
             >
               Create Class
             </button>
@@ -255,7 +259,7 @@ export default function Coordinator() {
           {expiresAt && (
             <p style={{
               margin: '0',
-              color: '#7c5cbf',
+              color: '#9ca8d3',
               fontSize: '15px',
               fontStyle: 'italic',
               fontWeight: '500',
@@ -267,14 +271,14 @@ export default function Coordinator() {
 
         <h3 style={{
           marginBottom: '20px',
-          color: '#7c5cbf',
+          color: '#c7ceff',
           fontSize: '24px',
           fontWeight: '700',
           letterSpacing: '0.5px',
         }}>Your Classes</h3>
         {classes.length === 0 ? (
           <p style={{
-            color: '#7c5cbf',
+            color: '#9ca8d3',
             fontStyle: 'italic',
             textAlign: 'center',
             padding: '40px',
@@ -294,25 +298,25 @@ export default function Coordinator() {
                 style={{
                   position: 'relative',
                   padding: '24px',
-                  backgroundColor: '#f3f0fa',
+                  backgroundColor: '#131f49',
                   borderRadius: '12px',
                   color: 'inherit',
-                  border: '2px solid #d1c4e9',
+                  border: '1px solid #2d3a66',
                   transition: 'all 0.3s ease',
-                  boxShadow: '0 4px 16px rgba(124,92,191,0.08)',
+                  boxShadow: '0 10px 24px rgba(3, 8, 28, 0.45)',
                   display: 'block',
                   cursor: 'pointer',
                 }}
                 onMouseEnter={e => {
-                  e.currentTarget.style.backgroundColor = '#e3e9fc';
-                  e.currentTarget.style.borderColor = '#7c5cbf';
-                  e.currentTarget.style.boxShadow = '0 8px 32px rgba(124,92,191,0.12)';
+                  e.currentTarget.style.backgroundColor = '#1a2a5f';
+                  e.currentTarget.style.borderColor = '#8f7cff';
+                  e.currentTarget.style.boxShadow = '0 14px 30px rgba(3, 8, 28, 0.55)';
                   e.currentTarget.style.transform = 'translateY(-2px)';
                 }}
                 onMouseLeave={e => {
-                  e.currentTarget.style.backgroundColor = '#f3f0fa';
-                  e.currentTarget.style.borderColor = '#d1c4e9';
-                  e.currentTarget.style.boxShadow = '0 4px 16px rgba(124,92,191,0.08)';
+                  e.currentTarget.style.backgroundColor = '#131f49';
+                  e.currentTarget.style.borderColor = '#2d3a66';
+                  e.currentTarget.style.boxShadow = '0 10px 24px rgba(3, 8, 28, 0.45)';
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
@@ -329,8 +333,8 @@ export default function Coordinator() {
                     padding: '6px 10px',
                     borderRadius: '6px',
                     border: '1px solid #dc3545',
-                    backgroundColor: '#fff5f5',
-                    color: '#dc3545',
+                    backgroundColor: 'rgba(220, 53, 69, 0.12)',
+                    color: '#ff9cac',
                     fontSize: '12px',
                     fontWeight: 700,
                     cursor: 'pointer',
@@ -340,7 +344,7 @@ export default function Coordinator() {
                 </button>
                 <h4 style={{
                   margin: '0 0 10px 0',
-                  color: '#7c5cbf',
+                  color: '#d7deff',
                   fontSize: '22px',
                   fontWeight: '700',
                   letterSpacing: '0.5px',
@@ -348,14 +352,14 @@ export default function Coordinator() {
                 <p style={{
                   margin: '5px 0',
                   fontSize: '16px',
-                  color: '#555',
+                  color: '#b7c1e8',
                   fontWeight: '500',
                 }}>
                   <strong>Join Code:</strong> <span style={{
                     fontFamily: 'monospace',
                     fontSize: '18px',
                     fontWeight: 'bold',
-                    color: '#7c5cbf',
+                    color: '#8f7cff',
                   }}>{cls.join_code}</span>
                 </p>
                 {cls.expires_at && (
