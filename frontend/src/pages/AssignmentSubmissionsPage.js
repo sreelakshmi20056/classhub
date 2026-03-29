@@ -69,6 +69,7 @@ function AssignmentSubmissionsPage() {
     const studentName = (s.name || "").trim().toLowerCase();
     return !submittedStudentIds.has(studentId) && !submittedNames.has(studentName);
   });
+  const noStudentsJoined = students.length === 0;
 
   if (loading) return <p style={{ padding: 24, color: "#c7ceff" }}>Loading submissions...</p>;
 
@@ -136,7 +137,9 @@ function AssignmentSubmissionsPage() {
             <h3 style={{ marginTop: 0, marginBottom: 12, color: "#c7ceff" }}>
               Submitted ({submissions.length})
             </h3>
-            {submissions.length === 0 ? (
+            {noStudentsJoined ? (
+              <p style={{ color: "#9ca8d3" }}>No students have joined.</p>
+            ) : submissions.length === 0 ? (
               <p style={{ color: "#9ca8d3" }}>No submissions yet.</p>
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -189,7 +192,9 @@ function AssignmentSubmissionsPage() {
             <h3 style={{ marginTop: 0, marginBottom: 12, color: "#c7ceff" }}>
               Not Submitted ({nonSubmitted.length})
             </h3>
-            {nonSubmitted.length === 0 ? (
+            {noStudentsJoined ? (
+              <p style={{ color: "#9ca8d3" }}>No students have joined.</p>
+            ) : nonSubmitted.length === 0 ? (
               <p style={{ color: "#9ca8d3" }}>All students have submitted.</p>
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>

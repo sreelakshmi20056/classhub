@@ -187,7 +187,7 @@ function TeacherClassPage() {
             </h2>
             <p style={{
               margin: "8px 0 0",
-              color: "#4f6078",
+              color: "#ffffff",
               fontSize: "15px",
               fontWeight: 500
             }}>
