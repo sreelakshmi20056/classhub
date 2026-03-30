@@ -343,6 +343,118 @@ exports.googleConfig = (req, res) => {
   res.json({ clientId: process.env.GOOGLE_CLIENT_ID || "" });
 };
 
+exports.getProfile = async (req, res) => {
+  const userId = Number(req.user?.id);
+  if (!Number.isInteger(userId) || userId <= 0) {
+    return res.status(401).json({ message: "Invalid token payload" });
+  }
+
+  try {
+    const rows = await db.query(
+      "SELECT id, name, email, role FROM users WHERE id=? LIMIT 1",
+      [userId]
+    );
+
+    if (!rows || rows.length === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const user = rows[0];
+    return res.json({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
+  } catch (error) {
+    console.error("Failed to load profile", error);
+    return res.status(500).json({ message: "Failed to load profile" });
+  }
+};
+
+exports.deleteAccount = async (req, res) => {
+  const userId = Number(req.user?.id);
+  if (!Number.isInteger(userId) || userId <= 0) {
+    return res.status(401).json({ message: "Invalid token payload" });
+  }
+
+  try {
+    await db.query("BEGIN");
+
+    const existingUsers = await db.query("SELECT id FROM users WHERE id=? LIMIT 1", [userId]);
+    if (!existingUsers || existingUsers.length === 0) {
+      await db.query("ROLLBACK");
+      return res.status(404).json({ message: "Account not found" });
+    }
+
+    // Remove submissions made by this student account.
+    await db.query("DELETE FROM submissions WHERE student_id=?", [userId]);
+
+    // Remove submissions for assignments that will be deleted because this user owns those classes/subjects.
+    await db.query(
+      `DELETE FROM submissions
+       WHERE assignment_id IN (
+         SELECT id FROM assignments WHERE class_id IN (
+           SELECT id FROM classes WHERE coordinator_id=?
+         )
+         UNION
+         SELECT a.id
+         FROM assignments a
+         JOIN subjects s ON s.id = a.subject_id
+         WHERE s.teacher_id=?
+       )`,
+      [userId, userId]
+    );
+
+    await db.query(
+      `DELETE FROM announcements
+       WHERE class_id IN (SELECT id FROM classes WHERE coordinator_id=?)
+          OR subject_id IN (SELECT id FROM subjects WHERE teacher_id=?)`,
+      [userId, userId]
+    );
+
+    await db.query(
+      `DELETE FROM notes
+       WHERE class_id IN (SELECT id FROM classes WHERE coordinator_id=?)
+          OR subject_id IN (SELECT id FROM subjects WHERE teacher_id=?)`,
+      [userId, userId]
+    );
+
+    await db.query(
+      `DELETE FROM assignments
+       WHERE class_id IN (SELECT id FROM classes WHERE coordinator_id=?)
+          OR subject_id IN (SELECT id FROM subjects WHERE teacher_id=?)`,
+      [userId, userId]
+    );
+
+    await db.query(
+      `DELETE FROM subjects
+       WHERE class_id IN (SELECT id FROM classes WHERE coordinator_id=?)
+          OR teacher_id=?`,
+      [userId, userId]
+    );
+
+    await db.query("DELETE FROM class_members WHERE class_id IN (SELECT id FROM classes WHERE coordinator_id=?)", [
+      userId,
+    ]);
+    await db.query("DELETE FROM class_members WHERE user_id=?", [userId]);
+    await db.query("DELETE FROM classes WHERE coordinator_id=?", [userId]);
+    await db.query("DELETE FROM users WHERE id=?", [userId]);
+
+    await db.query("COMMIT");
+    return res.json({ message: "Account deleted successfully" });
+  } catch (error) {
+    try {
+      await db.query("ROLLBACK");
+    } catch (rollbackError) {
+      console.error("Failed to rollback account deletion transaction", rollbackError);
+    }
+
+    console.error("Failed to delete account", error);
+    return res.status(500).json({ message: "Failed to delete account" });
+  }
+};
+
 exports.forgotPassword = (req, res) => {
   const normalizedEmail = normalizeEmail(req.body?.email);
 

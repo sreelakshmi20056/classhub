@@ -15,13 +15,19 @@ import StudentSubjectPage from "./pages/StudentSubjectPage";
 import CoordinatorClassPage from "./pages/CoordinatorClassPage";
 import AssignmentSubmissionsPage from "./pages/AssignmentSubmissionsPage";
 import Coordinator from "./pages/Coordinator";
+import ProfileMenu from "./components/ProfileMenu";
 
 function RequireAuth({ children }) {
   const token = localStorage.getItem("token");
   if (!token) {
     return <Navigate to="/" replace />;
   }
-  return children;
+  return (
+    <>
+      <ProfileMenu />
+      {children}
+    </>
+  );
 }
 
 function App() {

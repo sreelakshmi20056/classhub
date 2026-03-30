@@ -1,0 +1,62 @@
+.profile-menu-root {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 2100;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profile-menu-trigger {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: linear-gradient(135deg, #4c6fff, #7f56d9);
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(20, 29, 79, 0.35);
+}
+
+.profile-menu-panel {
+  position: absolute;
+  top: 54px;
+  right: 0;
+  width: min(92vw, 280px);
+  background: #0f1a44;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+  box-shadow: 0 14px 32px rgba(7, 12, 36, 0.52);
+  padding: 12px;
+  color: #eef2ff;
+}
+
+.profile-menu-label {
+  color: #b7c2ff;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.profile-menu-value {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  word-break: break-word;
+}
+
+.profile-menu-delete-btn {
+  width: 100%;
+  border: 1px solid rgba(255, 125, 125, 0.65);
+  background: #3a1220;
+  color: #ffd8de;
+  border-radius: 8px;
+  padding: 9px 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profile-menu-delete-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
