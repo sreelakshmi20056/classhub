@@ -105,6 +105,40 @@ function TeacherClassPage() {
     setShowExitConfirm(false);
   };
 
+  const linkify = (text) => {
+    if (!text || typeof text !== "string") return text;
+    const urlRegex = /https?:\/\/\S+/g;
+    const parts = [];
+    let lastIndex = 0;
+    let match;
+
+    while ((match = urlRegex.exec(text)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(text.slice(lastIndex, match.index));
+      }
+
+      parts.push(
+        <a
+          key={match.index}
+          href={match[0]}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "#ffffff", textDecoration: "underline" }}
+        >
+          {match[0]}
+        </a>
+      );
+
+      lastIndex = urlRegex.lastIndex;
+    }
+
+    if (lastIndex < text.length) {
+      parts.push(text.slice(lastIndex));
+    }
+
+    return parts;
+  };
+
   const sortedClassAnnouncements = announcements
     .filter((a) => !a.subject_id)
     .slice()
@@ -265,7 +299,7 @@ function TeacherClassPage() {
                           </span>
                         </div>
                         <p style={{ margin: "6px 0", fontSize: "13px", color: "#b7c1e8" }}>
-                          {a.content}
+                          {linkify(a.content)}
                         </p>
                         {a.file && (
                           <a
