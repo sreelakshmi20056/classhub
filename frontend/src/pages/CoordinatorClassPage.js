@@ -16,6 +16,7 @@ export default function CoordinatorClassPage() {
   const [announcementTitle, setAnnouncementTitle] = useState("");
   const [announcementContent, setAnnouncementContent] = useState("");
   const [audience, setAudience] = useState("students");
+  const [meetingAudience, setMeetingAudience] = useState("both");
   const [announcementFile, setAnnouncementFile] = useState(null);
   const [showTeachers, setShowTeachers] = useState(true);
   const [showSubjects, setShowSubjects] = useState(true);
@@ -131,6 +132,36 @@ export default function CoordinatorClassPage() {
     } catch (err) {
       console.error("Failed to post announcement", err);
       showPopup(err.response?.data?.message || "Failed to post announcement");
+    }
+  };
+
+  const createAndPostMeetingLink = async () => {
+    try {
+      const meetRes = await API.post(`/classes/${id}/meet`);
+      const url = String(meetRes?.data?.url || "").trim();
+      if (!url) {
+        showPopup("Failed to create meeting link");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("title", "Meeting link");
+      formData.append("content", `Join meeting: ${url}`);
+      formData.append("class_id", id);
+      formData.append("audience", meetingAudience);
+
+      await API.post("/announcements/create", formData, {
+        headers: {
+          "Content-Type": undefined,
+        },
+      });
+
+      await loadAnnouncements();
+      showPopup("Meeting link posted successfully");
+      window.open(url, "_blank", "noopener,noreferrer");
+    } catch (err) {
+      console.error("Failed to create meeting link", err);
+      showPopup(err.response?.data?.message || "Failed to create meeting link");
     }
   };
 
@@ -382,6 +413,54 @@ export default function CoordinatorClassPage() {
               <h3 style={{ marginTop: 0, marginBottom: "8px", fontSize: "18px", fontWeight: 700, color: "#c7ceff" }}>
                 Post Announcement
               </h3>
+              <div style={{
+                marginBottom: "12px",
+                padding: "10px",
+                borderRadius: "8px",
+                border: "1px solid #2d3a66",
+                background: "#101a3c",
+              }}>
+                <label style={{ display: "block", marginBottom: "6px", fontWeight: 600, fontSize: "13px", color: "#bfc7ed" }}>
+                  Meeting audience <span style={{ color: "#ff6f97" }}>*</span>
+                </label>
+                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                  <select
+                    value={meetingAudience}
+                    onChange={(e) => setMeetingAudience(e.target.value)}
+                    style={{
+                      flex: 1,
+                      minWidth: "140px",
+                      padding: "10px",
+                      borderRadius: "8px",
+                      border: "2px solid #2d3a66",
+                      fontSize: "14px",
+                      background: "#0f1839",
+                      color: "#eef2ff",
+                    }}
+                  >
+                    <option value="students">Students</option>
+                    <option value="teachers">Teachers</option>
+                    <option value="both">Both</option>
+                  </select>
+                  <button
+                    type="button"
+                    onClick={createAndPostMeetingLink}
+                    style={{
+                      padding: "10px 12px",
+                      background: "linear-gradient(135deg, #3a8dff 0%, #6d6cf7 100%)",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "8px",
+                      cursor: "pointer",
+                      fontWeight: 700,
+                      fontSize: "13px",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    Create & Post Meeting Link
+                  </button>
+                </div>
+              </div>
               <div style={{ marginBottom: "8px" }}>
                 <label style={{ display: "block", marginBottom: "3px", fontWeight: 600, fontSize: "13px", color: "#bfc7ed" }}>
                   Title <span style={{ color: "#ff6f97" }}>*</span>

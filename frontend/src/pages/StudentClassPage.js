@@ -172,7 +172,6 @@ function StudentClassPage() {
     ? sortedSubjectAnnouncements
     : sortedSubjectAnnouncements.slice(0, 3);
   const sortedClassAnnouncements = classAnnouncements
-    .filter((a) => a.title !== "Meeting link")
     .slice()
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   const visibleClassAnnouncements = showAllClassAnnouncements
