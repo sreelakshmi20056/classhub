@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api";
+import usePopup from "../hooks/usePopup";
 import "./ProfileMenu.css";
 
 const ROLE_LABELS = {
@@ -29,6 +30,8 @@ export default function ProfileMenu() {
   const rootRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [Popup, showPopup] = usePopup();
   const [profile, setProfile] = useState({
     name: "",
     email: "",
@@ -65,6 +68,7 @@ export default function ProfileMenu() {
       if (!rootRef.current) return;
       if (!rootRef.current.contains(event.target)) {
         setIsOpen(false);
+        setShowDeleteConfirm(false);
       }
     };
 
@@ -79,28 +83,26 @@ export default function ProfileMenu() {
   const handleDeleteAccount = async () => {
     if (isDeleting) return;
 
-    const confirmed = window.confirm(
-      "Delete your account permanently? This will remove your account data and you can register again with the same email."
-    );
-    if (!confirmed) return;
-
     setIsDeleting(true);
     try {
       await API.delete("/auth/account");
+      showPopup("Account deleted successfully");
       localStorage.removeItem("token");
       localStorage.removeItem("role");
       navigate("/", { replace: true });
       window.location.reload();
     } catch (error) {
       const message = error?.response?.data?.message || error?.message || "Failed to delete account";
-      window.alert(message);
+      showPopup(message);
     } finally {
       setIsDeleting(false);
+      setShowDeleteConfirm(false);
     }
   };
 
   return (
     <div className="profile-menu-root" ref={rootRef}>
+      <Popup />
       <button
         type="button"
         className="profile-menu-trigger"
@@ -124,11 +126,37 @@ export default function ProfileMenu() {
           <button
             type="button"
             className="profile-menu-delete-btn"
-            onClick={handleDeleteAccount}
+            onClick={() => setShowDeleteConfirm(true)}
             disabled={isDeleting}
           >
-            {isDeleting ? "Deleting account..." : "Delete account"}
+            Delete account
           </button>
+
+          {showDeleteConfirm ? (
+            <div className="profile-menu-confirm-box">
+              <div className="profile-menu-confirm-text">
+                Delete your account permanently? This will remove your account data and you can register again with the same email.
+              </div>
+              <div className="profile-menu-confirm-actions">
+                <button
+                  type="button"
+                  className="profile-menu-confirm-btn profile-menu-confirm-btn-danger"
+                  onClick={handleDeleteAccount}
+                  disabled={isDeleting}
+                >
+                  {isDeleting ? "Deleting..." : "Yes, delete"}
+                </button>
+                <button
+                  type="button"
+                  className="profile-menu-confirm-btn"
+                  onClick={() => setShowDeleteConfirm(false)}
+                  disabled={isDeleting}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : null}
         </div>
       ) : null}
     </div>

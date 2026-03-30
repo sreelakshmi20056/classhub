@@ -60,3 +60,43 @@
   opacity: 0.65;
   cursor: not-allowed;
 }
+
+.profile-menu-confirm-box {
+  margin-top: 10px;
+  border: 1px solid rgba(255, 196, 196, 0.45);
+  background: #2c0f18;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.profile-menu-confirm-text {
+  font-size: 12px;
+  line-height: 1.45;
+  color: #ffd6dd;
+  margin-bottom: 8px;
+}
+
+.profile-menu-confirm-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.profile-menu-confirm-btn {
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: #13235a;
+  color: #f3f6ff;
+  border-radius: 7px;
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.profile-menu-confirm-btn-danger {
+  background: #9f1f3f;
+  border-color: rgba(255, 170, 170, 0.45);
+}
+
+.profile-menu-confirm-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
