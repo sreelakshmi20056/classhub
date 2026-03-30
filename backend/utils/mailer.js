@@ -25,16 +25,22 @@ const hasSmtpConfig = () => {
   );
 };
 
-const createTransporter = () => {
-  const host = String(process.env.SMTP_HOST || "").trim();
-  const user = String(process.env.SMTP_USER || "").trim();
-  const pass = String(process.env.SMTP_PASS || "").trim();
-  const port = Number(process.env.SMTP_PORT);
+const parseSecureFlag = (value) => {
+  const normalized = String(value || "").trim().toLowerCase();
+  if (!normalized) return null;
+  if (["1", "true", "yes", "on"].includes(normalized)) return true;
+  if (["0", "false", "no", "off"].includes(normalized)) return false;
+  return null;
+};
+
+const createTransporter = ({ host, port, user, pass, secure }) => {
+  const explicitSecure = parseSecureFlag(process.env.SMTP_SECURE);
+  const shouldUseSecure = explicitSecure !== null ? explicitSecure : secure;
 
   return nodemailer.createTransport({
     host,
     port,
-    secure: port === 465,
+    secure: shouldUseSecure,
     connectionTimeout: 12000,
     greetingTimeout: 12000,
     socketTimeout: 15000,
@@ -43,6 +49,60 @@ const createTransporter = () => {
       pass,
     },
   });
+};
+
+const isTransientSmtpConnectError = (error) => {
+  const code = String(error?.code || "").toUpperCase();
+  return ["ETIMEDOUT", "ESOCKET", "ECONNECTION", "ECONNRESET", "EHOSTUNREACH", "ENETUNREACH"].includes(code);
+};
+
+const sendWithSmtp = async ({ to, subject, text }) => {
+  const host = String(process.env.SMTP_HOST || "").trim();
+  const user = String(process.env.SMTP_USER || "").trim();
+  const pass = String(process.env.SMTP_PASS || "").trim();
+  const port = Number(process.env.SMTP_PORT);
+
+  const fromEmail = process.env.SMTP_FROM || process.env.SMTP_USER;
+  const primaryTransporter = createTransporter({
+    host,
+    port,
+    user,
+    pass,
+    secure: port === 465,
+  });
+
+  try {
+    await primaryTransporter.sendMail({
+      from: fromEmail,
+      to,
+      subject,
+      text,
+    });
+    return true;
+  } catch (smtpError) {
+    const isGmailHost = /gmail\.com$/i.test(host);
+    if (!(isGmailHost && port === 465 && isTransientSmtpConnectError(smtpError))) {
+      throw smtpError;
+    }
+
+    console.warn("SMTP 465 failed, retrying with Gmail STARTTLS on port 587");
+    const fallbackTransporter = createTransporter({
+      host,
+      port: 587,
+      user,
+      pass,
+      secure: false,
+    });
+
+    await fallbackTransporter.sendMail({
+      from: fromEmail,
+      to,
+      subject,
+      text,
+    });
+
+    return true;
+  }
 };
 
 const sendWithBrevoApi = ({ to, subject, text }) => {
@@ -124,17 +184,7 @@ const sendEmail = async ({ to, subject, text }) => {
     throw new Error("No email provider configured. Set Brevo API key or SMTP variables.");
   }
 
-  const transporter = createTransporter();
-  const fromEmail = process.env.SMTP_FROM || process.env.SMTP_USER;
-
-  await transporter.sendMail({
-    from: fromEmail,
-    to,
-    subject,
-    text,
-  });
-
-  return true;
+  return sendWithSmtp({ to, subject, text });
 };
 
 const sendRegistrationSuccessEmail = async (toEmail, name) => {
