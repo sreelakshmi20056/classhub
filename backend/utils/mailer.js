@@ -107,14 +107,21 @@ const sendEmail = async ({ to, subject, text }) => {
   const hasBrevoApiKey = !!getBrevoApiKey();
   if (hasBrevoApiKey) {
     console.log("Email delivery mode: Brevo API");
-    return sendWithBrevoApi({ to, subject, text });
+    try {
+      await sendWithBrevoApi({ to, subject, text });
+      return true;
+    } catch (brevoError) {
+      console.error("Brevo send failed, attempting SMTP fallback", brevoError.message || brevoError);
+      if (!hasSmtpConfig()) {
+        throw brevoError;
+      }
+    }
   }
 
-  console.warn("Email delivery mode: SMTP fallback (BREVO_API_KEY not set)");
+  console.warn("Email delivery mode: SMTP");
 
   if (!hasSmtpConfig()) {
-    console.warn("SMTP is not configured. Skipping email send.");
-    return false;
+    throw new Error("No email provider configured. Set Brevo API key or SMTP variables.");
   }
 
   const transporter = createTransporter();

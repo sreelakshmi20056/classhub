@@ -378,6 +378,7 @@ exports.forgotPassword = (req, res) => {
         await sendPasswordResetEmail(user.email, user.name, resetLink);
       } catch (emailErr) {
         console.error("Failed to send password reset email", emailErr);
+        return res.status(500).json({ message: "Failed to send reset email. Please try again." });
       }
 
       return res.json({ message: "If this email is registered, a password reset link has been sent." });
