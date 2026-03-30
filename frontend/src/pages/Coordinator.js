@@ -109,14 +109,37 @@ export default function Coordinator() {
         border: '1px solid #253261',
         backdropFilter: 'blur(10px)',
       }}>
-        <h2 style={{
-          textAlign: 'center',
-          color: '#d7deff',
-          marginBottom: '40px',
-          fontSize: '36px',
-          fontWeight: '700',
-          letterSpacing: '1px',
-        }}>Coordinator Dashboard</h2>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '32px',
+          gap: '12px',
+          flexWrap: 'wrap',
+        }}>
+          <h2 style={{
+            color: '#d7deff',
+            margin: '0',
+            fontSize: '36px',
+            fontWeight: '700',
+            letterSpacing: '1px',
+          }}>Coordinator Dashboard</h2>
+          <button
+            type="button"
+            onClick={() => navigate("/")}
+            style={{
+              padding: '10px 18px',
+              borderRadius: '8px',
+              border: '1px solid #2d3a66',
+              backgroundColor: '#121e47',
+              color: '#d7deff',
+              fontWeight: 700,
+              cursor: 'pointer',
+            }}
+          >
+            Home
+          </button>
+        </div>
 
         <Popup />
         {deleteTarget && (
