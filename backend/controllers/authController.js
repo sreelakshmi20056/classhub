@@ -354,34 +354,49 @@ exports.forgotPassword = (req, res) => {
     "SELECT id, name, email, password FROM users WHERE email=?",
     [normalizedEmail],
     async (err, result) => {
-      if (err) {
-        return res.status(500).json({ message: "Database error", error: err });
-      }
-
-      // Prevent account enumeration by returning success even when email is unknown.
-      if (!result || result.length === 0) {
-        return res.json({ message: "If this email is registered, a password reset link has been sent." });
-      }
-
-      const user = result[0];
-      const tokenSecret = `${process.env.JWT_SECRET}${user.password}`;
-      const resetToken = jwt.sign(
-        { id: user.id, purpose: "password_reset" },
-        tokenSecret,
-        { expiresIn: "15m" }
-      );
-
-      const frontendUrl = process.env.FRONTEND_URL || "http://localhost:3000";
-      const resetLink = `${frontendUrl}/reset-password?token=${encodeURIComponent(resetToken)}`;
-
       try {
-        await sendPasswordResetEmail(user.email, user.name, resetLink);
-      } catch (emailErr) {
-        console.error("Failed to send password reset email", emailErr);
-        return res.status(500).json({ message: "Failed to send reset email. Please try again." });
-      }
+        if (err) {
+          console.error("Forgot password database error", err);
+          return res.status(500).json({ message: "Database error" });
+        }
 
-      return res.json({ message: "If this email is registered, a password reset link has been sent." });
+        // Prevent account enumeration by returning success even when email is unknown.
+        if (!result || result.length === 0) {
+          return res.json({ message: "If this email is registered, a password reset link has been sent." });
+        }
+
+        const user = result[0];
+        const jwtSecret = String(process.env.JWT_SECRET || "").trim();
+        if (!jwtSecret) {
+          console.error("Forgot password failed: JWT_SECRET is missing");
+          return res.status(500).json({ message: "Server configuration error" });
+        }
+
+        const tokenSecret = `${jwtSecret}${user.password}`;
+        const resetToken = jwt.sign(
+          { id: user.id, purpose: "password_reset" },
+          tokenSecret,
+          { expiresIn: "15m" }
+        );
+
+        const frontendUrl = String(process.env.FRONTEND_URL || "http://localhost:3000")
+          .split(",")
+          .map((url) => url.trim())
+          .filter(Boolean)[0] || "http://localhost:3000";
+        const resetBaseUrl = frontendUrl.replace(/\/+$/, "");
+        const resetLink = `${resetBaseUrl}/reset-password?token=${encodeURIComponent(resetToken)}`;
+
+        try {
+          await sendPasswordResetEmail(user.email, user.name, resetLink);
+        } catch (emailErr) {
+          console.error("Failed to send password reset email", emailErr);
+        }
+
+        return res.json({ message: "If this email is registered, a password reset link has been sent." });
+      } catch (unhandledErr) {
+        console.error("Forgot password unhandled error", unhandledErr);
+        return res.status(500).json({ message: "Failed to process forgot password request" });
+      }
     }
   );
 };
